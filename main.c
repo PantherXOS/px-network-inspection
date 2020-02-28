@@ -1,6 +1,8 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <search.h>
 
 #include <argp.h>
 #include <stdbool.h>
@@ -71,6 +73,38 @@ static error_t parse_opt (int key, char *arg, struct argp_state *state)
 /* Our argp parser. */
 static struct argp argp = { options, parse_opt, args_doc, doc};
 
+/* Network devices of a route, in order */
+struct net_device
+{
+	char dev_name[10];
+	/* Put other fields here */
+};
+
+struct element
+{
+	struct element *forward;
+	struct element *backward;
+	struct net_device *net_dev;
+};
+
+static struct element *new_element(void)
+{
+	struct element *e;
+
+	e = malloc(sizeof(struct element));
+	if (e == NULL) {
+		fprintf(stderr, "malloc() failed\n");
+		exit(EXIT_FAILURE);
+	}
+
+	return e;
+}
+/* End of network devices of a route */
+
+/* Root of each route */
+static struct element *roots[5];
+
+
 int main (int argc, char **argv)
 {
 	struct arguments arguments;
@@ -83,6 +117,11 @@ int main (int argc, char **argv)
 
 	printf("path: %s and format: %s\n", arguments.output_file, arguments.format == JSON ? "JSON" : "CXX");
 
+	//get_routes();
+
+	// Get objects from list.
+	// Process list into a JSON array objects.
+	// Send it to output.
 
 	/*Creating a json object*/
 	json_object * jobj = json_object_new_object();
