@@ -14,6 +14,7 @@
 #include <netinet/in.h>
 #include <net/if.h>
 #include <arpa/inet.h>
+#include <string.h>
 
 #include <argp.h>
 #include <stdbool.h>
@@ -87,12 +88,15 @@ static struct argp argp = { options, parse_opt, args_doc, doc};
 /* Network devices of a route, in order */
 struct net_device
 {
+	uint32_t dev_pos;
 	char dev_name[10];
 	char dev_type[20];
+	char dev_method[30];
 	char dev_ip4[16];
 	char dev_ip6[40];
-	char de_active[10];
-	/* Put other fields here */
+	char dev_gateway[40];	// May be ipv6
+	char dev_dns[40];
+	char dev_active[10];
 };
 
 struct element
@@ -197,7 +201,15 @@ void get_routes()
 					//printf("%s\n", inet_ntoa(((struct sockaddr_in *)&ifr.ifr_addr)->sin_addr));
 					printf("%s\n", ipv4);
 
-					strcpy(new_device->dev_ip4, ipv4);
+					if (rtnl_link_get_carrier(link))
+						strcpy(new_device->dev_ip4, ipv4);
+					else
+						strcpy(new_device->dev_ip4, "");
+
+					strcpy(new_device->dev_active, rtnl_link_get_carrier(link) ? "ACTIVE" : "NOACTIVE");
+
+					new_device->dev_pos = 1;
+					strcpy(new_device->dev_method, "");
 
 					elem = new_element();
 					elem->net_dev = new_device;
@@ -205,7 +217,8 @@ void get_routes()
 					insque(elem, prev);
 					prev = elem;
 				}
-				printf("Found device: %s and type: %s arptype: %d\n", rtnl_link_get_name(link), rtnl_link_get_type(link), rtnl_link_get_arptype(link));
+				printf("Found device: %s and type: %s arptype: %d carrier: %d\n", rtnl_link_get_name(link),
+						rtnl_link_get_type(link), rtnl_link_get_arptype(link), rtnl_link_get_carrier(link));
 
 			}
 			nl_close(sk);
@@ -231,53 +244,87 @@ int main (int argc, char **argv)
 	get_routes();
 
 	// Process list into a JSON array objects.
+	json_object *jobj = json_object_new_object();
 	int root = 0;
 	struct element *elem = roots[root];
 	while (elem)
 	{
-		printf("******************net_dev: %s -- %s -- %s\n", elem->net_dev->dev_name, elem->net_dev->dev_type,
-				elem->net_dev->dev_ip4);
+		printf("******************net_dev: %s -- %s -- %s -- %s\n", elem->net_dev->dev_name, elem->net_dev->dev_type,
+				elem->net_dev->dev_ip4, elem->net_dev->dev_active);
+		json_object *jarray = json_object_new_array();
+		json_object *dev = json_object_new_object();
 
+		json_object *dev_pos = json_object_new_int(elem->net_dev->dev_pos);
+		json_object_object_add(dev, "pos", dev_pos);
+
+		json_object *dev_name = json_object_new_string(elem->net_dev->dev_name);
+		json_object_object_add(dev, "adapter", dev_name);
+
+		json_object *dev_method = json_object_new_string(elem->net_dev->dev_method);
+		json_object_object_add(dev, "method", dev_method);
+
+		json_object *dev_type = json_object_new_string(elem->net_dev->dev_type);
+		json_object_object_add(dev, "type", dev_type);
+
+		json_object *dev_ip4 = json_object_new_string(elem->net_dev->dev_ip4);
+		json_object_object_add(dev, "ip4", dev_ip4);
+
+		json_object *dev_ip6 = json_object_new_string(elem->net_dev->dev_ip6);
+		json_object_object_add(dev, "ip6", dev_ip6);
+
+		json_object *dev_dns = json_object_new_string(elem->net_dev->dev_dns);
+		json_object_object_add(dev, "dns", dev_dns);
+
+		json_object *dev_gateway = json_object_new_string(elem->net_dev->dev_gateway);
+		json_object_object_add(dev, "gateway", dev_gateway);
+
+		json_object *dev_active = json_object_new_string(elem->net_dev->dev_active);
+		json_object_object_add(dev, "status", dev_active);
+
+		json_object_array_add(jarray, dev);
+		char root_str[20];
+		sprintf(root_str, "%d",root);
+		json_object_object_add(jobj, root_str, jarray);
 		elem = roots[++root];
 	}
 
 	// Send it to output.
 
 	/*Creating a json object*/
-	json_object * jobj = json_object_new_object();
+	//json_object * jobj = json_object_new_object();
 
-	/*Creating a json string*/
-	json_object *jstring = json_object_new_string("Joys of Programming");
+	///*Creating a json string*/
+	//json_object *jstring = json_object_new_string("Joys of Programming");
 
-	/*Creating a json integer*/
-	json_object *jint = json_object_new_int(10);
+	///*Creating a json integer*/
+	//json_object *jint = json_object_new_int(10);
 
-	/*Creating a json boolean*/
-	json_object *jboolean = json_object_new_boolean(1);
+	///*Creating a json boolean*/
+	//json_object *jboolean = json_object_new_boolean(1);
 
-	/*Creating a json double*/
-	json_object *jdouble = json_object_new_double(2.14);
+	///*Creating a json double*/
+	//json_object *jdouble = json_object_new_double(2.14);
 
-	/*Creating a json array*/
-	json_object *jarray = json_object_new_array();
+	///*Creating a json array*/
+	//json_object *jarray = json_object_new_array();
 
-	/*Creating json strings*/
-	json_object *jstring1 = json_object_new_string("c");
-	json_object *jstring2 = json_object_new_string("c++");
-	json_object *jstring3 = json_object_new_string("php");
+	///*Creating json strings*/
+	//json_object *jstring1 = json_object_new_string("c");
+	//json_object *jstring2 = json_object_new_string("c++");
+	//json_object *jstring3 = json_object_new_string("php");
 
-	/*Adding the above created json strings to the array*/
-	json_object_array_add(jarray,jstring1);
-	json_object_array_add(jarray,jstring2);
-	json_object_array_add(jarray,jstring3);
+	///*Adding the above created json strings to the array*/
+	//json_object_array_add(jarray,jstring1);
+	//json_object_array_add(jarray,jstring2);
+	//json_object_array_add(jarray,jstring3);
 
-	/*Form the json object*/
-	/*Each of these is like a key value pair*/
-	json_object_object_add(jobj,"Site Name", jstring);
-	json_object_object_add(jobj,"Technical blog", jboolean);
-	json_object_object_add(jobj,"Average posts per day", jdouble);
-	json_object_object_add(jobj,"Number of posts", jint);
-	json_object_object_add(jobj,"Categories", jarray);
+	///*Form the json object*/
+	///*Each of these is like a key value pair*/
+	//json_object_object_add(jobj,"Site Name", jstring);
+	//json_object_object_add(jobj,"Technical blog", jboolean);
+	//json_object_object_add(jobj,"Average posts per day", jdouble);
+	//json_object_object_add(jobj,"Number of posts", jint);
+	//json_object_object_add(jobj,"Categories", jarray);
 
 	/*Now printing the json object*/
 	printf ("The json object created: %s\n",json_object_to_json_string(jobj));
