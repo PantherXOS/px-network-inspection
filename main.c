@@ -15,6 +15,7 @@
 #include <net/if.h>
 #include <arpa/inet.h>
 #include <string.h>
+#include <linux/wireless.h>
 
 #include <argp.h>
 #include <stdbool.h>
@@ -124,6 +125,28 @@ static struct element *new_element(void)
 /* Root of each route */
 static struct element *roots[5];
 
+int check_wireless(const char* ifname, char* protocol)
+{
+	int sock = -1;
+	struct iwreq pwrq;
+	memset(&pwrq, 0, sizeof(pwrq));
+	strncpy(pwrq.ifr_name, ifname, IFNAMSIZ);
+
+	if ((sock = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
+		perror("socket");
+		return 0;
+	}
+
+	if (ioctl(sock, SIOCGIWNAME, &pwrq) != -1) {
+		if (protocol) strncpy(protocol, pwrq.u.name, IFNAMSIZ);
+		close(sock);
+		return 1;
+	}
+
+	close(sock);
+	return 0;
+}
+
 /* TODO: Add other devices too. */
 void get_routes()
 {
@@ -160,6 +183,7 @@ void get_routes()
 		printf("%-8s %s (%d)\n", ifa->ifa_name, (family == AF_PACKET) ? "AF_PACKET" : (family == AF_INET) ? "AF_INET" :
 				(family == AF_INET6) ? "AF_INET6" : "???", family);
 
+		// TODO: Do it for other interfaces other than AF_PACKET
 		if (family == AF_PACKET && ifa->ifa_data != NULL)
 		{
 			struct rtnl_link_stats *stats = ifa->ifa_data;
@@ -209,7 +233,11 @@ void get_routes()
 					strcpy(new_device->dev_active, rtnl_link_get_carrier(link) ? "ACTIVE" : "NOACTIVE");
 
 					new_device->dev_pos = 1;
-					strcpy(new_device->dev_method, "");
+
+					char protocol[IFNAMSIZ]  = {0};
+					//TODO: check bluetooth as well.
+					int is_wireless = check_wireless(ifa->ifa_name, protocol);
+					strcpy(new_device->dev_method, is_wireless ? "wifi" : "lan");
 
 					elem = new_element();
 					elem->net_dev = new_device;
@@ -289,42 +317,6 @@ int main (int argc, char **argv)
 	}
 
 	// Send it to output.
-
-	/*Creating a json object*/
-	//json_object * jobj = json_object_new_object();
-
-	///*Creating a json string*/
-	//json_object *jstring = json_object_new_string("Joys of Programming");
-
-	///*Creating a json integer*/
-	//json_object *jint = json_object_new_int(10);
-
-	///*Creating a json boolean*/
-	//json_object *jboolean = json_object_new_boolean(1);
-
-	///*Creating a json double*/
-	//json_object *jdouble = json_object_new_double(2.14);
-
-	///*Creating a json array*/
-	//json_object *jarray = json_object_new_array();
-
-	///*Creating json strings*/
-	//json_object *jstring1 = json_object_new_string("c");
-	//json_object *jstring2 = json_object_new_string("c++");
-	//json_object *jstring3 = json_object_new_string("php");
-
-	///*Adding the above created json strings to the array*/
-	//json_object_array_add(jarray,jstring1);
-	//json_object_array_add(jarray,jstring2);
-	//json_object_array_add(jarray,jstring3);
-
-	///*Form the json object*/
-	///*Each of these is like a key value pair*/
-	//json_object_object_add(jobj,"Site Name", jstring);
-	//json_object_object_add(jobj,"Technical blog", jboolean);
-	//json_object_object_add(jobj,"Average posts per day", jdouble);
-	//json_object_object_add(jobj,"Number of posts", jint);
-	//json_object_object_add(jobj,"Categories", jarray);
 
 	/*Now printing the json object*/
 	printf ("The json object created: %s\n",json_object_to_json_string(jobj));
