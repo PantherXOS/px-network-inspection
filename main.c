@@ -245,9 +245,9 @@ void get_routes()
 					insque(elem, prev);
 					prev = elem;
 				}
+
 				printf("Found device: %s and type: %s arptype: %d carrier: %d\n", rtnl_link_get_name(link),
 						rtnl_link_get_type(link), rtnl_link_get_arptype(link), rtnl_link_get_carrier(link));
-
 			}
 			nl_close(sk);
 		}
@@ -261,12 +261,12 @@ int main (int argc, char **argv)
 	struct arguments arguments;
 
 	/* Default values. */
+	arguments.output_file = NULL;
+	arguments.format = JSON;
 
 	/* Parse our arguments; every option seen by parse_opt will
 	   be reflected in arguments. */
 	argp_parse (&argp, argc, argv, 0, 0, &arguments);
-
-	printf("path: %s and format: %s\n", arguments.output_file, arguments.format == JSON ? "JSON" : "CXX");
 
 	// Get objects from list.
 	get_routes();
@@ -320,6 +320,14 @@ int main (int argc, char **argv)
 
 	/*Now printing the json object*/
 	printf ("The json object created: %s\n",json_object_to_json_string(jobj));
+
+	if (arguments.output_file)
+	{
+		FILE* output_file;
+		output_file = fopen(arguments.output_file, "w");
+		fprintf(output_file, "%s", json_object_to_json_string(jobj));
+		fclose(output_file);
+	}
 
 	exit (0);
 }
