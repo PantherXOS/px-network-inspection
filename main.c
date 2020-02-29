@@ -10,6 +10,10 @@
 #include <linux/if_link.h>
 #include <netlink/netlink.h>
 #include <netlink/route/link.h>
+#include <sys/ioctl.h>
+#include <netinet/in.h>
+#include <net/if.h>
+#include <arpa/inet.h>
 
 #include <argp.h>
 #include <stdbool.h>
@@ -84,6 +88,10 @@ static struct argp argp = { options, parse_opt, args_doc, doc};
 struct net_device
 {
 	char dev_name[10];
+	char dev_type[20];
+	char dev_ip4[16];
+	char dev_ip6[40];
+	char de_active[10];
 	/* Put other fields here */
 };
 
@@ -145,37 +153,15 @@ void get_routes()
 		/* Display interface name and family (including symbolic
 		   form of the latter for the common families) */
 
-		printf("%-8s %s (%d)\n",
-				ifa->ifa_name,
-				(family == AF_PACKET) ? "AF_PACKET" :
-				(family == AF_INET) ? "AF_INET" :
-				(family == AF_INET6) ? "AF_INET6" : "???",
-				family);
+		printf("%-8s %s (%d)\n", ifa->ifa_name, (family == AF_PACKET) ? "AF_PACKET" : (family == AF_INET) ? "AF_INET" :
+				(family == AF_INET6) ? "AF_INET6" : "???", family);
 
-		/* For an AF_INET* interface address, display the address */
-
-	//	if (family == AF_INET || family == AF_INET6) {
-	//		s = getnameinfo(ifa->ifa_addr,
-	//				(family == AF_INET) ? sizeof(struct sockaddr_in) :
-	//				sizeof(struct sockaddr_in6),
-	//				host, NI_MAXHOST,
-	//				NULL, 0, NI_NUMERICHOST);
-	//		if (s != 0) {
-	//			printf("getnameinfo() failed: %s\n", gai_strerror(s));
-	//			exit(EXIT_FAILURE);
-	//		}
-
-	//		printf("\t\taddress: <%s>\n", host);
-
-	//	} else if (family == AF_PACKET && ifa->ifa_data != NULL) {
 		if (family == AF_PACKET && ifa->ifa_data != NULL)
 		{
 			struct rtnl_link_stats *stats = ifa->ifa_data;
 
-			printf("\t\ttx_packets = %10u; rx_packets = %10u\n"
-					"\t\ttx_bytes   = %10u; rx_bytes   = %10u\n",
-					stats->tx_packets, stats->rx_packets,
-					stats->tx_bytes, stats->rx_bytes);
+			printf("\t\ttx_packets = %10u; rx_packets = %10u\n" "\t\ttx_bytes   = %10u; rx_bytes   = %10u\n",
+					stats->tx_packets, stats->rx_packets, stats->tx_bytes, stats->rx_bytes);
 
 			sk = nl_socket_alloc();
 			err = nl_connect(sk, NETLINK_ROUTE);
@@ -194,6 +180,24 @@ void get_routes()
 				{
 					struct net_device *new_device = (struct net_device*) malloc(sizeof(struct net_device));
 					memcpy(new_device->dev_name, ifa->ifa_name, sizeof(ifa->ifa_name));
+					memcpy(new_device->dev_type, "physical", sizeof("physical"));
+
+					int fd;
+					struct ifreq ifr;
+					fd = socket(AF_INET, SOCK_DGRAM, 0);
+					/* I want to get an IPv4 IP address: TODO: AF_INET6 */
+					ifr.ifr_addr.sa_family = AF_INET;
+					/* I want IP address attached to "eth0" */
+					strncpy(ifr.ifr_name, ifa->ifa_name, IFNAMSIZ-1);
+					ioctl(fd, SIOCGIFADDR, &ifr);
+					close(fd);
+
+					char *ipv4 = inet_ntoa(((struct sockaddr_in *)&ifr.ifr_addr)->sin_addr);
+					/* display result */
+					//printf("%s\n", inet_ntoa(((struct sockaddr_in *)&ifr.ifr_addr)->sin_addr));
+					printf("%s\n", ipv4);
+
+					strcpy(new_device->dev_ip4, ipv4);
 
 					elem = new_element();
 					elem->net_dev = new_device;
@@ -231,7 +235,8 @@ int main (int argc, char **argv)
 	struct element *elem = roots[root];
 	while (elem)
 	{
-		printf("******************net_dev: %s\n", elem->net_dev->dev_name);
+		printf("******************net_dev: %s -- %s -- %s\n", elem->net_dev->dev_name, elem->net_dev->dev_type,
+				elem->net_dev->dev_ip4);
 
 		elem = roots[++root];
 	}
