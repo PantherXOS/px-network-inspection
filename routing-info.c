@@ -126,7 +126,6 @@ int check_primary_route(struct nlmsghdr* nl_header_answer, char *if_name)
 			if_indextoname(ifidx, if_nam_buf);
 			if (!strncmp(if_name, if_nam_buf, sizeof(if_nam_buf)))
 			{
-				printf("primary\n");
 				return 1;
 			}
 		}
@@ -250,7 +249,7 @@ int get_route_dump_check_primary(int sock, char ifa_name[5][16], size_t if_numbe
 	struct nlmsghdr *h = (struct nlmsghdr *)buf;
 	int msglen = status;
 
-	printf("Main routing table IPv4\n");
+	//printf("Main routing table IPv4\n");
 
 	while (NLMSG_OK(h, msglen)) {
 		if (h->nlmsg_flags & NLM_F_DUMP_INTR) {
