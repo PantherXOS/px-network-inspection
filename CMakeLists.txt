@@ -17,7 +17,9 @@ find_library(LIBNL_ROUTE_LIBRARY NAMES nl-route nl-route-3)
 find_library(LIBNL_NETFILTER_LIBRARY NAMES nl-nf nl-nf-3)
 find_library(LIBNL_GENL_LIBRARY NAMES nl-genl nl-genl-3)
 
-include_directories(${JSON-C_INCLUDE_DIR} ${LIBNL_INCLUDE_DIR})
+set(LOCAL_INCLUDE "./include")
 
-add_executable(px-network-inspection main.c)
+include_directories(${JSON-C_INCLUDE_DIR} ${LIBNL_INCLUDE_DIR} ${LOCAL_INCLUDE})
+
+add_executable(px-network-inspection main.c routing-info.c)
 target_link_libraries(px-network-inspection ${JSON-C_LIBRARY} ${LIBNL_LIBRARY} ${LIBNL_ROUTE_LIBRARY} ${LIBNL_NETFILTER_LIBRARY} ${LIBNL_GENL_LIBRARY})

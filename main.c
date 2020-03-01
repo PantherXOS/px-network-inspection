@@ -17,6 +17,8 @@
 #include <string.h>
 #include <linux/wireless.h>
 
+#include <routing-info.h>
+
 #include <argp.h>
 #include <stdbool.h>
 
@@ -98,6 +100,7 @@ struct net_device
 	char dev_gateway[40];	// May be ipv6
 	char dev_dns[40];
 	char dev_active[10];
+	size_t phy_index;
 };
 
 struct element
@@ -124,6 +127,27 @@ static struct element *new_element(void)
 // TODO: use all elemnts.
 /* Root of each route */
 static struct element *roots[5];
+// Name of physical interfaces
+static char phy_if[5][16];
+static size_t phy_index;
+static size_t primary_if_index;
+
+void find_primary_if_index()
+{
+	int nl_sock = open_netlink();
+
+	if (do_route_dump_requst(nl_sock) < 0)
+	{
+		perror("Failed to perfom request");
+		close(nl_sock);
+	}
+
+	//get_route_dump_response(nl_sock);
+
+	primary_if_index = get_route_dump_check_primary(nl_sock, phy_if, phy_index);
+
+	close (nl_sock);
+}
 
 int check_wireless(const char* ifname, char* protocol)
 {
@@ -132,12 +156,14 @@ int check_wireless(const char* ifname, char* protocol)
 	memset(&pwrq, 0, sizeof(pwrq));
 	strncpy(pwrq.ifr_name, ifname, IFNAMSIZ);
 
-	if ((sock = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
+	if ((sock = socket(AF_INET, SOCK_STREAM, 0)) == -1)
+	{
 		perror("socket");
 		return 0;
 	}
 
-	if (ioctl(sock, SIOCGIWNAME, &pwrq) != -1) {
+	if (ioctl(sock, SIOCGIWNAME, &pwrq) != -1)
+	{
 		if (protocol) strncpy(protocol, pwrq.u.name, IFNAMSIZ);
 		close(sock);
 		return 1;
@@ -151,7 +177,7 @@ int check_wireless(const char* ifname, char* protocol)
 void get_routes()
 {
 	// Read all NIC devices. Checks if a device is AF_PACKETS. Add it to the list.
-	int root = 0;	
+	int root = 0;
 	struct element *prev = NULL;
 	struct element *elem = NULL;
 
@@ -180,16 +206,16 @@ void get_routes()
 		/* Display interface name and family (including symbolic
 		   form of the latter for the common families) */
 
-		printf("%-8s %s (%d)\n", ifa->ifa_name, (family == AF_PACKET) ? "AF_PACKET" : (family == AF_INET) ? "AF_INET" :
-				(family == AF_INET6) ? "AF_INET6" : "???", family);
+	//	printf("%-8s %s (%d)\n", ifa->ifa_name, (family == AF_PACKET) ? "AF_PACKET" : (family == AF_INET) ? "AF_INET" :
+	//			(family == AF_INET6) ? "AF_INET6" : "???", family);
 
 		// TODO: Do it for other interfaces other than AF_PACKET
 		if (family == AF_PACKET && ifa->ifa_data != NULL)
 		{
 			struct rtnl_link_stats *stats = ifa->ifa_data;
 
-			printf("\t\ttx_packets = %10u; rx_packets = %10u\n" "\t\ttx_bytes   = %10u; rx_bytes   = %10u\n",
-					stats->tx_packets, stats->rx_packets, stats->tx_bytes, stats->rx_bytes);
+			//printf("\t\ttx_packets = %10u; rx_packets = %10u\n" "\t\ttx_bytes   = %10u; rx_bytes   = %10u\n",
+			//		stats->tx_packets, stats->rx_packets, stats->tx_bytes, stats->rx_bytes);
 
 			sk = nl_socket_alloc();
 			err = nl_connect(sk, NETLINK_ROUTE);
@@ -207,7 +233,9 @@ void get_routes()
 				if (rtnl_link_get_arptype(link) == 1)	// Means ethernet
 				{
 					struct net_device *new_device = (struct net_device*) malloc(sizeof(struct net_device));
+					new_device->phy_index = phy_index;
 					memcpy(new_device->dev_name, ifa->ifa_name, sizeof(ifa->ifa_name));
+					memcpy(phy_if[phy_index++], ifa->ifa_name, sizeof(ifa->ifa_name));
 					memcpy(new_device->dev_type, "physical", sizeof("physical"));
 
 					int fd;
@@ -223,7 +251,7 @@ void get_routes()
 					char *ipv4 = inet_ntoa(((struct sockaddr_in *)&ifr.ifr_addr)->sin_addr);
 					/* display result */
 					//printf("%s\n", inet_ntoa(((struct sockaddr_in *)&ifr.ifr_addr)->sin_addr));
-					printf("%s\n", ipv4);
+					//printf("%s\n", ipv4);
 
 					if (rtnl_link_get_carrier(link))
 						strcpy(new_device->dev_ip4, ipv4);
@@ -246,14 +274,16 @@ void get_routes()
 					prev = elem;
 				}
 
-				printf("Found device: %s and type: %s arptype: %d carrier: %d\n", rtnl_link_get_name(link),
-						rtnl_link_get_type(link), rtnl_link_get_arptype(link), rtnl_link_get_carrier(link));
+				//printf("Found device: %s and type: %s arptype: %d carrier: %d\n", rtnl_link_get_name(link),
+				//		rtnl_link_get_type(link), rtnl_link_get_arptype(link), rtnl_link_get_carrier(link));
 			}
 			nl_close(sk);
 		}
 	}
 
 	freeifaddrs(ifaddr);
+
+	find_primary_if_index();
 }
 
 int main (int argc, char **argv)
@@ -277,8 +307,6 @@ int main (int argc, char **argv)
 	struct element *elem = roots[root];
 	while (elem)
 	{
-		printf("******************net_dev: %s -- %s -- %s -- %s\n", elem->net_dev->dev_name, elem->net_dev->dev_type,
-				elem->net_dev->dev_ip4, elem->net_dev->dev_active);
 		json_object *jarray = json_object_new_array();
 		json_object *dev = json_object_new_object();
 
@@ -311,7 +339,7 @@ int main (int argc, char **argv)
 
 		json_object_array_add(jarray, dev);
 		char root_str[20];
-		sprintf(root_str, "%d",root);
+		sprintf(root_str, "%s", elem->net_dev->phy_index == primary_if_index ? "primary" : "others");
 		json_object_object_add(jobj, root_str, jarray);
 		elem = roots[++root];
 	}
