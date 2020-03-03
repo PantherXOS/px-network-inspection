@@ -1,0 +1,70 @@
+# GitLab CI Automation for PantherX Packages
+# Author: Franz Geffke <franz@pantherx.org>
+# Version: 0.0.6
+
+# Git submodules
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
+stages:
+  - test
+  - deploy
+
+# code quality; temporarily disabled due timeout issues
+.code_quality:
+  stage: test
+  image: docker:stable
+  variables:
+    DOCKER_DRIVER: overlay2
+  allow_failure: true
+  services:
+    - docker:stable-dind
+  script:
+    - export SP_VERSION=$(echo "$CI_SERVER_VERSION" | sed 's/^\([0-9]*\)\.\([0-9]*\).*/\1-\2-stable/')
+    - docker run
+        --env SOURCE_CODE="$PWD"
+        --volume "$PWD":/code
+        --volume /var/run/docker.sock:/var/run/docker.sock
+        "registry.gitlab.com/gitlab-org/security-products/codequality:$SP_VERSION" /code
+  artifacts:
+    reports:
+      codequality: gl-code-quality-report.json
+
+# security
+sast:
+  stage: test
+  image: docker:stable
+  variables:
+    DOCKER_DRIVER: overlay2
+  allow_failure: true
+  services:
+    - docker:stable-dind
+  script:
+    - export SP_VERSION=$(echo "$CI_SERVER_VERSION" | sed 's/^\([0-9]*\)\.\([0-9]*\).*/\1-\2-stable/')
+    - docker run
+        --env SAST_CONFIDENCE_LEVEL="${SAST_CONFIDENCE_LEVEL:-3}"
+        --volume "$PWD:/code"
+        --volume /var/run/docker.sock:/var/run/docker.sock
+        "registry.gitlab.com/gitlab-org/security-products/sast:$SP_VERSION" /app/bin/run /code
+  artifacts:
+    reports:
+      sast: gl-sast-report.json
+
+# deployment to S3
+deploy:
+  stage: deploy
+  image: alpine:latest
+  script:
+    - cd ../
+    - apk add py-pip
+    - pip install --user awscli
+    - export PATH="$PATH:/root/.local/bin"
+    - export AWS_ACCESS_KEY_ID=$(echo "$AWS_ACCESS_KEY_ID")
+    - export AWS_SECRET_ACCESS_KEY=$(echo "$AWS_SECRET_ACCESS_KEY")
+    - export AWS_DEFAULT_REGION=eu-central-1
+    - export PACKAGE_NAME="$(echo $CI_PROJECT_NAME)_$(echo $CI_COMMIT_TAG).tgz"
+    - tar --exclude="$CI_PROJECT_NAME/.git" -zcvf "$PACKAGE_NAME" "$CI_PROJECT_NAME"
+    - aws s3 cp "$PACKAGE_NAME" s3://source-git-pantherx-org/
+  only:
+    - tags
+  tags: [source]
