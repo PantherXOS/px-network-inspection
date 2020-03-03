@@ -23,3 +23,5 @@ include_directories(${JSON-C_INCLUDE_DIR} ${LIBNL_INCLUDE_DIR} ${LOCAL_INCLUDE})
 
 add_executable(px-network-inspection main.c routing-info.c)
 target_link_libraries(px-network-inspection ${JSON-C_LIBRARY} ${LIBNL_LIBRARY} ${LIBNL_ROUTE_LIBRARY} ${LIBNL_NETFILTER_LIBRARY} ${LIBNL_GENL_LIBRARY})
+
+install(TARGETS px-network-inspection DESTINATION /usr/bin COMPONENT binaries)
