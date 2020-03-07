@@ -127,11 +127,17 @@ static struct element *new_element(void)
 
 // TODO: use all elemnts.
 /* Root of each route */
-static struct element *roots[5];
+static struct element *roots[5];	// TODO: avoid fix numbers.
 // Name of physical interfaces
-static char phy_if[5][16];
+static char phy_if[5][16];	// TODO: avoid fix numbers.
 static size_t phy_index;
 static size_t primary_if_index;
+
+static char tap_if[10][16]; 	//TODO: avoid fix numbers.
+static size_t tap_index;
+
+static char tun_if[10][16]; 	//TODO: avoid fix numbers.
+static size_t tun_index;
 
 void find_primary_if_index()
 {
@@ -189,14 +195,13 @@ void get_routes()
 	struct rtnl_link *link;
 	struct nl_sock *sk;
 	int err = 0;
-	if (getifaddrs(&ifaddr) == -1) {
+	if (getifaddrs(&ifaddr) == -1)
+	{
 		perror("getifaddrs");
 		exit(EXIT_FAILURE);
 	}
 
-	/* Walk through linked list, maintaining head pointer so we
-	   can free list later */
-
+	// PHASE1: Walk through physical NICs as well as TAPs.
 	for (ifa = ifaddr, n = 0; ifa != NULL; ifa = ifa->ifa_next, n++)
 	{
 		if (ifa->ifa_addr == NULL)
@@ -204,24 +209,28 @@ void get_routes()
 
 		family = ifa->ifa_addr->sa_family;
 
-
-		printf("\t\t ****************\n\t%s\n", ifa->ifa_name);
-		struct ethtool_drvinfo drvinfo;
-		get_drv_info(ifa->ifa_name, &drvinfo);
-		dump_drvinfo(&drvinfo);
-		/* Display interface name and family (including symbolic
-		   form of the latter for the common families) */
-
-	//	printf("%-8s %s (%d)\n", ifa->ifa_name, (family == AF_PACKET) ? "AF_PACKET" : (family == AF_INET) ? "AF_INET" :
-	//			(family == AF_INET6) ? "AF_INET6" : "???", family);
+		//printf("%-8s %s (%d)\n", ifa->ifa_name, (family == AF_PACKET) ? "AF_PACKET" : (family == AF_INET) ? "AF_INET" :
+		//		(family == AF_INET6) ? "AF_INET6" : "???", family);
 
 		// TODO: Do it for other interfaces other than AF_PACKET
-		if (family == AF_PACKET && ifa->ifa_data != NULL)
+		if (family == AF_PACKET && ifa->ifa_data != NULL)	// Retrive physical ifs information. TODO: Retrive tap ifs information as well.
 		{
-			struct rtnl_link_stats *stats = ifa->ifa_data;
+			printf("\t\t ****************\n\t%s\n", ifa->ifa_name);
+			struct ethtool_drvinfo drvinfo;
+			int drv_info_res = get_drv_info(ifa->ifa_name, &drvinfo);
+			if (!drv_info_res)
+				dump_drvinfo(&drvinfo);
+			else
+				printf("cannot get device info <%s>\n", ifa->ifa_name);
 
-			//printf("\t\ttx_packets = %10u; rx_packets = %10u\n" "\t\ttx_bytes   = %10u; rx_bytes   = %10u\n",
-			//		stats->tx_packets, stats->rx_packets, stats->tx_bytes, stats->rx_bytes);
+			// TODO: handle the follwoing conditions.
+			if (!drv_info_res)
+			{
+				if (!strncmp(drvinfo.bus_info, "tap", sizeof("tap"))) continue;
+				if (!strncmp(drvinfo.driver, "bridge", sizeof("bridge"))) continue;
+			}
+
+			struct rtnl_link_stats *stats = ifa->ifa_data;
 
 			sk = nl_socket_alloc();
 			err = nl_connect(sk, NETLINK_ROUTE);
@@ -283,13 +292,108 @@ void get_routes()
 				//printf("Found device: %s and type: %s arptype: %d carrier: %d\n", rtnl_link_get_name(link),
 				//		rtnl_link_get_type(link), rtnl_link_get_arptype(link), rtnl_link_get_carrier(link));
 			}
+
 			nl_close(sk);
 		}
 	}
 
-	freeifaddrs(ifaddr);
-
+	// Find primary phy_if to be used in virtual ifs. TODO: We have to find routes.
 	find_primary_if_index();
+
+	// TODO: we have to set it later based on route table
+	prev = roots[primary_if_index];
+	// PHASE2: Walk though non-physical NICs and TUNs.
+	for (ifa = ifaddr, n = 0; ifa != NULL; ifa = ifa->ifa_next, n++)
+	{
+		if (ifa->ifa_addr == NULL)
+			continue;
+
+		family = ifa->ifa_addr->sa_family;
+
+		//printf("%-8s %s (%d)\n", ifa->ifa_name, (family == AF_PACKET) ? "AF_PACKET" : (family == AF_INET) ? "AF_INET" :
+		//		(family == AF_INET6) ? "AF_INET6" : "???", family);
+
+		// TODO: consider AF_INET6
+		if (family == AF_INET)	// Retrive tun ifs information.
+		{
+			printf("\t\t ****************\n\t%s\n", ifa->ifa_name);
+			struct ethtool_drvinfo drvinfo;
+			int drv_info_res = get_drv_info(ifa->ifa_name, &drvinfo);
+			if (!drv_info_res)
+				dump_drvinfo(&drvinfo);
+			else
+				printf("cannot get device info <%s>\n", ifa->ifa_name);
+
+			// TODO: handle the follwoing conditions.
+			if (!drv_info_res)
+			{
+				if (!strncmp(drvinfo.bus_info, "tap", sizeof("tap"))) continue;
+				if (!strncmp(drvinfo.driver, "bridge", sizeof("bridge"))) continue;
+
+				if (!strncmp(drvinfo.driver, "tun", sizeof("tun")) && !strncmp(drvinfo.bus_info, "tun", sizeof("tun")))
+				{
+					struct rtnl_link_stats *stats = ifa->ifa_data;
+
+					sk = nl_socket_alloc();
+					err = nl_connect(sk, NETLINK_ROUTE);
+					if (err < 0) {
+						nl_perror(err, "nl_connect");
+						continue;
+					}
+					if ((err = rtnl_link_get_kernel(sk , 0, ifa->ifa_name, &link)) < 0)
+					{
+						nl_perror(err, "");
+					}
+					else
+					{
+						struct net_device *new_device = (struct net_device*) malloc(sizeof(struct net_device));
+						memcpy(new_device->dev_name, ifa->ifa_name, sizeof(ifa->ifa_name));
+						memcpy(tun_if[tun_index++], ifa->ifa_name, sizeof(ifa->ifa_name));
+						memcpy(new_device->dev_type, "virtual", sizeof("virtual"));
+
+						int fd;
+						struct ifreq ifr;
+						fd = socket(AF_INET, SOCK_DGRAM, 0);
+						/* I want to get an IPv4 IP address: TODO: AF_INET6 */
+						ifr.ifr_addr.sa_family = AF_INET;
+						/* I want IP address attached to "eth0" */
+						strncpy(ifr.ifr_name, ifa->ifa_name, IFNAMSIZ-1);
+						ioctl(fd, SIOCGIFADDR, &ifr);
+						close(fd);
+
+						char *ipv4 = inet_ntoa(((struct sockaddr_in *)&ifr.ifr_addr)->sin_addr);
+
+						if (rtnl_link_get_carrier(link))
+							strcpy(new_device->dev_ip4, ipv4);
+						else
+							strcpy(new_device->dev_ip4, "");
+
+						strcpy(new_device->dev_active, rtnl_link_get_carrier(link) ? "ACTIVE" : "NOACTIVE");
+
+						new_device->dev_pos = 1;
+
+						char protocol[IFNAMSIZ]  = {0};
+						//TODO: check bluetooth as well.
+						int is_wireless = check_wireless(ifa->ifa_name, protocol);
+						strcpy(new_device->dev_method, is_wireless ? "wifi" : "lan");
+
+						// TODO: Fill an enqueue according to route table. For now, we assume that all connections go though primary.
+						new_device->phy_index = primary_if_index;
+						elem = new_element();
+						elem->net_dev = new_device;
+						//roots[root++] = elem;
+						insque(elem, prev);
+						prev = elem;
+					}
+
+					nl_close(sk);
+				}
+			}
+
+		}
+	}
+
+	freeifaddrs(ifaddr);
 }
 
 int main (int argc, char **argv)
@@ -353,7 +457,7 @@ int main (int argc, char **argv)
 	// Send it to output.
 
 	/*Now printing the json object*/
-	printf ("The json object created: %s\n",json_object_to_json_string(jobj));
+	printf ("%s\n",json_object_to_json_string(jobj));
 
 	if (arguments.output_file)
 	{
