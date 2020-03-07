@@ -21,7 +21,10 @@ set(LOCAL_INCLUDE "./include")
 
 include_directories(${JSON-C_INCLUDE_DIR} ${LIBNL_INCLUDE_DIR} ${LOCAL_INCLUDE})
 
-add_executable(px-network-inspection main.c routing-info.c)
+set(SRC "main.c" "routing-info.c" "ethtool-info.c")
+
+#add_executable(px-network-inspection main.c routing-info.c)
+add_executable(px-network-inspection ${SRC})
 target_link_libraries(px-network-inspection ${JSON-C_LIBRARY} ${LIBNL_LIBRARY} ${LIBNL_ROUTE_LIBRARY} ${LIBNL_NETFILTER_LIBRARY} ${LIBNL_GENL_LIBRARY})
 
 install(TARGETS px-network-inspection DESTINATION bin COMPONENT binaries)

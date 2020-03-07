@@ -10,38 +10,30 @@
 #include <netlink/netlink.h>
 #include <netlink/route/link.h>
 
-#include <stdio.h>
-
 
 // ETHTOOL internal.h includes
 
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdint.h>
-#include <stdlib.h>
+//#include <stdbool.h>
+//#include <stdio.h>
+//#include <stdint.h>
+//#include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
-#include <unistd.h>
-#include <endian.h>
+//#include <unistd.h>
+//#include <endian.h>
 #include <sys/ioctl.h>
 #include <net/if.h>
 
 // ETHTOOL ethtool.c includes
 
-#include <string.h>
-#include <stdlib.h>
-#include <sys/stat.h>
-#include <stdio.h>
-#include <stddef.h>
-#include <errno.h>
-#include <sys/utsname.h>
-#include <limits.h>
-#include <ctype.h>
-#include <assert.h>
+//#include <stddef.h>
+//#include <errno.h>
+//#include <sys/utsname.h>
+//#include <limits.h>
+//#include <ctype.h>
+//#include <assert.h>
 #include <sys/fcntl.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
+//#include <netinet/in.h>
 #include <linux/sockios.h>
 #include <linux/ethtool.h>
 

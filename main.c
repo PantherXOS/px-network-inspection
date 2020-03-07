@@ -18,6 +18,7 @@
 #include <linux/wireless.h>
 
 #include <routing-info.h>
+#include <ethtool-info.h>
 
 #include <argp.h>
 #include <stdbool.h>
@@ -203,6 +204,11 @@ void get_routes()
 
 		family = ifa->ifa_addr->sa_family;
 
+
+		printf("\t\t ****************\n\t%s\n", ifa->ifa_name);
+		struct ethtool_drvinfo drvinfo;
+		get_drv_info(ifa->ifa_name, &drvinfo);
+		dump_drvinfo(&drvinfo);
 		/* Display interface name and family (including symbolic
 		   form of the latter for the common families) */
 
