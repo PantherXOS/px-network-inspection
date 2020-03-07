@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 {
 	struct ifaddrs *ifaddr, *ifa;
 	int family, s, n;
-	char host[NI_MAXHOST];
+	char host[NI_MAXHOST], dest[NI_MAXHOST];
 
 	struct rtnl_link *link;
 	struct nl_sock *sk;
@@ -58,7 +58,12 @@ int main(int argc, char *argv[])
 				exit(EXIT_FAILURE);
 			}
 
-			printf("\t\taddress: <%s>\n", host);
+			s = getnameinfo(ifa->ifa_dstaddr,
+					(family == AF_INET) ? sizeof(struct sockaddr_in) :
+					sizeof(struct sockaddr_in6),
+					dest, NI_MAXHOST,
+					NULL, 0, NI_NUMERICHOST);
+			printf("\t\taddress: <%s> \t\taddress: <%s>\n", host, dest);
 
 		} else if (family == AF_PACKET && ifa->ifa_data != NULL) {
 			struct rtnl_link_stats *stats = ifa->ifa_data;
@@ -82,7 +87,7 @@ int main(int argc, char *argv[])
 		}
 		else
 		{
-			printf("Found device: %s and type: %s arptype: %d\n", rtnl_link_get_name(link), rtnl_link_get_type(link), rtnl_link_get_arptype(link));
+			printf("Found device: %s and type: %s is: %d - arptype: %d\n", rtnl_link_get_name(link), rtnl_link_get_type(link), link->type, rtnl_link_get_arptype(link));
 		}
 CLEANUP_SOCKET:
 		nl_close(sk);
