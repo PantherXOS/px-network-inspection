@@ -12,6 +12,96 @@
 
 #include <stdio.h>
 
+
+// ETHTOOL internal.h includes
+
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <endian.h>
+#include <sys/ioctl.h>
+#include <net/if.h>
+
+// ETHTOOL ethtool.c includes
+
+#include <string.h>
+#include <stdlib.h>
+#include <sys/stat.h>
+#include <stdio.h>
+#include <stddef.h>
+#include <errno.h>
+#include <sys/utsname.h>
+#include <limits.h>
+#include <ctype.h>
+#include <assert.h>
+#include <sys/fcntl.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <linux/sockios.h>
+#include <linux/ethtool.h>
+
+/* Context for sub-commands */
+struct cmd_context {
+    const char *devname;    /* net device name */
+    int fd;         /* socket suitable for ethtool ioctl */
+    struct ifreq ifr;   /* ifreq suitable for ethtool ioctl */
+    int argc;       /* number of arguments to the sub-command */
+    char **argp;        /* arguments to the sub-command */
+};
+
+int send_ioctl(struct cmd_context *ctx, void *cmd)
+{
+	ctx->ifr.ifr_data = cmd;
+	return ioctl(ctx->fd, SIOCETHTOOL, &ctx->ifr);
+}
+
+static int dump_drvinfo(struct ethtool_drvinfo *info)
+{
+	fprintf(stdout,
+		"driver: %s\n"
+		"version: %s\n"
+		"firmware-version: %s\n"
+		"bus-info: %s\n"
+		"supports-statistics: %s\n"
+		"supports-test: %s\n"
+		"supports-eeprom-access: %s\n"
+		"supports-register-dump: %s\n"
+		"supports-priv-flags: %s\n",
+		info->driver,
+		info->version,
+		info->fw_version,
+		info->bus_info,
+		info->n_stats ? "yes" : "no",
+		info->testinfo_len ? "yes" : "no",
+		info->eedump_len ? "yes" : "no",
+		info->regdump_len ? "yes" : "no",
+		info->n_priv_flags ? "yes" : "no");
+	return 0;
+}
+
+static int do_gdrv(struct cmd_context *ctx)
+{
+	int err;
+	struct ethtool_drvinfo drvinfo;
+	if (ctx->argc != 0)
+	{
+		printf("bard args error\n");
+		exit(1);
+	}
+	drvinfo.cmd = ETHTOOL_GDRVINFO;
+	err = send_ioctl(ctx, &drvinfo);
+	if (err < 0) {
+		perror("Cannot get driver information");
+		return 71;
+	}
+	return dump_drvinfo(&drvinfo);
+}
+
 int main(int argc, char *argv[])
 {
 	struct ifaddrs *ifaddr, *ifa;
@@ -87,10 +177,23 @@ int main(int argc, char *argv[])
 		}
 		else
 		{
-			printf("Found device: %s and type: %s is: %d - arptype: %d\n", rtnl_link_get_name(link), rtnl_link_get_type(link), link->type, rtnl_link_get_arptype(link));
+			printf("Found device: %s and type: %s - arptype: %d\n", rtnl_link_get_name(link), rtnl_link_get_type(link), rtnl_link_get_arptype(link));
 		}
 CLEANUP_SOCKET:
 		nl_close(sk);
+
+		struct cmd_context ctx;
+		ctx.devname = ifa->ifa_name;
+		memset(&ctx.ifr, 0, sizeof(ctx.ifr));
+		strcpy(ctx.ifr.ifr_name, ctx.devname);
+		ctx.fd = socket(AF_INET, SOCK_DGRAM, 0);
+		if (ctx.fd < 0) {
+			perror("Cannot get control socket");
+			return 70;
+		}
+		ctx.argc = 0;
+		ctx.argp = NULL;
+		do_gdrv(&ctx);
 	}
 
 	freeifaddrs(ifaddr);
