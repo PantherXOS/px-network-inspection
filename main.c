@@ -17,12 +17,10 @@
 #include <string.h>
 #include <linux/wireless.h>
 
+#include <arg-info.h>
 #include <routing-info.h>
 #include <ethtool-info.h>
 #include <gnode-object.h>
-
-#include <argp.h>
-#include <stdbool.h>
 
 #include <json-c/json.h>
 
@@ -31,105 +29,6 @@
 #define MAX_TAP_IFS 10
 #define MAX_TUN_IFS 10
 
-const char *argp_program_version = "px-network-inspection";
-const char *argp_program_bug_address = "<s.mahmood@pantherx.org>";
-
-/* Program documentation. */
-static char doc[] = "A utility to collect network routing details of local machine.";
-
-/* A description of the arguments we accept. */
-static char args_doc[] = "";
-
-/* The options we understand. */
-static struct argp_option options[] = {
-	{"format", 'f', "Format <JSON:CXX>", 0, "File Format which has to be one of JSON or CXX" },
-	{"output", 'o', "File", 0, "Output to FILE instead of standard output" },
-	{ 0 }
-};
-
-enum Format
-{
-	JSON,
-	CXX
-};
-
-/* Used by main to communicate with parse_opt. */
-struct arguments 
-{
-	enum Format format;
-	char *output_file;
-};
-
-/* Parse a single option. */
-static error_t parse_opt (int key, char *arg, struct argp_state *state)
-{
-	/* Get the input argument from argp_parse, which we
-	   know is a pointer to our arguments structure. */
-	struct arguments *arguments = state->input;
-
-	switch (key)
-	{
-		case 'f':
-			if (!strcmp("JSON", arg))
-				arguments->format = JSON;
-			else if (!strcmp("CXX", arg))
-				arguments->format = CXX;
-			else
-				argp_usage (state);
-			break;
-		case 'o':
-				arguments->output_file = arg;
-			break;
-
-		case ARGP_KEY_ARG:
-			break;
-		case ARGP_KEY_END:
-			break;
-
-		default:
-			return ARGP_ERR_UNKNOWN;
-	}
-	return 0;
-}
-
-/* Our argp parser. */
-static struct argp argp = { options, parse_opt, args_doc, doc};
-
-/* Network devices of a route, in order */
-///struct net_device
-///{
-///	uint32_t dev_pos;
-///	char dev_name[10];
-///	char dev_type[20];
-///	char dev_method[30];
-///	char dev_ip4[16];
-///	char dev_ip6[40];
-///	char dev_gateway[40];	// May be ipv6
-///	char dev_dns[40];
-///	char dev_active[10];
-///	size_t phy_index;
-///};
-
-struct element
-{
-	struct element *forward;
-	struct element *backward;
-	struct net_device *net_dev;
-};
-
-static struct element *new_element(void)
-{
-	struct element *e;
-
-	e = malloc(sizeof(struct element));
-	if (e == NULL) {
-		fprintf(stderr, "malloc() failed\n");
-		exit(EXIT_FAILURE);
-	}
-
-	return e;
-}
-/* End of network devices of a route */
 
 // TODO: use all elemnts.
 /* Root of each route */
@@ -293,11 +192,6 @@ void get_routes()
 
 					GNode *new_node = g_node_new(new_device);
 					route_roots[root++] = new_node;
-					//elem = new_element();
-					//elem->net_dev = new_device;
-					//roots[root++] = elem;
-					//insque(elem, prev);
-					//prev = elem;
 				}
 
 				//printf("Found device: %s and type: %s arptype: %d carrier: %d\n", rtnl_link_get_name(link),
@@ -398,12 +292,6 @@ void get_routes()
 
 						GNode *new_node = g_node_new(new_device);
 						g_node_append(parent, new_node);
-
-						//elem = new_element();
-						//elem->net_dev = new_device;
-						////roots[root++] = elem;
-						//insque(elem, prev);
-						//prev = elem;
 					}
 
 					nl_close(sk);
@@ -434,7 +322,6 @@ int main (int argc, char **argv)
 	// Process list into a JSON array objects.
 	int root = 0;
 	for (GNode *father = route_roots[root]; father; father = route_roots[++root])
-	//for (GNode *father = g_node_first_child(route_roots[root]); father; father = g_node_first_child(route_roots[++root]))
 		g_node_traverse(father, G_LEVEL_ORDER, G_TRAVERSE_ALL, -1, traverse_json_func, NULL);	// TODO: user data.
 	json_object *jobj = json_object_new_object();
 	root = 0;
@@ -443,39 +330,9 @@ int main (int argc, char **argv)
 	while (node)
 	{
 		json_object *jarray = json_object_new_array();
-		//json_object *dev = json_object_new_object();
-
-		//json_object *dev_pos = json_object_new_int(elem->net_dev->dev_pos);
-		//json_object_object_add(dev, "pos", dev_pos);
-
-		//json_object *dev_name = json_object_new_string(elem->net_dev->dev_name);
-		//json_object_object_add(dev, "adapter", dev_name);
-
-		//json_object *dev_method = json_object_new_string(elem->net_dev->dev_method);
-		//json_object_object_add(dev, "method", dev_method);
-
-		//json_object *dev_type = json_object_new_string(elem->net_dev->dev_type);
-		//json_object_object_add(dev, "type", dev_type);
-
-		//json_object *dev_ip4 = json_object_new_string(elem->net_dev->dev_ip4);
-		//json_object_object_add(dev, "ip4", dev_ip4);
-
-		//json_object *dev_ip6 = json_object_new_string(elem->net_dev->dev_ip6);
-		//json_object_object_add(dev, "ip6", dev_ip6);
-
-		//json_object *dev_dns = json_object_new_string(elem->net_dev->dev_dns);
-		//json_object_object_add(dev, "dns", dev_dns);
-
-		//json_object *dev_gateway = json_object_new_string(elem->net_dev->dev_gateway);
-		//json_object_object_add(dev, "gateway", dev_gateway);
-
-		//json_object *dev_active = json_object_new_string(elem->net_dev->dev_active);
-		//json_object_object_add(dev, "status", dev_active);
-
 		NetDevice *dev = NETDEVICE(node->data);
 		json_object_array_add(jarray, dev->jobj);
 		char root_str[20];
-		//sprintf(root_str, "%s", elem->net_dev->phy_index == primary_if_index ? "primary" : "others");
 		sprintf(root_str, "%s", dev->phy_index == primary_if_index ? "primary" : "others");
 		json_object_object_add(jobj, root_str, jarray);
 		//elem = roots[++root];
