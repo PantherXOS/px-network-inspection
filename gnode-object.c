@@ -21,6 +21,8 @@ gboolean traverse_json_func(GNode * node, gpointer data)
 	NetDevice *device = NETDEVICE(node->data);
 	device->jobj = json_object_new_object();
 
+	// Update position
+	device->dev_pos = g_node_depth(node);
 	json_object *dev_pos = json_object_new_int(device->dev_pos);
 	json_object_object_add(device->jobj, "pos", dev_pos);
 
