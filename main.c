@@ -122,15 +122,15 @@ void get_if_info(struct ifaddrs *ifa, int family, enum IF_TRAVERSE_MODE tr_mode)
 				return;
 
 			//TODO: trace to root. As now, there is only one element in each root
-			if (rtnl_link_get_arptype(link) == 1)	// Means ethernet
-			{
-				printf("\t\t ****************\n\t%s\n", ifa->ifa_name);
+			//if (rtnl_link_get_arptype(link) == 1)	// Means ethernet
+			//{
+				//printf("\t\t ****************\n\t%s\n", ifa->ifa_name);
 				struct ethtool_drvinfo drvinfo;
 				int drv_info_res = get_drv_info(ifa->ifa_name, &drvinfo);
-				if (!drv_info_res)
-					dump_drvinfo(&drvinfo);
-				else
-					printf("cannot get device info <%s>\n", ifa->ifa_name);
+				//if (!drv_info_res)
+				//	dump_drvinfo(&drvinfo);
+				//else
+				//	printf("cannot get device info <%s>\n", ifa->ifa_name);
 
 				// TODO: handle the follwoing conditions.
 				if (!drv_info_res)
@@ -208,7 +208,7 @@ void get_if_info(struct ifaddrs *ifa, int family, enum IF_TRAVERSE_MODE tr_mode)
 					printf("Unsupported request\n");
 					exit(1);
 				}
-			}
+			//}
 
 			//printf("Found device: %s and type: %s arptype: %d carrier: %d\n", rtnl_link_get_name(link),
 			//		rtnl_link_get_type(link), rtnl_link_get_arptype(link), rtnl_link_get_carrier(link));
@@ -312,6 +312,11 @@ int main (int argc, char **argv)
 		json_object *jarray = json_object_new_array();
 		NetDevice *dev = NETDEVICE(node->data);
 		json_object_array_add(jarray, dev->jobj);
+		// TODO: handle other routes
+		if (root == primary_if_index)
+		{
+			g_node_traverse(node, G_LEVEL_ORDER, G_TRAVERSE_ALL, -1, traverse_json_array_func, jarray);	// TODO: user data.
+		}
 		char root_str[20];
 		sprintf(root_str, "%s", dev->phy_index == primary_if_index ? "primary" : "others");
 		json_object_object_add(jobj, root_str, jarray);

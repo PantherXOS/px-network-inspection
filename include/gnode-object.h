@@ -27,5 +27,6 @@ typedef struct net_device
 NetDevice* net_device_new();
 void net_device_free(NetDevice *nd);
 gboolean traverse_json_func(GNode * node, gpointer data);
+gboolean traverse_json_array_func(GNode *node, gpointer data);
 
 #endif

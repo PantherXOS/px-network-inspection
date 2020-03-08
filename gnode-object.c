@@ -18,8 +18,6 @@ void net_device_free(NetDevice *nd)
 // TODO: Use user data.
 gboolean traverse_json_func(GNode * node, gpointer data)
 {
-	gboolean result = TRUE;
-
 	NetDevice *device = NETDEVICE(node->data);
 	device->jobj = json_object_new_object();
 
@@ -51,5 +49,17 @@ gboolean traverse_json_func(GNode * node, gpointer data)
 	json_object_object_add(device->jobj, "status", dev_active);
 	// Create joson for each node, which is a device.
 
-	return result;
+	return FALSE;
+}
+
+gboolean traverse_json_array_func(GNode *node, gpointer data)
+{
+	if (G_NODE_IS_ROOT(node)) return FALSE;
+
+	NetDevice *device = NETDEVICE(node->data);
+	if (device->jobj == NULL) return FALSE;
+
+	json_object *jarray = (json_object*)data;
+	json_object_array_add(jarray, device->jobj);
+	return FALSE;
 }
