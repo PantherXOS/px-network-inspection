@@ -19,11 +19,17 @@
 
 #include <routing-info.h>
 #include <ethtool-info.h>
+#include <gnode-object.h>
 
 #include <argp.h>
 #include <stdbool.h>
 
 #include <json-c/json.h>
+
+#define MAX_ROOTS_NUMBER 10
+#define MAX_PHYS_IFS MAX_ROOTS_NUMBER
+#define MAX_TAP_IFS 10
+#define MAX_TUN_IFS 10
 
 const char *argp_program_version = "px-network-inspection";
 const char *argp_program_bug_address = "<s.mahmood@pantherx.org>";
@@ -90,19 +96,19 @@ static error_t parse_opt (int key, char *arg, struct argp_state *state)
 static struct argp argp = { options, parse_opt, args_doc, doc};
 
 /* Network devices of a route, in order */
-struct net_device
-{
-	uint32_t dev_pos;
-	char dev_name[10];
-	char dev_type[20];
-	char dev_method[30];
-	char dev_ip4[16];
-	char dev_ip6[40];
-	char dev_gateway[40];	// May be ipv6
-	char dev_dns[40];
-	char dev_active[10];
-	size_t phy_index;
-};
+///struct net_device
+///{
+///	uint32_t dev_pos;
+///	char dev_name[10];
+///	char dev_type[20];
+///	char dev_method[30];
+///	char dev_ip4[16];
+///	char dev_ip6[40];
+///	char dev_gateway[40];	// May be ipv6
+///	char dev_dns[40];
+///	char dev_active[10];
+///	size_t phy_index;
+///};
 
 struct element
 {
@@ -127,16 +133,17 @@ static struct element *new_element(void)
 
 // TODO: use all elemnts.
 /* Root of each route */
-static struct element *roots[5];	// TODO: avoid fix numbers.
+static struct element *roots[MAX_ROOTS_NUMBER];	// TODO: avoid fix numbers.
+static GNode *route_roots[MAX_ROOTS_NUMBER];	// TODO: avoid fix numbers.
 // Name of physical interfaces
-static char phy_if[5][16];	// TODO: avoid fix numbers.
+static char phy_if[MAX_PHYS_IFS][16];	// TODO: avoid fix numbers.
 static size_t phy_index;
 static size_t primary_if_index;
 
-static char tap_if[10][16]; 	//TODO: avoid fix numbers.
+static char tap_if[MAX_TAP_IFS][16]; 	//TODO: avoid fix numbers.
 static size_t tap_index;
 
-static char tun_if[10][16]; 	//TODO: avoid fix numbers.
+static char tun_if[MAX_TUN_IFS][16]; 	//TODO: avoid fix numbers.
 static size_t tun_index;
 
 void find_primary_if_index()
@@ -247,7 +254,9 @@ void get_routes()
 				//TODO: trace to root. As now, there is only one element in each root
 				if (rtnl_link_get_arptype(link) == 1)	// Means ethernet
 				{
-					struct net_device *new_device = (struct net_device*) malloc(sizeof(struct net_device));
+					NetDevice *new_device = net_device_new();
+					new_device->is_set = TRUE;
+					//struct net_device *new_device = (struct net_device*) malloc(sizeof(struct net_device));
 					new_device->phy_index = phy_index;
 					memcpy(new_device->dev_name, ifa->ifa_name, sizeof(ifa->ifa_name));
 					memcpy(phy_if[phy_index++], ifa->ifa_name, sizeof(ifa->ifa_name));
@@ -282,11 +291,13 @@ void get_routes()
 					int is_wireless = check_wireless(ifa->ifa_name, protocol);
 					strcpy(new_device->dev_method, is_wireless ? "wifi" : "lan");
 
-					elem = new_element();
-					elem->net_dev = new_device;
-					roots[root++] = elem;
-					insque(elem, prev);
-					prev = elem;
+					GNode *new_node = g_node_new(new_device);
+					route_roots[root++] = new_node;
+					//elem = new_element();
+					//elem->net_dev = new_device;
+					//roots[root++] = elem;
+					//insque(elem, prev);
+					//prev = elem;
 				}
 
 				//printf("Found device: %s and type: %s arptype: %d carrier: %d\n", rtnl_link_get_name(link),
@@ -301,7 +312,8 @@ void get_routes()
 	find_primary_if_index();
 
 	// TODO: we have to set it later based on route table
-	prev = roots[primary_if_index];
+	//prev = roots[primary_if_index];
+	GNode *parent = route_roots[primary_if_index];	// default parent is the primary
 	// PHASE2: Walk though non-physical NICs and TUNs.
 	for (ifa = ifaddr, n = 0; ifa != NULL; ifa = ifa->ifa_next, n++)
 	{
@@ -346,7 +358,9 @@ void get_routes()
 					}
 					else
 					{
-						struct net_device *new_device = (struct net_device*) malloc(sizeof(struct net_device));
+						NetDevice *new_device = net_device_new();
+						new_device->is_set = TRUE;
+						//struct net_device *new_device = (struct net_device*) malloc(sizeof(struct net_device));
 						memcpy(new_device->dev_name, ifa->ifa_name, sizeof(ifa->ifa_name));
 						memcpy(tun_if[tun_index++], ifa->ifa_name, sizeof(ifa->ifa_name));
 						memcpy(new_device->dev_type, "virtual", sizeof("virtual"));
@@ -378,12 +392,18 @@ void get_routes()
 						strcpy(new_device->dev_method, is_wireless ? "wifi" : "lan");
 
 						// TODO: Fill an enqueue according to route table. For now, we assume that all connections go though primary.
+						// For now, we do not have VPN or VPN.
+						// Detect parent and put it in parent variable.
 						new_device->phy_index = primary_if_index;
-						elem = new_element();
-						elem->net_dev = new_device;
-						//roots[root++] = elem;
-						insque(elem, prev);
-						prev = elem;
+
+						GNode *new_node = g_node_new(new_device);
+						g_node_append(parent, new_node);
+
+						//elem = new_element();
+						//elem->net_dev = new_device;
+						////roots[root++] = elem;
+						//insque(elem, prev);
+						//prev = elem;
 					}
 
 					nl_close(sk);
@@ -412,46 +432,54 @@ int main (int argc, char **argv)
 	get_routes();
 
 	// Process list into a JSON array objects.
-	json_object *jobj = json_object_new_object();
 	int root = 0;
-	struct element *elem = roots[root];
-	while (elem)
+	for (GNode *father = route_roots[root]; father; father = route_roots[++root])
+	//for (GNode *father = g_node_first_child(route_roots[root]); father; father = g_node_first_child(route_roots[++root]))
+		g_node_traverse(father, G_LEVEL_ORDER, G_TRAVERSE_ALL, -1, traverse_json_func, NULL);	// TODO: user data.
+	json_object *jobj = json_object_new_object();
+	root = 0;
+	//struct element *elem = roots[root];
+	GNode *node = route_roots[root];
+	while (node)
 	{
 		json_object *jarray = json_object_new_array();
-		json_object *dev = json_object_new_object();
+		//json_object *dev = json_object_new_object();
 
-		json_object *dev_pos = json_object_new_int(elem->net_dev->dev_pos);
-		json_object_object_add(dev, "pos", dev_pos);
+		//json_object *dev_pos = json_object_new_int(elem->net_dev->dev_pos);
+		//json_object_object_add(dev, "pos", dev_pos);
 
-		json_object *dev_name = json_object_new_string(elem->net_dev->dev_name);
-		json_object_object_add(dev, "adapter", dev_name);
+		//json_object *dev_name = json_object_new_string(elem->net_dev->dev_name);
+		//json_object_object_add(dev, "adapter", dev_name);
 
-		json_object *dev_method = json_object_new_string(elem->net_dev->dev_method);
-		json_object_object_add(dev, "method", dev_method);
+		//json_object *dev_method = json_object_new_string(elem->net_dev->dev_method);
+		//json_object_object_add(dev, "method", dev_method);
 
-		json_object *dev_type = json_object_new_string(elem->net_dev->dev_type);
-		json_object_object_add(dev, "type", dev_type);
+		//json_object *dev_type = json_object_new_string(elem->net_dev->dev_type);
+		//json_object_object_add(dev, "type", dev_type);
 
-		json_object *dev_ip4 = json_object_new_string(elem->net_dev->dev_ip4);
-		json_object_object_add(dev, "ip4", dev_ip4);
+		//json_object *dev_ip4 = json_object_new_string(elem->net_dev->dev_ip4);
+		//json_object_object_add(dev, "ip4", dev_ip4);
 
-		json_object *dev_ip6 = json_object_new_string(elem->net_dev->dev_ip6);
-		json_object_object_add(dev, "ip6", dev_ip6);
+		//json_object *dev_ip6 = json_object_new_string(elem->net_dev->dev_ip6);
+		//json_object_object_add(dev, "ip6", dev_ip6);
 
-		json_object *dev_dns = json_object_new_string(elem->net_dev->dev_dns);
-		json_object_object_add(dev, "dns", dev_dns);
+		//json_object *dev_dns = json_object_new_string(elem->net_dev->dev_dns);
+		//json_object_object_add(dev, "dns", dev_dns);
 
-		json_object *dev_gateway = json_object_new_string(elem->net_dev->dev_gateway);
-		json_object_object_add(dev, "gateway", dev_gateway);
+		//json_object *dev_gateway = json_object_new_string(elem->net_dev->dev_gateway);
+		//json_object_object_add(dev, "gateway", dev_gateway);
 
-		json_object *dev_active = json_object_new_string(elem->net_dev->dev_active);
-		json_object_object_add(dev, "status", dev_active);
+		//json_object *dev_active = json_object_new_string(elem->net_dev->dev_active);
+		//json_object_object_add(dev, "status", dev_active);
 
-		json_object_array_add(jarray, dev);
+		NetDevice *dev = NETDEVICE(node->data);
+		json_object_array_add(jarray, dev->jobj);
 		char root_str[20];
-		sprintf(root_str, "%s", elem->net_dev->phy_index == primary_if_index ? "primary" : "others");
+		//sprintf(root_str, "%s", elem->net_dev->phy_index == primary_if_index ? "primary" : "others");
+		sprintf(root_str, "%s", dev->phy_index == primary_if_index ? "primary" : "others");
 		json_object_object_add(jobj, root_str, jarray);
-		elem = roots[++root];
+		//elem = roots[++root];
+		node = route_roots[++root];
 	}
 
 	// Send it to output.
