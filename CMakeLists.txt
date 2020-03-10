@@ -17,15 +17,17 @@ find_library(LIBNL_LIBRARY NAMES nl nl-3)
 find_library(LIBNL_ROUTE_LIBRARY NAMES nl-route nl-route-3)
 find_library(LIBNL_NETFILTER_LIBRARY NAMES nl-nf nl-nf-3)
 find_library(LIBNL_GENL_LIBRARY NAMES nl-genl nl-genl-3)
+find_library(LIBNL_CLI_LIBRARY NAMES nl-cli nl-cli-3)
 
 set(LOCAL_INCLUDE "./include")
 
 include_directories(${JSON-C_INCLUDE_DIR} ${LIBNL_INCLUDE_DIR} ${GLIB_INCLUDE_DIRS} ${LOCAL_INCLUDE})
 
-set(SRC "main.c" "routing-info.c" "ethtool-info.c" "gnode-object.c")
+set(SRC "main.c" "routing-info.c" "ethtool-info.c" "gnode-object.c" "route-tree.c")
 
 #add_executable(px-network-inspection main.c routing-info.c)
 add_executable(px-network-inspection ${SRC})
-target_link_libraries(px-network-inspection ${JSON-C_LIBRARY} ${LIBNL_LIBRARY} ${LIBNL_ROUTE_LIBRARY} ${LIBNL_NETFILTER_LIBRARY} ${LIBNL_GENL_LIBRARY} ${GLIB_LDFLAGS})
+target_link_libraries(px-network-inspection ${JSON-C_LIBRARY} ${LIBNL_LIBRARY} ${LIBNL_ROUTE_LIBRARY}
+	${LIBNL_NETFILTER_LIBRARY} ${LIBNL_GENL_LIBRARY} ${GLIB_LDFLAGS} ${LIBNL_CLI_LIBRARY})
 
 install(TARGETS px-network-inspection DESTINATION bin COMPONENT binaries)

@@ -21,14 +21,9 @@
 #include <routing-info.h>
 #include <ethtool-info.h>
 #include <gnode-object.h>
+#include <route-tree.h>
 
 #include <json-c/json.h>
-
-#define MAX_ROOTS_NUMBER 10
-#define MAX_PHYS_IFS MAX_ROOTS_NUMBER
-#define MAX_TAP_IFS 10
-#define MAX_TUN_IFS 10
-
 
 // TODO: use all elemnts.
 /* Root of each route */
@@ -286,6 +281,13 @@ void get_routes()
 
 int main (int argc, char **argv)
 {
+	//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+	//char *a[40] = {"px-network-inspection", "--format=details"};
+	char *a[40] = {"","-n", "dev=wlo1"};
+	get_route_trees(3, a);
+	//return 0;
+	// **************************************************************************************************************
+
 	struct arguments arguments;
 
 	/* Default values. */
