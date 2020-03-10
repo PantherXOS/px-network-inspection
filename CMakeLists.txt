@@ -10,7 +10,7 @@ pkg_search_module(GLIB REQUIRED glib-2.0)
 
 find_path(JSON-C_INCLUDE_DIR json.h PATH_SUFFIXES json-c json)
 
-find_path(LIBNL_INCLUDE_DIR netlink/netlink.h netlink/route/link.h PATH_SUFFIXES libnl3)
+find_path(LIBNL_INCLUDE_DIR netlink/netlink.h netlink/object.h netlink/route/link.h PATH_SUFFIXES libnl3)
 
 find_library(JSON-C_LIBRARY NAMES json-c libjson-c)
 find_library(LIBNL_LIBRARY NAMES nl nl-3)

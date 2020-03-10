@@ -34,6 +34,13 @@ static void print_usage(void)
 	exit(0);
 }
 
+void route_entry_cb(struct nl_object * obj, void * data)
+{
+	struct rtnl_route *r = (struct rtnl_route *) obj;
+	static int j = 0;
+	printf("\ncallback%d\n", ++j);
+}
+
 void get_route_trees(int argc, char *argv[])
 {
 	struct nl_sock *sock;
@@ -109,6 +116,8 @@ void get_route_trees(int argc, char *argv[])
 
 	route_cache = nl_cli_route_alloc_cache(sock,
 			print_cache ? ROUTE_CACHE_CONTENT : 0);
+
+	nl_cache_foreach_filter(route_cache, OBJ_CAST(route), &route_entry_cb , NULL);
 
 	nl_cache_dump_filter(route_cache, &params, OBJ_CAST(route));
 
