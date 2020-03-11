@@ -34,11 +34,24 @@ static void print_usage(void)
 	exit(0);
 }
 
+void next_hop_entry_cb(struct rtnl_nexthop *nh, void *data)
+{
+	char *buf = (char*) data;
+	struct nl_cache *link_cache;
+	link_cache = nl_cache_mngt_require_safe("route/link");
+	rtnl_link_i2name(link_cache, rtnl_route_nh_get_ifindex(nh), buf, 16);
+}
+
 void route_entry_cb(struct nl_object * obj, void * data)
 {
+	char buf[16];
+	printf("1\n");
+	printf("1\n");
 	struct rtnl_route *r = (struct rtnl_route *) obj;
+	struct rtnl_nexthop *nh;
+	rtnl_route_foreach_nexthop(r, next_hop_entry_cb, buf);
 	static int j = 0;
-	printf("\ncallback%d\n", ++j);
+	printf("\ncallback%d %s\n", ++j, buf);
 }
 
 void get_route_trees(int argc, char *argv[])

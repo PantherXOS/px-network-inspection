@@ -3,6 +3,8 @@
 
 #include <netlink/cache.h>
 #include <netlink/object.h>
+#include <netlink/types.h>
+#include <netlink/list.h>
 #include <netlink/cli/utils.h>
 #include <netlink/cli/route.h>
 #include <netlink/cli/link.h>
