@@ -285,10 +285,10 @@ int main (int argc, char **argv)
 	//char *a[40] = {"px-network-inspection", "--format=details"};
 	
 	char *a[40] = {"", "-f", "details", "--family", "inet", "--scope", "link", "--table", "main", "-d", "default"};
-	get_route_trees(11, a);
+	get_route_trees(11, a, NULL);
 
 	char *c[40] = {"", "-f", "details", "--family", "inet", "--scope", "global"};
-	get_route_trees(7, c);
+	get_route_trees(7, c, NULL);
 	//return 0;
 	// **************************************************************************************************************
 

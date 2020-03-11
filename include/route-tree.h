@@ -15,6 +15,6 @@
 #include <stdint.h>
 
 
-void get_route_trees(int argc, char *argv[]);
+void get_route_trees(int argc, char *argv[], GNode* parent);
 
 #endif

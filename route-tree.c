@@ -45,16 +45,12 @@ void next_hop_entry_cb(struct rtnl_nexthop *nh, void *data)
 void route_entry_cb(struct nl_object * obj, void * data)
 {
 	char buf[16];
-	printf("1\n");
-	printf("1\n");
 	struct rtnl_route *r = (struct rtnl_route *) obj;
 	struct rtnl_nexthop *nh;
 	rtnl_route_foreach_nexthop(r, next_hop_entry_cb, buf);
-	static int j = 0;
-	printf("\ncallback%d %s\n", ++j, buf);
 }
 
-void get_route_trees(int argc, char *argv[])
+void get_route_trees(int argc, char *argv[], GNode *parent)
 {
 	// To set argument parsing to 1
 	optind = 1;
