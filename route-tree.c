@@ -43,6 +43,8 @@ void route_entry_cb(struct nl_object * obj, void * data)
 
 void get_route_trees(int argc, char *argv[])
 {
+	// To set argument parsing to 1
+	optind = 1;
 	struct nl_sock *sock;
 	struct nl_cache *link_cache, *route_cache;
 	struct rtnl_route *route;
@@ -58,7 +60,7 @@ void get_route_trees(int argc, char *argv[])
 	route = nl_cli_route_alloc();
 
 	for (;;) {
-		int c, optidx = 0;
+		int c, optidx = 1;
 		enum {
 			ARG_FAMILY = 257,
 			ARG_SRC = 258,
@@ -70,7 +72,7 @@ void get_route_trees(int argc, char *argv[])
 			ARG_PROTOCOL,
 			ARG_TYPE,
 		};
-		static struct option long_opts[] = {
+		struct option long_opts[] = {
 			{ "cache", 0, 0, 'c' },
 			{ "format", 1, 0, 'f' },
 			{ "help", 0, 0, 'h' },
@@ -89,7 +91,6 @@ void get_route_trees(int argc, char *argv[])
 			{ "type", 1, 0, ARG_TYPE },
 			{ 0, 0, 0, 0 }
 		};
-
 		c = getopt_long(argc, argv, "cf:hvd:n:t:", long_opts, &optidx);
 		if (c == -1)
 			break;
@@ -121,4 +122,13 @@ void get_route_trees(int argc, char *argv[])
 
 	nl_cache_dump_filter(route_cache, &params, OBJ_CAST(route));
 
+	nl_close(sock);
+	nl_socket_free(sock);
+	nl_cache_clear(link_cache);
+	nl_cache_free(link_cache);
+
+	nl_cache_clear(route_cache);
+	nl_cache_free(route_cache);
+	//struct nl_cache *link_cache, *route_cache;
+	nl_object_free((struct nl_object *)route);
 }
