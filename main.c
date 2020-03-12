@@ -57,7 +57,7 @@ void find_primary_if_index()
 	close (nl_sock);
 }
 
-int check_wireless(const char* ifname, char* protocol)
+int get_wifi_info(const char* ifname, char* protocol, char *essid_name)
 {
 	int sock = -1;
 	struct iwreq pwrq;
@@ -73,6 +73,24 @@ int check_wireless(const char* ifname, char* protocol)
 	if (ioctl(sock, SIOCGIWNAME, &pwrq) != -1)
 	{
 		if (protocol) strncpy(protocol, pwrq.u.name, IFNAMSIZ);
+
+		memset(&pwrq, 0, sizeof(pwrq));
+		char essid[IW_ESSID_MAX_SIZE + 1];	/* ESSID */
+		char pessid[IW_ESSID_MAX_SIZE + 1];	/* Pcmcia format */
+		unsigned int i;
+		unsigned int j;
+		memset(essid, 0, sizeof(essid));
+		/* Get ESSID */
+		pwrq.u.essid.pointer = (caddr_t) essid;
+		pwrq.u.essid.length = IW_ESSID_MAX_SIZE + 1;
+		pwrq.u.essid.flags = 0;
+
+		strncpy(pwrq.ifr_name, ifname, IFNAMSIZ);
+		if (ioctl(sock, SIOCGIWESSID, &pwrq) >= 0);
+		{
+			strncpy(essid_name, essid, sizeof(essid));
+		}
+
 		close(sock);
 		return 1;
 	}
@@ -140,6 +158,7 @@ void get_if_info(struct ifaddrs *ifa, int family, enum IF_TRAVERSE_MODE tr_mode)
 				new_device->is_set = TRUE;
 				//struct net_device *new_device = (struct net_device*) malloc(sizeof(struct net_device));
 				new_device->phy_index = phy_index;
+				bzero(new_device->dev_name, sizeof(new_device->dev_name));
 				memcpy(new_device->dev_name, ifa->ifa_name, sizeof(ifa->ifa_name));
 				if (tr_mode == PHY)
 				{
@@ -147,7 +166,9 @@ void get_if_info(struct ifaddrs *ifa, int family, enum IF_TRAVERSE_MODE tr_mode)
 					memcpy(new_device->dev_type, "physical", sizeof("physical"));
 					char protocol[IFNAMSIZ]  = {0};
 					//TODO: check bluetooth as well.
-					int is_wireless = check_wireless(ifa->ifa_name, protocol);
+					char essid[IW_ESSID_MAX_SIZE + 1] = {'\0'};
+					int is_wireless = get_wifi_info(ifa->ifa_name, protocol, essid);
+					strcpy(new_device->dev_wifi_ap, is_wireless ? essid : "");
 					strcpy(new_device->dev_method, is_wireless ? "wifi" : "lan");
 				}
 				else if (tr_mode == TUN)
@@ -171,6 +192,7 @@ void get_if_info(struct ifaddrs *ifa, int family, enum IF_TRAVERSE_MODE tr_mode)
 				ioctl(fd, SIOCGIFADDR, &ifr);
 				close(fd);
 
+				strncpy(new_device->dev_dns, "", sizeof(""));
 				char *ipv4 = inet_ntoa(((struct sockaddr_in *)&ifr.ifr_addr)->sin_addr);
 
 				if (rtnl_link_get_carrier(link))
@@ -284,11 +306,11 @@ int main (int argc, char **argv)
 	//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 	//char *a[40] = {"px-network-inspection", "--format=details"};
 	
-	char *a[40] = {"", "-f", "details", "--family", "inet", "--scope", "link", "--table", "main", "-d", "default"};
-	get_route_trees(11, a, NULL);
+	//char *a[40] = {"", "-f", "details", "--family", "inet", "--scope", "link", "--table", "main", "-d", "default"};
+	//get_route_trees(11, a, NULL);
 
-	char *c[40] = {"", "-f", "details", "--family", "inet", "--scope", "global"};
-	get_route_trees(7, c, NULL);
+	//char *c[40] = {"", "-f", "details", "--family", "inet", "--scope", "global"};
+	//get_route_trees(7, c, NULL);
 	//return 0;
 	// **************************************************************************************************************
 
