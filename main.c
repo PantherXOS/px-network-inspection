@@ -29,6 +29,8 @@
 /* Root of each route */
 static GNode *route_roots[MAX_ROOTS_NUMBER];	// TODO: avoid fix numbers.
 static int root = 0;
+static GNode *kernel_route_roots[MAX_ROOTS_NUMBER];
+static int kernel_roots = 0;
 // Name of physical interfaces
 static char phy_if[MAX_PHYS_IFS][16];	// TODO: avoid fix numbers.
 static size_t phy_index;
@@ -303,17 +305,7 @@ void get_routes()
 
 int main (int argc, char **argv)
 {
-	//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-	//char *a[40] = {"px-network-inspection", "--format=details"};
-	
-	//char *a[40] = {"", "-f", "details", "--family", "inet", "--scope", "link", "--table", "main", "-d", "default"};
-	//get_route_trees(11, a, NULL);
-
-	//char *c[40] = {"", "-f", "details", "--family", "inet", "--scope", "global"};
-	//get_route_trees(7, c, NULL);
-	//return 0;
-	// **************************************************************************************************************
-
+	kernel_roots = analyze_kernel_route(kernel_route_roots);
 	struct arguments arguments;
 
 	/* Default values. */

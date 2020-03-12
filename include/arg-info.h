@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include <string.h>
 
-const char *argp_program_version = "px-network-inspection";
+const char *argp_program_version = "0.0.6";
 const char *argp_program_bug_address = "<s.mahmood@pantherx.org>";
 
 /* Program documentation. */
@@ -53,7 +53,7 @@ error_t parse_opt (int key, char *arg, struct argp_state *state)
 				argp_usage (state);
 			break;
 		case 'o':
-				arguments->output_file = arg;
+			arguments->output_file = arg;
 			break;
 
 		case ARGP_KEY_ARG:

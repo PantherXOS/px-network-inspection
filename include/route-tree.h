@@ -14,7 +14,10 @@
 #include <glib.h>
 #include <stdint.h>
 
+#ifndef MAX_ROOTS_NUMBER
+#define MAX_ROOTS_NUMBER	10 
+#endif
 
-void get_route_trees(int argc, char *argv[], GNode* parent);
+int analyze_kernel_route(GNode *[MAX_ROOTS_NUMBER]);
 
 #endif

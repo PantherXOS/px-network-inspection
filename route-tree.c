@@ -1,5 +1,12 @@
 #include <route-tree.h>
 
+typedef struct node_params
+{
+	GNode *node;
+	int *roots;
+	char buf[16];
+} NodeParams;
+
 static void print_usage(void)
 {
 	printf(
@@ -36,21 +43,21 @@ static void print_usage(void)
 
 void next_hop_entry_cb(struct rtnl_nexthop *nh, void *data)
 {
-	char *buf = (char*) data;
+	NodeParams *nparam = (NodeParams *) data;
+	*(nparam->roots) = *(nparam->roots) + 1;
 	struct nl_cache *link_cache;
 	link_cache = nl_cache_mngt_require_safe("route/link");
-	rtnl_link_i2name(link_cache, rtnl_route_nh_get_ifindex(nh), buf, 16);
+	rtnl_link_i2name(link_cache, rtnl_route_nh_get_ifindex(nh), nparam->buf, 16);
 }
 
 void route_entry_cb(struct nl_object * obj, void * data)
 {
-	char buf[16];
 	struct rtnl_route *r = (struct rtnl_route *) obj;
 	struct rtnl_nexthop *nh;
-	rtnl_route_foreach_nexthop(r, next_hop_entry_cb, buf);
+	rtnl_route_foreach_nexthop(r, next_hop_entry_cb, data);
 }
 
-void get_route_trees(int argc, char *argv[], GNode *parent)
+void get_route_trees(GNode *node, int *roots, int argc, char *argv[])
 {
 	// To set argument parsing to 1
 	optind = 1;
@@ -127,7 +134,11 @@ void get_route_trees(int argc, char *argv[], GNode *parent)
 	route_cache = nl_cli_route_alloc_cache(sock,
 			print_cache ? ROUTE_CACHE_CONTENT : 0);
 
-	nl_cache_foreach_filter(route_cache, OBJ_CAST(route), &route_entry_cb , NULL);
+	NodeParams nparam;
+	nparam.node = node;
+	nparam.roots = roots;
+
+	nl_cache_foreach_filter(route_cache, OBJ_CAST(route), &route_entry_cb , &nparam);
 
 	nl_cache_dump_filter(route_cache, &params, OBJ_CAST(route));
 
@@ -138,6 +149,22 @@ void get_route_trees(int argc, char *argv[], GNode *parent)
 
 	nl_cache_clear(route_cache);
 	nl_cache_free(route_cache);
-	//struct nl_cache *link_cache, *route_cache;
 	nl_object_free((struct nl_object *)route);
+}
+
+int analyze_kernel_route(GNode *kernel_route_roots[MAX_ROOTS_NUMBER])
+{
+	int roots = 0;
+	char *c[40] = {"", "-f", "details", "--family", "inet", "--scope", "global"};
+	get_route_trees( NULL, &roots, 7, c);
+
+	printf("There are %d kernel roots\n", roots);
+
+	int non_roots = 0;
+	char *a[40] = {"", "-f", "details", "--family", "inet", "--scope", "link", "--table", "main", "-d", "default"};
+	get_route_trees(NULL, &non_roots, 11, a);
+
+	printf("There are %d non-roots kernel nodes\n", non_roots);
+
+	return roots;
 }
