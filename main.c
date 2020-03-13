@@ -52,19 +52,6 @@ void find_primary_if_index()
 			primary_if_index = i;
 		}
 	}
-	//int nl_sock = open_netlink();
-
-	//if (do_route_dump_requst(nl_sock) < 0)
-	//{
-	//	perror("Failed to perfom request");
-	//	close(nl_sock);
-	//}
-
-	////get_route_dump_response(nl_sock);
-
-	//primary_if_index = get_route_dump_check_primary(nl_sock, phy_if, phy_index);
-
-	//close (nl_sock);
 }
 
 int get_wifi_info(const char* ifname, char* protocol, char *essid_name)
@@ -145,102 +132,96 @@ void get_if_info(struct ifaddrs *ifa, int family, enum IF_TRAVERSE_MODE tr_mode)
 				return;
 
 			//TODO: trace to root. As now, there is only one element in each root
-			//if (rtnl_link_get_arptype(link) == 1)	// Means ethernet
-			//{
-				//printf("\t\t ****************\n\t%s\n", ifa->ifa_name);
-				struct ethtool_drvinfo drvinfo;
-				int drv_info_res = get_drv_info(ifa->ifa_name, &drvinfo);
-				//if (!drv_info_res)
-				//	dump_drvinfo(&drvinfo);
-				//else
-				//	printf("cannot get device info <%s>\n", ifa->ifa_name);
+			//printf("\t\t ****************\n\t%s\n", ifa->ifa_name);
+			struct ethtool_drvinfo drvinfo;
+			int drv_info_res = get_drv_info(ifa->ifa_name, &drvinfo);
 
-				// TODO: handle the follwoing conditions.
-				if (!drv_info_res)
-				{
-					if (!strncmp(drvinfo.bus_info, "tap", sizeof("tap"))) return;
-					if (!strncmp(drvinfo.driver, "bridge", sizeof("bridge"))) return;
-				}
+			// TODO: handle the follwoing conditions.
+			if (!drv_info_res)
+			{
+				if (!strncmp(drvinfo.bus_info, "tap", sizeof("tap"))) return;
+				if (!strncmp(drvinfo.driver, "bridge", sizeof("bridge"))) return;
+			}
 
-				if (tr_mode == TUN && !(!strncmp(drvinfo.driver, "tun", sizeof("tun")) && !strncmp(drvinfo.bus_info, "tun", sizeof("tun")))) return;
+			if (tr_mode == TUN && !(!strncmp(drvinfo.driver, "tun", sizeof("tun")) && !strncmp(drvinfo.bus_info, "tun", sizeof("tun")))) return;
 
-				NetDevice *new_device = net_device_new();
-				new_device->is_set = TRUE;
-				//struct net_device *new_device = (struct net_device*) malloc(sizeof(struct net_device));
-				new_device->phy_index = phy_index;
-				bzero(new_device->dev_name, sizeof(new_device->dev_name));
-				memcpy(new_device->dev_name, ifa->ifa_name, sizeof(ifa->ifa_name));
-				if (tr_mode == PHY)
-				{
-					memcpy(phy_if[phy_index++], ifa->ifa_name, sizeof(ifa->ifa_name));
-					memcpy(new_device->dev_type, "physical", sizeof("physical"));
-					char protocol[IFNAMSIZ]  = {0};
-					//TODO: check bluetooth as well.
-					char essid[IW_ESSID_MAX_SIZE + 1] = {'\0'};
-					int is_wireless = get_wifi_info(ifa->ifa_name, protocol, essid);
-					strcpy(new_device->dev_wifi_ap, is_wireless ? essid : "");
-					strcpy(new_device->dev_method, is_wireless ? "wifi" : "lan");
-				}
-				else if (tr_mode == TUN)
-				{
-					memcpy(tun_if[tun_index++], ifa->ifa_name, sizeof(ifa->ifa_name));
-					memcpy(new_device->dev_type, "virtual", sizeof("virtual"));
-					strcpy(new_device->dev_method, "vpn");	// TODO: detects actual method: openvpn, cisco or wireguard ...
-				}
-				else
-				{
-					printf("Unsupported request\n");
-					exit(1);
-				}
+			NetDevice *new_device = net_device_new();
+			new_device->is_set = TRUE;
+			new_device->phy_index = phy_index;
+			bzero(new_device->dev_name, sizeof(new_device->dev_name));
+			memcpy(new_device->dev_name, ifa->ifa_name, sizeof(ifa->ifa_name));
+			if (tr_mode == PHY)
+			{
+				memcpy(phy_if[phy_index++], ifa->ifa_name, sizeof(ifa->ifa_name));
+				memcpy(new_device->dev_type, "physical", sizeof("physical"));
+				char protocol[IFNAMSIZ]  = {0};
+				//TODO: check bluetooth as well.
+				char essid[IW_ESSID_MAX_SIZE + 1] = {'\0'};
+				int is_wireless = get_wifi_info(ifa->ifa_name, protocol, essid);
+				strcpy(new_device->dev_wifi_ap, is_wireless ? essid : "");
+				strcpy(new_device->dev_method, is_wireless ? "wifi" : "lan");
+			}
+			else if (tr_mode == TUN)
+			{
+				memcpy(tun_if[tun_index++], ifa->ifa_name, sizeof(ifa->ifa_name));
+				memcpy(new_device->dev_type, "virtual", sizeof("virtual"));
+				strcpy(new_device->dev_method, "vpn");	// TODO: detects actual method: openvpn, cisco or wireguard ...
+			}
+			else
+			{
+				printf("Unsupported request\n");
+				exit(1);
+			}
 
-				int fd;
-				struct ifreq ifr;
-				fd = socket(AF_INET, SOCK_DGRAM, 0);
-				/* I want to get an IPv4 IP address: TODO: AF_INET6 */
-				ifr.ifr_addr.sa_family = AF_INET;
-				strncpy(ifr.ifr_name, ifa->ifa_name, IFNAMSIZ-1);
-				ioctl(fd, SIOCGIFADDR, &ifr);
-				close(fd);
+			int fd;
+			struct ifreq ifr;
+			fd = socket(AF_INET, SOCK_DGRAM, 0);
+			/* I want to get an IPv4 IP address: TODO: AF_INET6 */
+			ifr.ifr_addr.sa_family = AF_INET;
+			strncpy(ifr.ifr_name, ifa->ifa_name, IFNAMSIZ - 1);
+			ioctl(fd, SIOCGIFADDR, &ifr);
+			close(fd);
 
-				strncpy(new_device->dev_dns, "", sizeof(""));
-				char *ipv4 = inet_ntoa(((struct sockaddr_in *)&ifr.ifr_addr)->sin_addr);
+			strncpy(new_device->dev_dns, "", sizeof(""));
+			strncpy(new_device->dev_ip6, "", sizeof(""));
+			char *ipv4 = inet_ntoa(((struct sockaddr_in *)&ifr.ifr_addr)->sin_addr);
 
-				if (rtnl_link_get_carrier(link))
-					strcpy(new_device->dev_ip4, ipv4);
-				else
-					strcpy(new_device->dev_ip4, "");
+			if (rtnl_link_get_carrier(link))
+				strcpy(new_device->dev_ip4, ipv4);
+			else
+				strcpy(new_device->dev_ip4, "");
 
-				strcpy(new_device->dev_active, rtnl_link_get_carrier(link) ? "ACTIVE" : "NOACTIVE");
+			strcpy(new_device->dev_active, rtnl_link_get_carrier(link) ? "ACTIVE" : "NOACTIVE");
 
-				new_device->dev_pos = 1;
+			// TODO: calc the heigh and therefore the pos.
+			new_device->dev_pos = 1;
 
-				if (tr_mode == PHY)
-				{
-					GNode *new_node = g_node_new(new_device);
-					route_roots[root++] = new_node;
-				}
-				else if (tr_mode == TUN)
-				{
-					// TODO: Fill an enqueue according to route table. For now, we assume that all connections go though primary.
-					// For now, we do not have VPN or VPN.
-					// Detect parent and put it in parent variable.
-					GNode *parent = route_roots[primary_if_index];	// default parent is the primary
-					new_device->phy_index = primary_if_index;
+			if (tr_mode == PHY)
+			{
+				GNode *new_node = g_node_new(new_device);
+				route_roots[root++] = new_node;
+			}
+			else if (tr_mode == TUN)
+			{
+				// TODO: Fill an enqueue according to route table. For now, we assume that all connections go though primary.
+				// For now, we do not have VPN or VPN.
+				// Detect parent and put it in parent variable.
+				GNode *parent = route_roots[primary_if_index];	// default parent is the primary
+				new_device->phy_index = primary_if_index;
 
-					GNode *new_node = g_node_new(new_device);
-					g_node_append(parent, new_node);
-				}
-				else
-				{
-					printf("Unsupported request\n");
-					exit(1);
-				}
-			//}
+				GNode *new_node = g_node_new(new_device);
+				g_node_append(parent, new_node);
+			}
+			else
+			{
+				printf("Unsupported request\n");
+				exit(1);
+			}
 
 			//printf("Found device: %s and type: %s arptype: %d carrier: %d\n", rtnl_link_get_name(link),
 			//		rtnl_link_get_type(link), rtnl_link_get_arptype(link), rtnl_link_get_carrier(link));
-		}
 	}
+}
 }
 
 void traverse_ifs(struct ifaddrs *ifaddr, enum IF_TRAVERSE_MODE tr_mode)
@@ -331,6 +312,7 @@ int main (int argc, char **argv)
 	int root = 0;
 	for (GNode *father = route_roots[root]; father; father = route_roots[++root])
 		g_node_traverse(father, G_LEVEL_ORDER, G_TRAVERSE_ALL, -1, traverse_json_func, NULL);	// TODO: user data.
+
 	json_object *jobj = json_object_new_object();
 	root = 0;
 	//struct element *elem = roots[root];
