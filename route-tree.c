@@ -1,10 +1,22 @@
 #include <route-tree.h>
+#include <limits.h>
+
+RouteNode* route_node_new()
+{
+	RouteNode *rn;
+	rn = g_new(RouteNode, 1);
+	return rn;
+}
+
+void route_node_free(RouteNode *nd)
+{}
 
 typedef struct node_params
 {
-	GNode *node;
+	GNode **node;
 	int *roots;
 	char buf[16];
+	char gateway_ipv4[16];
 } NodeParams;
 
 static void print_usage(void)
@@ -48,6 +60,7 @@ void next_hop_entry_cb(struct rtnl_nexthop *nh, void *data)
 	struct nl_cache *link_cache;
 	link_cache = nl_cache_mngt_require_safe("route/link");
 	rtnl_link_i2name(link_cache, rtnl_route_nh_get_ifindex(nh), nparam->buf, 16);
+	nl_addr2str(rtnl_route_nh_get_gateway(nh), nparam->gateway_ipv4, 16);
 }
 
 void route_entry_cb(struct nl_object * obj, void * data)
@@ -55,9 +68,31 @@ void route_entry_cb(struct nl_object * obj, void * data)
 	struct rtnl_route *r = (struct rtnl_route *) obj;
 	struct rtnl_nexthop *nh;
 	rtnl_route_foreach_nexthop(r, next_hop_entry_cb, data);
+	NodeParams *nparam = (NodeParams *) data;
+
+	RouteNode *rn = route_node_new();
+
+	strncpy(rn->if_name, nparam->buf, sizeof(nparam->buf));
+
+	char buf[64];
+	bzero(buf, 64);
+	size_t dst_len =  nl_addr_get_len(rtnl_route_get_dst(r));
+	if (dst_len == 0)
+		strncpy(rn->dst_ipv4, "default", sizeof("default"));
+	else
+	{
+		nl_addr2str(rtnl_route_get_dst(r), buf, sizeof(buf));
+		strncpy(rn->dst_ipv4, buf, sizeof(rn->dst_ipv4));
+	}
+
+	strncpy(rn->gateway_ipv4, nparam->gateway_ipv4, sizeof(nparam->gateway_ipv4));
+	rn->priority = rtnl_route_get_priority(r);
+
+	GNode *new_node = g_node_new(rn);
+	nparam->node[*(nparam->roots) - 1] = new_node;
 }
 
-void get_route_trees(GNode *node, int *roots, int argc, char *argv[])
+void get_route_trees(GNode *node[MAX_ROOTS_NUMBER], int *roots, int argc, char *argv[])
 {
 	// To set argument parsing to 1
 	optind = 1;
@@ -134,13 +169,16 @@ void get_route_trees(GNode *node, int *roots, int argc, char *argv[])
 	route_cache = nl_cli_route_alloc_cache(sock,
 			print_cache ? ROUTE_CACHE_CONTENT : 0);
 
-	NodeParams nparam;
-	nparam.node = node;
-	nparam.roots = roots;
+	if (node != NULL)
+	{
+		NodeParams nparam;
+		nparam.node = node;
+		nparam.roots = roots;
 
-	nl_cache_foreach_filter(route_cache, OBJ_CAST(route), &route_entry_cb , &nparam);
+		nl_cache_foreach_filter(route_cache, OBJ_CAST(route), &route_entry_cb , &nparam);
+	}
 
-	nl_cache_dump_filter(route_cache, &params, OBJ_CAST(route));
+	//nl_cache_dump_filter(route_cache, &params, OBJ_CAST(route));
 
 	nl_close(sock);
 	nl_socket_free(sock);
@@ -152,19 +190,52 @@ void get_route_trees(GNode *node, int *roots, int argc, char *argv[])
 	nl_object_free((struct nl_object *)route);
 }
 
-int analyze_kernel_route(GNode *kernel_route_roots[MAX_ROOTS_NUMBER])
+int analyze_kernel_route(GNode *kernel_route_roots[MAX_ROOTS_NUMBER], int *kernel_roots)
 {
 	int roots = 0;
+
+	GNode *k_rr_l1[MAX_ROOTS_NUMBER];
 	char *c[40] = {"", "-f", "details", "--family", "inet", "--scope", "global"};
-	get_route_trees( NULL, &roots, 7, c);
+	get_route_trees(k_rr_l1, &roots, 7, c);
 
-	printf("There are %d kernel roots\n", roots);
-
+	GNode *k_rr_l2[MAX_ROOTS_NUMBER];
 	int non_roots = 0;
 	char *a[40] = {"", "-f", "details", "--family", "inet", "--scope", "link", "--table", "main", "-d", "default"};
-	get_route_trees(NULL, &non_roots, 11, a);
+	get_route_trees(k_rr_l2, &non_roots, 11, a);
 
-	printf("There are %d non-roots kernel nodes\n", non_roots);
+	RouteNode *rn;
+	int min_priority = INT_MAX;
+	int primary_index = -1;
+	for (int i = 0; i < roots; i++)
+	{
+		rn = ROUTENODE(k_rr_l1[i]->data);
 
-	return roots;
+		if (min_priority == rn->priority)	// TODO: Help to detect if there is more than one output NIC. ip rule, ip route tables and ...
+		{
+			primary_index = -1;
+		}
+		if (min_priority > rn->priority)
+		{
+			primary_index = i;
+			min_priority = rn->priority;
+		}
+
+		kernel_route_roots[i] = k_rr_l1[i];
+	}
+
+	//printf("primary_index: %d\n", primary_index);
+
+	if (primary_index >= 0)
+	{
+		rn = ROUTENODE(k_rr_l1[primary_index]->data);
+		//printf("There are %d kernel roots: %s\t via %s to\t%s\t%d\n", roots, rn->if_name, rn->gateway_ipv4, rn->dst_ipv4, rn->priority);
+		for (int i = 0; i < non_roots; i++)	// Assume that VPNs goes through primary
+		{
+			g_node_append(k_rr_l1[primary_index], k_rr_l2[i]);
+		}
+	}
+	//else TODO: implement the condition when there is two or more NICs for output/
+
+	*kernel_roots = roots;
+	return primary_index;
 }

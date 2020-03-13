@@ -31,6 +31,7 @@ static GNode *route_roots[MAX_ROOTS_NUMBER];	// TODO: avoid fix numbers.
 static int root = 0;
 static GNode *kernel_route_roots[MAX_ROOTS_NUMBER];
 static int kernel_roots = 0;
+static int kernel_primary_root = 0;
 // Name of physical interfaces
 static char phy_if[MAX_PHYS_IFS][16];	// TODO: avoid fix numbers.
 static size_t phy_index;
@@ -44,19 +45,27 @@ static size_t tun_index;
 
 void find_primary_if_index()
 {
-	int nl_sock = open_netlink();
-
-	if (do_route_dump_requst(nl_sock) < 0)
+	char *primary_if_name = (ROUTENODE(kernel_route_roots[kernel_primary_root]->data))->if_name;
+	for (int i = 0; i < phy_index; i++)
 	{
-		perror("Failed to perfom request");
-		close(nl_sock);
+		if (!strncmp(primary_if_name, phy_if[i], 16))
+		{
+			primary_if_index = i;
+		}
 	}
+	//int nl_sock = open_netlink();
 
-	//get_route_dump_response(nl_sock);
+	//if (do_route_dump_requst(nl_sock) < 0)
+	//{
+	//	perror("Failed to perfom request");
+	//	close(nl_sock);
+	//}
 
-	primary_if_index = get_route_dump_check_primary(nl_sock, phy_if, phy_index);
+	////get_route_dump_response(nl_sock);
 
-	close (nl_sock);
+	//primary_if_index = get_route_dump_check_primary(nl_sock, phy_if, phy_index);
+
+	//close (nl_sock);
 }
 
 int get_wifi_info(const char* ifname, char* protocol, char *essid_name)
@@ -305,7 +314,6 @@ void get_routes()
 
 int main (int argc, char **argv)
 {
-	kernel_roots = analyze_kernel_route(kernel_route_roots);
 	struct arguments arguments;
 
 	/* Default values. */
@@ -316,6 +324,7 @@ int main (int argc, char **argv)
 	   be reflected in arguments. */
 	argp_parse (&argp, argc, argv, 0, 0, &arguments);
 
+	kernel_primary_root = analyze_kernel_route(kernel_route_roots, &kernel_roots);
 	// Get objects from list.
 	get_routes();
 

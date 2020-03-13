@@ -18,6 +18,18 @@
 #define MAX_ROOTS_NUMBER	10 
 #endif
 
-int analyze_kernel_route(GNode *[MAX_ROOTS_NUMBER]);
+#define ROUTENODE(o) (RouteNode*)(o)
+
+typedef struct route_node
+{
+	char if_name[IFNAMSIZ];
+	char dst_ipv4[16];
+	char gateway_ipv4[16];
+	int priority;
+}RouteNode;
+
+RouteNode* route_node_new();
+void route_node_free(RouteNode *nd);
+int analyze_kernel_route(GNode *[MAX_ROOTS_NUMBER], int *kernel_roots);
 
 #endif

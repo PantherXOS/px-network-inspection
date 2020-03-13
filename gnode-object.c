@@ -3,7 +3,7 @@
 NetDevice* net_device_new()
 {
 	NetDevice *nd;
-	nd = g_new (NetDevice, 1);
+	nd = g_new(NetDevice, 1);
 	return nd;
 }
 
