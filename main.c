@@ -18,7 +18,6 @@
 #include <linux/wireless.h>
 
 #include <arg-info.h>
-#include <routing-info.h>
 #include <ethtool-info.h>
 #include <gnode-object.h>
 #include <route-tree.h>

@@ -14,9 +14,10 @@
 #include <glib.h>
 #include <stdint.h>
 
-#ifndef MAX_ROOTS_NUMBER
-#define MAX_ROOTS_NUMBER	10 
-#endif
+#define MAX_ROOTS_NUMBER 10
+#define MAX_PHYS_IFS MAX_ROOTS_NUMBER
+#define MAX_TAP_IFS 10
+#define MAX_TUN_IFS 10
 
 #define ROUTENODE(o) (RouteNode*)(o)
 
