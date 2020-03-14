@@ -32,5 +32,6 @@ typedef struct route_node
 RouteNode* route_node_new();
 void route_node_free(RouteNode *nd);
 int analyze_kernel_route(GNode *[MAX_ROOTS_NUMBER], int *kernel_roots);
+GNode* get_kernel_route_node(GNode *kernel_route_roots[MAX_ROOTS_NUMBER], int roots, char *ifa_name);
 
 #endif

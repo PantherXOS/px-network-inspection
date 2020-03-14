@@ -239,3 +239,35 @@ int analyze_kernel_route(GNode *kernel_route_roots[MAX_ROOTS_NUMBER], int *kerne
 	*kernel_roots = roots;
 	return primary_index;
 }
+
+typedef struct node_sreach
+{
+	char *ifa_name;
+	GNode *krt_node;
+} NodeSearch;
+
+gboolean find_node_traverse(GNode *node, gpointer data)
+{
+	RouteNode *rn = ROUTENODE(node->data);
+	NodeSearch *ns = (NodeSearch*)data;
+	if (!strncmp(rn->if_name, ns->ifa_name, sizeof(ns->ifa_name)))
+	{
+		ns->krt_node = node;
+		return TRUE;
+	}
+	return FALSE;
+}
+
+GNode* get_kernel_route_node(GNode *kernel_route_roots[MAX_ROOTS_NUMBER], int roots, char *ifa_name)
+{
+	NodeSearch ns_param;
+	ns_param.ifa_name = ifa_name;
+	ns_param.krt_node = NULL;
+
+	for (int i = 0; i < roots; i++)
+	{
+		g_node_traverse(kernel_route_roots[i], G_LEVEL_ORDER, G_TRAVERSE_ALL, -1, find_node_traverse, &ns_param);
+		if (ns_param.krt_node)	break;
+	}
+	return ns_param.krt_node;
+}

@@ -145,6 +145,8 @@ void get_if_info(struct ifaddrs *ifa, int family, enum IF_TRAVERSE_MODE tr_mode)
 
 			if (tr_mode == TUN && !(!strncmp(drvinfo.driver, "tun", sizeof("tun")) && !strncmp(drvinfo.bus_info, "tun", sizeof("tun")))) return;
 
+			GNode *krt_node = get_kernel_route_node(kernel_route_roots, kernel_roots, ifa->ifa_name);
+
 			NetDevice *new_device = net_device_new();
 			new_device->is_set = TRUE;
 			new_device->phy_index = phy_index;
@@ -194,18 +196,37 @@ void get_if_info(struct ifaddrs *ifa, int family, enum IF_TRAVERSE_MODE tr_mode)
 			strcpy(new_device->dev_active, rtnl_link_get_carrier(link) ? "ACTIVE" : "NOACTIVE");
 
 			// TODO: calc the heigh and therefore the pos.
-			new_device->dev_pos = 1;
+			new_device->dev_pos = krt_node ? g_node_depth(krt_node) : 1;
 
 			if (tr_mode == PHY)
 			{
+				if (krt_node)
+				{
+					RouteNode *rn = ROUTENODE(krt_node->data);
+					strncpy(new_device->dev_gateway, rn->gateway_ipv4, sizeof(rn->gateway_ipv4));
+				}
+				else
+				{
+					strncpy(new_device->dev_gateway, "", sizeof(""));
+				}
+
 				GNode *new_node = g_node_new(new_device);
 				route_roots[root++] = new_node;
 			}
 			else if (tr_mode == TUN)
 			{
-				// TODO: Fill an enqueue according to route table. For now, we assume that all connections go though primary.
-				// For now, we do not have VPN or VPN.
-				// Detect parent and put it in parent variable.
+				if (krt_node)
+				{
+					RouteNode *rn = ROUTENODE(g_node_get_root(krt_node)->data);	// TODO: find the parent.
+					/* The gateway of the VPN interface is the destination of the parent node in the route table */
+					strncpy(new_device->dev_gateway, rn->dst_ipv4, sizeof(rn->dst_ipv4));
+				}
+				else
+				{
+					strncpy(new_device->dev_gateway, "", sizeof(""));
+				}
+
+				// TODO: more levels. Have to travers from root to the current node. Previous nodes has t be created.
 				GNode *parent = route_roots[primary_if_index];	// default parent is the primary
 				new_device->phy_index = primary_if_index;
 
