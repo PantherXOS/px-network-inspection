@@ -32,14 +32,14 @@ static GNode *kernel_route_roots[MAX_ROOTS_NUMBER];
 static int kernel_roots = 0;
 static int kernel_primary_root = 0;
 // Name of physical interfaces
-static char phy_if[16][MAX_PHYS_IFS];	// TODO: avoid fix numbers.
+static char phy_if[MAX_PHYS_IFS][16];	// TODO: avoid fix numbers.
 static size_t phy_index;
 static size_t primary_if_index;
 
-static char tap_if[16][MAX_TAP_IFS]; 	//TODO: avoid fix numbers.
+static char tap_if[MAX_TAP_IFS][16]; 	//TODO: avoid fix numbers.
 static size_t tap_index;
 
-static char tun_if[16][MAX_TUN_IFS]; 	//TODO: avoid fix numbers.
+static char tun_if[MAX_TUN_IFS][16]; 	//TODO: avoid fix numbers.
 static size_t tun_index;
 
 void find_primary_if_index()
@@ -102,6 +102,14 @@ enum IF_TRAVERSE_MODE
 	TAP,
 	TUN,
 	PUB
+};
+
+enum IF_MODE
+{
+	PHY_MODE,
+	TAP_MODE,
+	TUN_MODE,
+	IF_NONE
 };
 
 void get_if_info(struct ifaddrs *ifa, int family, enum IF_TRAVERSE_MODE tr_mode)
@@ -288,43 +296,75 @@ void traverse_ifs(struct ifaddrs *ifaddr, enum IF_TRAVERSE_MODE tr_mode)
 }
 
 void public_ip_retrieve()
-{
-	char if_public_ips[40][MAX_PHYS_IFS];
+{	
+	enum IF_MODE if_mode = IF_NONE;
+	char if_public_ips[MAX_PHYS_IFS][40];
 	if (tun_index == 0)
 	{
+		if_mode = PHY_MODE;
 		get_public_ip(phy_if, phy_index, if_public_ips);
 	}
 	else	// TODO: handle presence of tap interfaces
 	{
+		if_mode = TUN_MODE;
 		get_public_ip(tun_if, tun_index, if_public_ips);
 	}
+	//else
+	//{
+	//	printf("Invalid Interface for Public IP retrieval");
+	//	exit(0);
+	//}
 
 	// TODO: fill according to the VPN status
-	for (int i = 0; i < roots; i++)
+	int loop_limit = if_mode == TUN_MODE ? tun_index : roots;
+	typeof(&phy_if) ifs;
+	//char *ifs[MAX_PHYS_IFS][16];
+	//ifs = if_mode == TUN_MODE ? &tun_if : &phy_if;
+	ifs = if_mode == TUN_MODE ? &tun_if : &phy_if;
+	for (int i = 0; i < loop_limit; i++)
 	{
-		NetDevice *nd = NETDEVICE(route_roots[i]->data);
-		nd->public_device = NULL;
-		if (!strncmp(if_public_ips[i],"", sizeof(""))) continue;
+		char *root_if_name;
+		// Finding the root [hysical NIC that routes the request
+		if (if_mode == TUN_MODE)
+		{
+			printf("search for tun if\n");
+			GNode *krt_node = get_kernel_route_node(kernel_route_roots, kernel_roots, (*ifs)[i]);
+			GNode *krt_node_root = g_node_get_root(krt_node);
+			//strncpy(root_if_name, (ROUTENODE(krt_node_root->data)->if_name), 16);
+			root_if_name = (ROUTENODE(krt_node_root->data))->if_name;
+		}
+		else
+			root_if_name = phy_if[i];
 
-		NetDevice *pnd = net_device_new();
-		nd->public_device = pnd;
-		pnd->is_set = TRUE;
-		pnd->dev_pos = 0;
-		bzero(pnd->dev_type, sizeof(pnd->dev_type));
-		strncpy(pnd->dev_type, "display", sizeof("display"));
-		bzero(pnd->dev_name, sizeof(pnd->dev_name));
-		strncpy(pnd->dev_name, "PUBLIC", sizeof("PUBLIC"));
-		bzero(pnd->dev_method, sizeof(pnd->dev_method));
-		strncpy(pnd->dev_method, "NONE", sizeof("NONE"));
-		bzero(pnd->dev_ip4, sizeof(pnd->dev_ip4));
-		strncpy(pnd->dev_ip4, if_public_ips[i], sizeof(if_public_ips[i]));
-		bzero(pnd->dev_ip6, sizeof(pnd->dev_ip6));	// TODO: check if it is an IPv6
-		bzero(pnd->dev_gateway, sizeof(pnd->dev_gateway));	// TODO: check if it is an IPv6
-		bzero(pnd->dev_dns, sizeof(pnd->dev_dns));	// TODO: check if it is an IPv6
-		bzero(pnd->dev_active, sizeof(pnd->dev_active));
-		strncpy(pnd->dev_active, "ACTIVE", sizeof("ACTIVE"));
-		pnd->phy_index = nd->phy_index;
-		pnd->public_device = NULL;
+		printf("search for phy if %s \n", root_if_name);
+		for (int j = 0; j < roots; j++)
+		{
+			NetDevice *nd = NETDEVICE(route_roots[j]->data);
+			nd->public_device = NULL;
+			if (!strncmp(if_public_ips[i],"", sizeof(""))) break;
+			printf("search for phy if %s %s\n", root_if_name, nd->dev_name);
+			if (strncmp(root_if_name, nd->dev_name, sizeof(nd->dev_name)))	continue;
+
+			NetDevice *pnd = net_device_new();
+			nd->public_device = pnd;
+			pnd->is_set = TRUE;
+			pnd->dev_pos = 0;
+			bzero(pnd->dev_type, sizeof(pnd->dev_type));
+			strncpy(pnd->dev_type, "display", sizeof("display"));
+			bzero(pnd->dev_name, sizeof(pnd->dev_name));
+			strncpy(pnd->dev_name, "PUBLIC", sizeof("PUBLIC"));
+			bzero(pnd->dev_method, sizeof(pnd->dev_method));
+			strncpy(pnd->dev_method, "NONE", sizeof("NONE"));
+			bzero(pnd->dev_ip4, sizeof(pnd->dev_ip4));
+			strncpy(pnd->dev_ip4, if_public_ips[i], sizeof(if_public_ips[i]));
+			bzero(pnd->dev_ip6, sizeof(pnd->dev_ip6));	// TODO: check if it is an IPv6
+			bzero(pnd->dev_gateway, sizeof(pnd->dev_gateway));	// TODO: check if it is an IPv6
+			bzero(pnd->dev_dns, sizeof(pnd->dev_dns));	// TODO: check if it is an IPv6
+			bzero(pnd->dev_active, sizeof(pnd->dev_active));
+			strncpy(pnd->dev_active, "ACTIVE", sizeof("ACTIVE"));
+			pnd->phy_index = nd->phy_index;
+			pnd->public_device = NULL;
+		}
 	}
 }
 

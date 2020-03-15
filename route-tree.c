@@ -240,7 +240,7 @@ int analyze_kernel_route(GNode *kernel_route_roots[MAX_ROOTS_NUMBER], int *kerne
 	return primary_index;
 }
 
-typedef struct node_sreach
+typedef struct node_search
 {
 	char *ifa_name;
 	GNode *krt_node;

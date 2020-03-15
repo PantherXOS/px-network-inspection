@@ -65,7 +65,7 @@ struct url_data* handle_url(char* url, char *if_name)
 	return data;
 }
 
-void get_public_ip(char if_names[16][MAX_PHYS_IFS], int if_number, char if_public_ips[40][MAX_PHYS_IFS])
+void get_public_ip(char if_names[MAX_PHYS_IFS][16], int if_number, char if_public_ips[MAX_PHYS_IFS][40])
 {
 	for (int i = 0; i < if_number; i++)
 	{
