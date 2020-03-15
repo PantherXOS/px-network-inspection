@@ -27,7 +27,7 @@ set(LOCAL_INCLUDE "./include")
 include_directories(${JSON-C_INCLUDE_DIR} ${LIBNL_INCLUDE_DIR} ${GLIB_INCLUDE_DIRS} ${LOCAL_INCLUDE}
 	${CURL_INCLUDE_DIRS})
 
-set(SRC "main.c" "ethtool-info.c" "gnode-object.c" "route-tree.c")
+set(SRC "main.c" "ethtool-info.c" "gnode-object.c" "route-tree.c" "public-ip.c")
 
 #add_executable(px-network-inspection main.c routing-info.c)
 add_executable(px-network-inspection ${SRC})
