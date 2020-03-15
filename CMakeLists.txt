@@ -7,6 +7,9 @@ project(px-network-inspection)
 find_package(PkgConfig)
 #pkg_check_modules(PC_JSON-C json-c)
 pkg_search_module(GLIB REQUIRED glib-2.0)
+find_package (CURL REQUIRED)
+
+message(${CURL_INCLUDE_DIRS})
 
 find_path(JSON-C_INCLUDE_DIR json.h PATH_SUFFIXES json-c json)
 
@@ -21,13 +24,14 @@ find_library(LIBNL_CLI_LIBRARY NAMES nl-cli nl-cli-3)
 
 set(LOCAL_INCLUDE "./include")
 
-include_directories(${JSON-C_INCLUDE_DIR} ${LIBNL_INCLUDE_DIR} ${GLIB_INCLUDE_DIRS} ${LOCAL_INCLUDE})
+include_directories(${JSON-C_INCLUDE_DIR} ${LIBNL_INCLUDE_DIR} ${GLIB_INCLUDE_DIRS} ${LOCAL_INCLUDE}
+	${CURL_INCLUDE_DIRS})
 
 set(SRC "main.c" "ethtool-info.c" "gnode-object.c" "route-tree.c")
 
 #add_executable(px-network-inspection main.c routing-info.c)
 add_executable(px-network-inspection ${SRC})
 target_link_libraries(px-network-inspection ${JSON-C_LIBRARY} ${LIBNL_LIBRARY} ${LIBNL_ROUTE_LIBRARY}
-	${LIBNL_NETFILTER_LIBRARY} ${LIBNL_GENL_LIBRARY} ${GLIB_LDFLAGS} ${LIBNL_CLI_LIBRARY})
+	${LIBNL_NETFILTER_LIBRARY} ${LIBNL_GENL_LIBRARY} ${GLIB_LDFLAGS} ${LIBNL_CLI_LIBRARY} ${CURL_LIBRARIES})
 
 install(TARGETS px-network-inspection DESTINATION bin COMPONENT binaries)
