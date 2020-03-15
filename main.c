@@ -27,19 +27,19 @@
 // TODO: use all elemnts.
 /* Root of each route */
 static GNode *route_roots[MAX_ROOTS_NUMBER];	// TODO: avoid fix numbers.
-static int root = 0;
+static int roots = 0;
 static GNode *kernel_route_roots[MAX_ROOTS_NUMBER];
 static int kernel_roots = 0;
 static int kernel_primary_root = 0;
 // Name of physical interfaces
-static char phy_if[MAX_PHYS_IFS][16];	// TODO: avoid fix numbers.
+static char phy_if[16][MAX_PHYS_IFS];	// TODO: avoid fix numbers.
 static size_t phy_index;
 static size_t primary_if_index;
 
-static char tap_if[MAX_TAP_IFS][16]; 	//TODO: avoid fix numbers.
+static char tap_if[16][MAX_TAP_IFS]; 	//TODO: avoid fix numbers.
 static size_t tap_index;
 
-static char tun_if[MAX_TUN_IFS][16]; 	//TODO: avoid fix numbers.
+static char tun_if[16][MAX_TUN_IFS]; 	//TODO: avoid fix numbers.
 static size_t tun_index;
 
 void find_primary_if_index()
@@ -211,7 +211,7 @@ void get_if_info(struct ifaddrs *ifa, int family, enum IF_TRAVERSE_MODE tr_mode)
 				}
 
 				GNode *new_node = g_node_new(new_device);
-				route_roots[root++] = new_node;
+				route_roots[roots++] = new_node;
 			}
 			else if (tr_mode == TUN)
 			{
@@ -287,6 +287,47 @@ void traverse_ifs(struct ifaddrs *ifaddr, enum IF_TRAVERSE_MODE tr_mode)
 	}
 }
 
+void public_ip_retrieve()
+{
+	char if_public_ips[40][MAX_PHYS_IFS];
+	if (tun_index == 0)
+	{
+		get_public_ip(phy_if, phy_index, if_public_ips);
+	}
+	else	// TODO: handle presence of tap interfaces
+	{
+		get_public_ip(tun_if, tun_index, if_public_ips);
+	}
+
+	// TODO: fill according to the VPN status
+	for (int i = 0; i < roots; i++)
+	{
+		NetDevice *nd = NETDEVICE(route_roots[i]->data);
+		nd->public_device = NULL;
+		if (!strncmp(if_public_ips[i],"", sizeof(""))) continue;
+
+		NetDevice *pnd = net_device_new();
+		nd->public_device = pnd;
+		pnd->is_set = TRUE;
+		pnd->dev_pos = 0;
+		bzero(pnd->dev_type, sizeof(pnd->dev_type));
+		strncpy(pnd->dev_type, "display", sizeof("display"));
+		bzero(pnd->dev_name, sizeof(pnd->dev_name));
+		strncpy(pnd->dev_name, "PUBLIC", sizeof("PUBLIC"));
+		bzero(pnd->dev_method, sizeof(pnd->dev_method));
+		strncpy(pnd->dev_method, "NONE", sizeof("NONE"));
+		bzero(pnd->dev_ip4, sizeof(pnd->dev_ip4));
+		strncpy(pnd->dev_ip4, if_public_ips[i], sizeof(if_public_ips[i]));
+		bzero(pnd->dev_ip6, sizeof(pnd->dev_ip6));	// TODO: check if it is an IPv6
+		bzero(pnd->dev_gateway, sizeof(pnd->dev_gateway));	// TODO: check if it is an IPv6
+		bzero(pnd->dev_dns, sizeof(pnd->dev_dns));	// TODO: check if it is an IPv6
+		bzero(pnd->dev_active, sizeof(pnd->dev_active));
+		strncpy(pnd->dev_active, "ACTIVE", sizeof("ACTIVE"));
+		pnd->phy_index = nd->phy_index;
+		pnd->public_device = NULL;
+	}
+}
+
 /* TODO: Add other devices too. */
 void get_routes()
 {
@@ -310,23 +351,15 @@ void get_routes()
 	// PHASE2: Walk though non-physical NICs and TUNs.
 	traverse_ifs(ifaddr, TUN);
 
+	// TODO: Merge it to the others if it is possible.
+	// PHASE3: Walk to find the public IPs.
+	public_ip_retrieve();
+
 	freeifaddrs(ifaddr);
 }
 
 int main (int argc, char **argv)
 {
-    char* data;
-
-    data = handle_url("https://my-ip.pantherx.org/ip");
-
-    if(data) {
-        printf("%s", data);
-        free(data);
-    }
-
-    //return 0;
-
-
 	struct arguments arguments;
 
 	/* Default values. */
@@ -353,17 +386,22 @@ int main (int argc, char **argv)
 	while (node)
 	{
 		json_object *jarray = json_object_new_array();
-		NetDevice *dev = NETDEVICE(node->data);
-		json_object_array_add(jarray, dev->jobj);
 		// TODO: handle other routes
-		if (root == primary_if_index)
-		{
+
+		//if (root != primary_if_index)
+		//{
+		//	NetDevice *dev = NETDEVICE(node->data);
+		//	json_object_array_add(jarray, dev->jobj);
+		//}
+		////if (root == primary_if_index)
+		//else
+		//{
 			g_node_traverse(node, G_LEVEL_ORDER, G_TRAVERSE_ALL, -1, traverse_json_array_func, jarray);	// TODO: user data.
-		}
+		//}
 		char root_str[20];
-		sprintf(root_str, "%s", dev->phy_index == primary_if_index ? "primary" : "others");
+		//sprintf(root_str, "%s", dev->phy_index == primary_if_index ? "primary" : "others");
+		sprintf(root_str, "%s", root == primary_if_index ? "primary" : "others");
 		json_object_object_add(jobj, root_str, jarray);
-		//elem = roots[++root];
 		node = route_roots[++root];
 	}
 

@@ -30,35 +30,55 @@ static size_t write_data(void *ptr, size_t size, size_t nmemb, struct url_data *
 	return size * nmemb;
 }
 
-char *handle_url(char* url)
+struct url_data* handle_url(char* url, char *if_name)
 {
 	CURL *curl;
 
-	struct url_data data;
-	data.size = 0;
-	data.data = malloc(4096); /* reasonable size initial buffer */
-	if(NULL == data.data) {
+	struct url_data *data = (struct url_data*)malloc(sizeof(struct url_data));
+	data->size = 0;
+	data->data = malloc(4096); /* reasonable size initial buffer */
+	if(NULL == data->data) {
 		fprintf(stderr, "Failed to allocate memory.\n");
 		return NULL;
 	}
 
-	data.data[0] = '\0';
+	data->data[0] = '\0';
 
 	CURLcode res;
 
 	curl = curl_easy_init();
 	if (curl) {
 		curl_easy_setopt(curl, CURLOPT_URL, url);
+		curl_easy_setopt(curl, CURLOPT_INTERFACE, if_name);
+		curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 2);
+		curl_easy_setopt(curl, CURLOPT_TIMEOUT, 3);
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
-		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &data);
+		curl_easy_setopt(curl, CURLOPT_WRITEDATA, data);
 		res = curl_easy_perform(curl);
-		if(res != CURLE_OK) {
-			fprintf(stderr, "curl_easy_perform() failed: %s\n",  
-					curl_easy_strerror(res));
-		}
+		//if(res != CURLE_OK) {
+		//	fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
+		//}
 
 		curl_easy_cleanup(curl);
 
 	}
-	return data.data;
+	return data;
+}
+
+void get_public_ip(char if_names[16][MAX_PHYS_IFS], int if_number, char if_public_ips[40][MAX_PHYS_IFS])
+{
+	for (int i = 0; i < if_number; i++)
+	{
+		struct url_data *data = handle_url("https://my-ip.pantherx.org/ip", if_names[i]);
+
+		bzero(if_public_ips[i], sizeof(if_public_ips[i]));
+		if(data->size)
+		{
+			strncpy(if_public_ips[i], data->data, data->size - 1);
+		}
+		else
+		{
+			strncpy(if_public_ips[i], "", sizeof(""));
+		}
+	}
 }

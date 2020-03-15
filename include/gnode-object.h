@@ -8,11 +8,13 @@
 
 #define NETDEVICE(o) (NetDevice*)(o)
 
+struct net_device;
+
 typedef struct net_device
 {
 	gboolean is_set;
 	uint32_t dev_pos;
-	char dev_name[10];
+	char dev_name[16];
 	char dev_type[20];
 	char dev_method[30];
 	char dev_ip4[16];
@@ -22,6 +24,7 @@ typedef struct net_device
 	char dev_active[10];
 	char dev_wifi_ap[IW_ESSID_MAX_SIZE + 1];
 	size_t phy_index;
+	struct net_device *public_device;
 	json_object *jobj;
 } NetDevice;
 
