@@ -18,8 +18,39 @@
 #define MAX_PHYS_IFS MAX_ROOTS_NUMBER
 #define MAX_TAP_IFS 10
 #define MAX_TUN_IFS 10
+#define MAX_VPN_NAME 50
 
 #define ROUTENODE(o) (RouteNode*)(o)
+#define VPNMETHOD(o) (VpnMethod*)(o)
+
+enum VPN_METHODS
+{
+	OPENVPN,
+	WIREGUARD,
+	ANYCONNECT,
+	VPN_METHODS_NUMBERS,
+	NO_VPN_METHOD,
+	VPN_METHOD_UNKNOWN
+};
+
+static char vpn_methods_string[VPN_METHOD_UNKNOWN + 1][MAX_VPN_NAME] = {
+	"OPENVPN",
+	"WIREGUARD",
+	"ANYCONNECT",
+	"VPN_METHODS_NUMBERS",
+	"NO_VPN_METHOD",
+	"VPN_METHOD_UNKNOWN"
+};
+
+typedef struct vpnmethod
+{
+	enum VPN_METHODS vpn_method;
+	char vpn_name[MAX_VPN_NAME];
+} VpnMethod;
+
+VpnMethod  *vpn_method_new();
+void vpn_method_free();
+VpnMethod *detect_vpn_method();
 
 typedef struct route_node
 {

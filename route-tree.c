@@ -1,6 +1,17 @@
 #include <route-tree.h>
 #include <limits.h>
 
+VpnMethod* vpn_method_new()
+{
+	VpnMethod *vm = g_new(VpnMethod, 1);
+	vm->vpn_method = VPN_METHOD_UNKNOWN;
+	bzero(vm->vpn_name, MAX_VPN_NAME);
+	return vm;
+}
+
+void vpn_method_free()
+{}
+
 RouteNode* route_node_new()
 {
 	RouteNode *rn;
@@ -53,6 +64,50 @@ static void print_usage(void)
 	exit(0);
 }
 
+void first_entry_cb(struct nl_object * obj, void * data)
+{
+	enum VPN_METHODS *vpn_method = (enum VPN_METHODS*)data;
+	if ((*vpn_method) != VPN_METHOD_UNKNOWN) return;
+	struct rtnl_route *r = (struct rtnl_route *) obj;
+	char buf[64];
+	bzero(buf, 64);
+	size_t dst_len =  nl_addr_get_len(rtnl_route_get_dst(r));
+	if (dst_len == 0)
+	{
+		if (rtnl_route_get_scope(r) == 253)	// link scope = 253
+		{
+			(*vpn_method) = ANYCONNECT;
+		}
+		else
+		{
+			(*vpn_method) = NO_VPN_METHOD;
+		}
+	}
+	else
+	{
+		nl_addr2str(rtnl_route_get_dst(r), buf, sizeof(buf));
+		if (!strncmp(buf, "0.0.0.0/1", sizeof("0.0.0.0/1")))
+		{
+			if (rtnl_route_get_scope(r) == 0)	// global scope = 0
+			{
+				(*vpn_method) = OPENVPN;
+			}
+			else if (rtnl_route_get_scope(r) == 253)	// link scope = 253
+			{
+				(*vpn_method) = WIREGUARD;
+			}
+			else
+			{
+				(*vpn_method) = NO_VPN_METHOD;
+			}
+		}
+		else
+		{
+				(*vpn_method) = NO_VPN_METHOD;
+		}
+	}
+}
+
 void next_hop_entry_cb(struct rtnl_nexthop *nh, void *data)
 {
 	NodeParams *nparam = (NodeParams *) data;
@@ -92,7 +147,13 @@ void route_entry_cb(struct nl_object * obj, void * data)
 	nparam->node[*(nparam->roots) - 1] = new_node;
 }
 
-void get_route_trees(GNode *node[MAX_ROOTS_NUMBER], int *roots, int argc, char *argv[])
+enum ROUTE_QUERY
+{
+	ROUTE_QUERY_GET_TREE,
+	ROUTE_QUERY_GET_FIRST
+};
+
+void get_route_trees(enum ROUTE_QUERY query_id, GNode *node[MAX_ROOTS_NUMBER], int *roots, int argc, char *argv[])
 {
 	// To set argument parsing to 1
 	optind = 1;
@@ -169,13 +230,32 @@ void get_route_trees(GNode *node[MAX_ROOTS_NUMBER], int *roots, int argc, char *
 	route_cache = nl_cli_route_alloc_cache(sock,
 			print_cache ? ROUTE_CACHE_CONTENT : 0);
 
-	if (node != NULL)
+	if (query_id == ROUTE_QUERY_GET_TREE)
 	{
-		NodeParams nparam;
-		nparam.node = node;
-		nparam.roots = roots;
+		if (node != NULL)
+		{
+			NodeParams nparam;
+			nparam.node = node;
+			nparam.roots = roots;
 
-		nl_cache_foreach_filter(route_cache, OBJ_CAST(route), &route_entry_cb , &nparam);
+			nl_cache_foreach_filter(route_cache, OBJ_CAST(route), &route_entry_cb , &nparam);
+		}
+	}
+	else if (query_id == ROUTE_QUERY_GET_FIRST)
+	{
+		if (node != NULL)
+		{
+			enum VPN_METHODS vpn_method = VPN_METHOD_UNKNOWN;
+			nl_cache_foreach_filter(route_cache, OBJ_CAST(route), &first_entry_cb, &vpn_method);
+			VpnMethod *vm = (VPNMETHOD(node[0]->data));
+			vm->vpn_method = vpn_method;
+			strncpy(vm->vpn_name, vpn_methods_string[vpn_method], sizeof(vpn_methods_string[vpn_method]));
+		}
+	}
+	else
+	{
+		printf("Wrong route query\n");
+		exit(1);
 	}
 
 	//nl_cache_dump_filter(route_cache, &params, OBJ_CAST(route));
@@ -196,12 +276,12 @@ int analyze_kernel_route(GNode *kernel_route_roots[MAX_ROOTS_NUMBER], int *kerne
 
 	GNode *k_rr_l1[MAX_ROOTS_NUMBER];
 	char *c[40] = {"", "-f", "details", "--family", "inet", "--scope", "global"};
-	get_route_trees(k_rr_l1, &roots, 7, c);
+	get_route_trees(ROUTE_QUERY_GET_TREE, k_rr_l1, &roots, 7, c);
 
 	GNode *k_rr_l2[MAX_ROOTS_NUMBER];
 	int non_roots = 0;
 	char *a[40] = {"", "-f", "details", "--family", "inet", "--scope", "link", "--table", "main", "-d", "default"};
-	get_route_trees(k_rr_l2, &non_roots, 11, a);
+	get_route_trees(ROUTE_QUERY_GET_TREE, k_rr_l2, &non_roots, 11, a);
 
 	RouteNode *rn;
 	int min_priority = INT_MAX;
@@ -270,4 +350,19 @@ GNode* get_kernel_route_node(GNode *kernel_route_roots[MAX_ROOTS_NUMBER], int ro
 		if (ns_param.krt_node)	break;
 	}
 	return ns_param.krt_node;
+}
+
+VpnMethod *detect_vpn_method()
+{
+	int roots = 0;
+
+	VpnMethod *vm = vpn_method_new();
+	GNode *k_rr_e1[1];
+	k_rr_e1[0] = g_node_new(vm);
+	char *c[40] = {"", "-f", "details", "--family", "inet"};
+	get_route_trees(ROUTE_QUERY_GET_FIRST, k_rr_e1, &roots, 5, c);
+
+	//printf("%d\t%s\t%p\n", vm->vpn_method, vm->vpn_name, vm);
+
+	return vm;
 }

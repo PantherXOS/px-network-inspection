@@ -42,6 +42,8 @@ static size_t tap_index;
 static char tun_if[MAX_TUN_IFS][16]; 	//TODO: avoid fix numbers.
 static size_t tun_index;
 
+static VpnMethod *detected_vpn_method = NULL; 
+
 void find_primary_if_index()
 {
 	char *primary_if_name = (ROUTENODE(kernel_route_roots[kernel_primary_root]->data))->if_name;
@@ -175,7 +177,7 @@ void get_if_info(struct ifaddrs *ifa, int family, enum IF_TRAVERSE_MODE tr_mode)
 			{
 				memcpy(tun_if[tun_index++], ifa->ifa_name, sizeof(ifa->ifa_name));
 				memcpy(new_device->dev_type, "virtual", sizeof("virtual"));
-				strcpy(new_device->dev_method, "vpn");	// TODO: detects actual method: openvpn, cisco or wireguard ...
+				strcpy(new_device->dev_method, detected_vpn_method->vpn_name);	// TODO: detects actual method: openvpn, cisco or wireguard ...
 			}
 			else
 			{
@@ -400,6 +402,11 @@ void get_routes()
 
 int main (int argc, char **argv)
 {
+	detected_vpn_method = detect_vpn_method();
+
+	// Hard-coded filtering the supported VPNs.
+	if ((detected_vpn_method->vpn_method != ANYCONNECT) && (detected_vpn_method->vpn_method != NO_VPN_METHOD)) return 0;
+
 	struct arguments arguments;
 
 	/* Default values. */
@@ -457,6 +464,7 @@ int main (int argc, char **argv)
 		fprintf(output_file, "%s", json_object_to_json_string(jobj));
 		fclose(output_file);
 	}
+
 
 	exit (0);
 }
