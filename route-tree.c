@@ -270,7 +270,73 @@ void get_route_trees(enum ROUTE_QUERY query_id, GNode *node[MAX_ROOTS_NUMBER], i
 	nl_object_free((struct nl_object *)route);
 }
 
-int analyze_kernel_route(GNode *kernel_route_roots[MAX_ROOTS_NUMBER], int *kernel_roots)
+int analyze_openvpn_kernel_route(GNode *kernel_route_roots[MAX_ROOTS_NUMBER], int *kernel_roots)
+{
+	int roots = 0;
+
+	GNode *k_rr_l1[MAX_ROOTS_NUMBER];
+	char *c[40] = {"", "-f", "details", "--family", "inet", "--scope", "global"};
+	get_route_trees(ROUTE_QUERY_GET_TREE, k_rr_l1, &roots, 7, c);
+
+	//GNode *k_rr_l2[MAX_ROOTS_NUMBER];
+	//int non_roots = 0;
+	//char *a[40] = {"", "-f", "details", "--family", "inet", "--scope", "link", "--table", "main", "-d", "default"};
+	//get_route_trees(ROUTE_QUERY_GET_TREE, k_rr_l2, &non_roots, 11, a);
+
+	RouteNode *rn;
+	int min_priority = INT_MAX;
+	int primary_index = -1;
+	int j = 0;
+	for (int i = 0; i < roots; i++)	// First path
+	{
+		rn = ROUTENODE(k_rr_l1[i]->data);
+		if (strncmp(rn->dst_ipv4, "0.0.0.0/1", sizeof("0.0.0.0/1")) || strncmp(rn->dst_ipv4, "128.0.0.0/1", sizeof("128.0.0.0/1")))
+		{
+			if (min_priority == rn->priority)	// TODO: Help to detect if there is more than one output NIC. ip rule, ip route tables and ...
+			{
+				primary_index = -1;
+			}
+			if (min_priority > rn->priority)
+			{
+				primary_index = i;
+				min_priority = rn->priority;
+			}
+
+			kernel_route_roots[j++] = k_rr_l1[i];
+		}
+	}
+
+	if (primary_index >= 0)
+	{
+		for (int i = 0; i < roots; i++)
+		{
+			rn = ROUTENODE(k_rr_l1[i]->data);
+			if (!strncmp(rn->dst_ipv4, "0.0.0.0/1", sizeof("0.0.0.0/1")))
+			{
+				g_node_append(k_rr_l1[primary_index], k_rr_l1[i]);
+				// Add to parent
+			}
+		}
+	}
+
+	//printf("primary_index: %d\n", primary_index);
+
+	//if (primary_index >= 0)
+	//{
+	//	rn = ROUTENODE(k_rr_l1[primary_index]->data);
+	//	//printf("There are %d kernel roots: %s\t via %s to\t%s\t%d\n", roots, rn->if_name, rn->gateway_ipv4, rn->dst_ipv4, rn->priority);
+	//	for (int i = 0; i < non_roots; i++)	// Assume that VPNs goes through primary
+	//	{
+	//		g_node_append(k_rr_l1[primary_index], k_rr_l2[i]);
+	//	}
+	//}
+	//else TODO: implement the condition when there is two or more NICs for output/
+
+	*kernel_roots = j;
+	return primary_index;
+}
+
+int analyze_anyconnect_kernel_route(GNode *kernel_route_roots[MAX_ROOTS_NUMBER], int *kernel_roots)
 {
 	int roots = 0;
 
@@ -318,6 +384,27 @@ int analyze_kernel_route(GNode *kernel_route_roots[MAX_ROOTS_NUMBER], int *kerne
 
 	*kernel_roots = roots;
 	return primary_index;
+}
+
+int analyze_kernel_route(GNode *kernel_route_roots[MAX_ROOTS_NUMBER], int *kernel_roots, enum VPN_METHODS vpn_method)
+{
+	int result = -1;
+	switch (vpn_method)
+	{
+		case NO_VPN_METHOD:
+		case ANYCONNECT:
+			result = analyze_anyconnect_kernel_route(kernel_route_roots, kernel_roots);
+			break;
+		case OPENVPN:
+			result = analyze_openvpn_kernel_route(kernel_route_roots, kernel_roots);
+			break;
+		case WIREGUARD:
+		case VPN_METHODS_NUMBERS:
+		case VPN_METHOD_UNKNOWN:
+		default:
+			printf("VPN method is not supported: %s\n", vpn_methods_string[vpn_method]);
+			exit(1);
+	};
 }
 
 typedef struct node_search

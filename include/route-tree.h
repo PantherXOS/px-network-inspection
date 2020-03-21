@@ -33,7 +33,8 @@ enum VPN_METHODS
 	VPN_METHOD_UNKNOWN
 };
 
-static char vpn_methods_string[VPN_METHOD_UNKNOWN + 1][MAX_VPN_NAME] = {
+static char vpn_methods_string[VPN_METHOD_UNKNOWN + 1][MAX_VPN_NAME] =
+{
 	"OPENVPN",
 	"WIREGUARD",
 	"ANYCONNECT",
@@ -62,7 +63,7 @@ typedef struct route_node
 
 RouteNode* route_node_new();
 void route_node_free(RouteNode *nd);
-int analyze_kernel_route(GNode *[MAX_ROOTS_NUMBER], int *kernel_roots);
+int analyze_kernel_route(GNode *[MAX_ROOTS_NUMBER], int *kernel_roots, enum VPN_METHODS vpn_method);
 GNode* get_kernel_route_node(GNode *kernel_route_roots[MAX_ROOTS_NUMBER], int roots, char *ifa_name);
 
 #endif

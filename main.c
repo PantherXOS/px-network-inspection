@@ -405,7 +405,9 @@ int main (int argc, char **argv)
 	detected_vpn_method = detect_vpn_method();
 
 	// Hard-coded filtering the supported VPNs.
-	if ((detected_vpn_method->vpn_method != ANYCONNECT) && (detected_vpn_method->vpn_method != NO_VPN_METHOD)) return 0;
+	if ((detected_vpn_method->vpn_method != ANYCONNECT)
+			&& (detected_vpn_method->vpn_method != NO_VPN_METHOD)
+			&& (detected_vpn_method->vpn_method != OPENVPN)) return 0;
 
 	struct arguments arguments;
 
@@ -417,7 +419,8 @@ int main (int argc, char **argv)
 	   be reflected in arguments. */
 	argp_parse (&argp, argc, argv, 0, 0, &arguments);
 
-	kernel_primary_root = analyze_kernel_route(kernel_route_roots, &kernel_roots);
+	kernel_primary_root = analyze_kernel_route(kernel_route_roots, &kernel_roots, detected_vpn_method->vpn_method);
+	return 0;
 	// Get objects from list.
 	get_routes();
 
