@@ -420,9 +420,17 @@ int main (int argc, char **argv)
 	argp_parse (&argp, argc, argv, 0, 0, &arguments);
 
 	kernel_primary_root = analyze_kernel_route(kernel_route_roots, &kernel_roots, detected_vpn_method->vpn_method);
-	return 0;
+//	for (int j = 0; j < kernel_roots; j++)
+//	{
+//		RouteNode *rn = ROUTENODE(kernel_route_roots[j]->data);
+//		if (j == kernel_primary_root)
+//		{
+//			RouteNode *nhrn = ROUTENODE((g_node_first_child(kernel_route_roots[j]))->data);
+//		}
+//	}
 	// Get objects from list.
 	get_routes();
+	//return 0;
 
 	// Process list into a JSON array objects.
 	int root = 0;
@@ -437,17 +445,7 @@ int main (int argc, char **argv)
 	{
 		json_object *jarray = json_object_new_array();
 		// TODO: handle other routes
-
-		//if (root != primary_if_index)
-		//{
-		//	NetDevice *dev = NETDEVICE(node->data);
-		//	json_object_array_add(jarray, dev->jobj);
-		//}
-		////if (root == primary_if_index)
-		//else
-		//{
-			g_node_traverse(node, G_LEVEL_ORDER, G_TRAVERSE_ALL, -1, traverse_json_array_func, jarray);	// TODO: user data.
-		//}
+		g_node_traverse(node, G_LEVEL_ORDER, G_TRAVERSE_ALL, -1, traverse_json_array_func, jarray);	// TODO: user data.
 		char root_str[20];
 		//sprintf(root_str, "%s", dev->phy_index == primary_if_index ? "primary" : "others");
 		sprintf(root_str, "%s", root == primary_if_index ? "primary" : "others");

@@ -290,7 +290,7 @@ int analyze_openvpn_kernel_route(GNode *kernel_route_roots[MAX_ROOTS_NUMBER], in
 	for (int i = 0; i < roots; i++)	// First path
 	{
 		rn = ROUTENODE(k_rr_l1[i]->data);
-		if (strncmp(rn->dst_ipv4, "0.0.0.0/1", sizeof("0.0.0.0/1")) || strncmp(rn->dst_ipv4, "128.0.0.0/1", sizeof("128.0.0.0/1")))
+		if (strncmp(rn->dst_ipv4, "0.0.0.0/1", sizeof("0.0.0.0/1")) && strncmp(rn->dst_ipv4, "128.0.0.0/1", sizeof("128.0.0.0/1")))
 		{
 			if (min_priority == rn->priority)	// TODO: Help to detect if there is more than one output NIC. ip rule, ip route tables and ...
 			{
@@ -298,7 +298,7 @@ int analyze_openvpn_kernel_route(GNode *kernel_route_roots[MAX_ROOTS_NUMBER], in
 			}
 			if (min_priority > rn->priority)
 			{
-				primary_index = i;
+				primary_index = j;
 				min_priority = rn->priority;
 			}
 
@@ -313,8 +313,8 @@ int analyze_openvpn_kernel_route(GNode *kernel_route_roots[MAX_ROOTS_NUMBER], in
 			rn = ROUTENODE(k_rr_l1[i]->data);
 			if (!strncmp(rn->dst_ipv4, "0.0.0.0/1", sizeof("0.0.0.0/1")))
 			{
-				g_node_append(k_rr_l1[primary_index], k_rr_l1[i]);
 				// Add to parent
+				g_node_append(kernel_route_roots[primary_index], k_rr_l1[i]);
 			}
 		}
 	}
