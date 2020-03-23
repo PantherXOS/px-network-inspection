@@ -294,9 +294,13 @@ int analyze_openvpn_kernel_route(GNode *kernel_route_roots[MAX_ROOTS_NUMBER], in
 		{
 			if (min_priority == rn->priority)	// TODO: Help to detect if there is more than one output NIC. ip rule, ip route tables and ...
 			{
-				primary_index = -1;
+				if (strncmp(rn->dst_ipv4, "default", sizeof("default")))
+				{
+					primary_index = j;
+					min_priority = rn->priority;
+				}
 			}
-			if (min_priority > rn->priority)
+			else if (min_priority > rn->priority)
 			{
 				primary_index = j;
 				min_priority = rn->priority;
