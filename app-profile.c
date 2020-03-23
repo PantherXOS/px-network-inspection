@@ -3,6 +3,20 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <libgen.h>
+
+char *remove_ext(char* mystr)
+{
+    char *retstr;
+    char *lastext;
+    if (mystr == NULL) return NULL;
+    if ((retstr = malloc (strlen (mystr) + 1)) == NULL) return NULL;
+    strcpy (retstr, mystr);
+    lastext = strrchr (retstr, '.');
+    if (lastext != NULL)
+        *lastext = '\0';
+    return retstr;
+}
 
 int get_openvpn_profile_name(char profile_name[MAX_VPN_PROFILE_NAME])
 {
@@ -50,8 +64,10 @@ int get_openvpn_profile_name(char profile_name[MAX_VPN_PROFILE_NAME])
 							if (n > (ts + os + 2))
 							{
 								pn = &task_name[ts + os + 2];
-								size_t pns = strlen(pn);
-								strncpy(profile_name, pn, pns + 1);
+								char *pfn = basename(pn);
+								char* apfn = remove_ext(pfn);
+								size_t apfns = strlen(apfn);
+								strncpy(profile_name, apfn, apfns + 1);
 								closedir(dir);
 								free(task_name);
 								return 1;
@@ -68,7 +84,10 @@ int get_openvpn_profile_name(char profile_name[MAX_VPN_PROFILE_NAME])
 						{
 							if (n == (ts + os +2))
 							{
-								strncpy(profile_name, option, os + 1);
+								char *pfn = basename(option);
+								char* apfn = remove_ext(pfn);
+								size_t apfns = strlen(apfn);
+								strncpy(profile_name, apfn, apfns + 1);
 								closedir(dir);
 								free(task_name);
 								return 1;
@@ -107,7 +126,8 @@ int get_vpn_profile_name(enum VPN_METHODS vpn_method, char profile_name[MAX_VPN_
 	else if (vpn_method == ANYCONNECT)
 	{
 		bzero(profile_name, MAX_VPN_PROFILE_NAME);
-		return 0;	// No profile
+		strncpy(profile_name, "anyconnect", sizeof("anyconnect"));
+		return 1;	// No profile
 	}
 	else
 	{

@@ -20,6 +20,7 @@
 #include <ethtool-info.h>
 #include <gnode-object.h>
 #include <route-tree.h>
+#include <app-profile.h>
 
 #include <json-c/json.h>
 #include <public-ip.h>
@@ -43,6 +44,7 @@ static char tun_if[MAX_TUN_IFS][16]; 	//TODO: avoid fix numbers.
 static size_t tun_index;
 
 static VpnMethod *detected_vpn_method = NULL; 
+static char profile_name[MAX_VPN_PROFILE_NAME];
 
 void find_primary_if_index()
 {
@@ -408,6 +410,11 @@ int main (int argc, char **argv)
 	if ((detected_vpn_method->vpn_method != ANYCONNECT)
 			&& (detected_vpn_method->vpn_method != NO_VPN_METHOD)
 			&& (detected_vpn_method->vpn_method != OPENVPN)) return 0;
+
+	bzero(profile_name, MAX_VPN_PROFILE_NAME);
+	int profile_stat = get_vpn_profile_name(detected_vpn_method->vpn_method, profile_name);
+	printf("%d\t%s\n", profile_stat, profile_name);
+	return 0;
 
 	struct arguments arguments;
 
