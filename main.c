@@ -179,6 +179,7 @@ void get_if_info(struct ifaddrs *ifa, int family, enum IF_TRAVERSE_MODE tr_mode)
 			{
 				memcpy(tun_if[tun_index++], ifa->ifa_name, sizeof(ifa->ifa_name));
 				memcpy(new_device->dev_type, "virtual", sizeof("virtual"));
+				memcpy(new_device->dev_vpn_profile, profile_name, MAX_VPN_PROFILE_NAME);
 				strcpy(new_device->dev_method, detected_vpn_method->vpn_name);	// TODO: detects actual method: openvpn, cisco or wireguard ...
 			}
 			else
@@ -331,7 +332,6 @@ void public_ip_retrieve()
 		// Finding the root [hysical NIC that routes the request
 		if (if_mode == TUN_MODE)
 		{
-			printf("search for tun if\n");
 			GNode *krt_node = get_kernel_route_node(kernel_route_roots, kernel_roots, (*ifs)[i]);
 			GNode *krt_node_root = g_node_get_root(krt_node);
 			//strncpy(root_if_name, (ROUTENODE(krt_node_root->data)->if_name), 16);
@@ -340,13 +340,11 @@ void public_ip_retrieve()
 		else
 			root_if_name = phy_if[i];
 
-		printf("search for phy if %s \n", root_if_name);
 		for (int j = 0; j < roots; j++)
 		{
 			NetDevice *nd = NETDEVICE(route_roots[j]->data);
 			nd->public_device = NULL;
 			if (!strncmp(if_public_ips[i],"", sizeof(""))) break;
-			printf("search for phy if %s %s\n", root_if_name, nd->dev_name);
 			if (strncmp(root_if_name, nd->dev_name, sizeof(nd->dev_name)))	continue;
 
 			NetDevice *pnd = net_device_new();
@@ -413,8 +411,6 @@ int main (int argc, char **argv)
 
 	bzero(profile_name, MAX_VPN_PROFILE_NAME);
 	int profile_stat = get_vpn_profile_name(detected_vpn_method->vpn_method, profile_name);
-	printf("%d\t%s\n", profile_stat, profile_name);
-	return 0;
 
 	struct arguments arguments;
 
