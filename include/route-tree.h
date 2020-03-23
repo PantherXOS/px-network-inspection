@@ -19,6 +19,7 @@
 #define MAX_TAP_IFS 10
 #define MAX_TUN_IFS 10
 #define MAX_VPN_NAME 50
+#define MAX_VPN_PROFILE_NAME 256
 
 #define ROUTENODE(o) (RouteNode*)(o)
 #define VPNMETHOD(o) (VpnMethod*)(o)
