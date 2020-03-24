@@ -217,7 +217,7 @@ Functions</h2></td></tr>
 <p>Finds the primary interface. </p>
 <p>The function finds the primary physical interface through which, the main traffic of the machine goes.</p>
 <dl class="section see"><dt>See also</dt><dd><a href="https://wiki.pantherx.org">https://wiki.pantherx.org</a> </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>TODO Support tap-based interfaces.</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd>TODO Support tap-based interfaces.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The gstatic global variable kernel_route_roots must be set. </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>It sets the static global variable primary_if_index that indicates the index of primary physical interface. </dd></dl>
 
@@ -258,7 +258,7 @@ Functions</h2></td></tr>
 <p>The function get one interface information. </p>
 <p>The function uses many different API and libraries to gather interfaces information.</p>
 <dl class="section see"><dt>See also</dt><dd><a href="https://wiki.pantherx.org">https://wiki.pantherx.org</a> </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>TODO Support tap-based interfaces.</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>TODO Support tap-based interfaces.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The input must be provided. The kernel_route_roots must be set. The VPN type and profile must be detected. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -290,7 +290,7 @@ Functions</h2></td></tr>
 <p>The main function detects all routes to public network (Internet). </p>
 <p>The main function traverse the route and interfaces trees to establish all routes.</p>
 <dl class="section see"><dt>See also</dt><dd><a href="https://wiki.pantherx.org">https://wiki.pantherx.org</a> </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd>TODO Add complicated routes. TODO Support tap-based VPNs.</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Todo:</a></b></dt><dd>TODO Add complicated routes. TODO Support tap-based VPNs.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>It must be called after detect_vpn_method, get_vpn_profile_name, argp_parse, and analyze_kernel_route functions. </dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The detected routes have to be traversed to produce JSON output. </dd></dl>
 
@@ -395,7 +395,7 @@ Functions</h2></td></tr>
 <p>The function retrieve all public IPs. </p>
 <p>The main function gets publlic IPs based on the VPN model.</p>
 <dl class="section see"><dt>See also</dt><dd><a href="https://wiki.pantherx.org">https://wiki.pantherx.org</a> </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>TODO Support tap-based VPNs.</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>TODO Support tap-based VPNs.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>All routes must be extracted. </dd></dl>
 
 </div>
@@ -429,7 +429,7 @@ Functions</h2></td></tr>
 <p>The function traverses interfaces. </p>
 <p>The function traverses a group network interfaces according to their device type: PHY, TUN, TAP, and ....</p>
 <dl class="section see"><dt>See also</dt><dd><a href="https://wiki.pantherx.org">https://wiki.pantherx.org</a> </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd>TODO Support tap-based interfaces.</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd>TODO Support tap-based interfaces.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The input must be provided. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">

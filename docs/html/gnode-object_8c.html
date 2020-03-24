@@ -80,14 +80,19 @@ Include dependency graph for gnode-object.c:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ae666b3f20895e60917e691c81d464235"><td class="memItemLeft" align="right" valign="top"><a class="el" href="gnode-object_8h.html#ab9c23d3a2ba4d9157b5ab053f61388dc">NetDevice</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gnode-object_8c.html#ae666b3f20895e60917e691c81d464235">net_device_new</a> ()</td></tr>
+<tr class="memdesc:ae666b3f20895e60917e691c81d464235"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new ne_device object.  <a href="#ae666b3f20895e60917e691c81d464235">More...</a><br /></td></tr>
 <tr class="separator:ae666b3f20895e60917e691c81d464235"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af75477fcbe781bc0b17c75c1ad6d1606"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gnode-object_8c.html#af75477fcbe781bc0b17c75c1ad6d1606">net_device_free</a> (<a class="el" href="gnode-object_8h.html#ab9c23d3a2ba4d9157b5ab053f61388dc">NetDevice</a> *nd)</td></tr>
+<tr class="memdesc:af75477fcbe781bc0b17c75c1ad6d1606"><td class="mdescLeft">&#160;</td><td class="mdescRight">destroys the NetDevice object.  <a href="#af75477fcbe781bc0b17c75c1ad6d1606">More...</a><br /></td></tr>
 <tr class="separator:af75477fcbe781bc0b17c75c1ad6d1606"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37bf3d0e5222ef4eeda3b40df60a1812"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gnode-object_8c.html#a37bf3d0e5222ef4eeda3b40df60a1812">internal_traverse_json_func</a> (<a class="el" href="gnode-object_8h.html#ab9c23d3a2ba4d9157b5ab053f61388dc">NetDevice</a> *device)</td></tr>
+<tr class="memdesc:a37bf3d0e5222ef4eeda3b40df60a1812"><td class="mdescLeft">&#160;</td><td class="mdescRight">creates the JSON representation.  <a href="#a37bf3d0e5222ef4eeda3b40df60a1812">More...</a><br /></td></tr>
 <tr class="separator:a37bf3d0e5222ef4eeda3b40df60a1812"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acde5d3e413f355d1b912f0dcb9d4cdc1"><td class="memItemLeft" align="right" valign="top">gboolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gnode-object_8c.html#acde5d3e413f355d1b912f0dcb9d4cdc1">traverse_json_func</a> (GNode *node, gpointer data)</td></tr>
+<tr class="memdesc:acde5d3e413f355d1b912f0dcb9d4cdc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">creates the JSON representation for all objects of a tree.  <a href="#acde5d3e413f355d1b912f0dcb9d4cdc1">More...</a><br /></td></tr>
 <tr class="separator:acde5d3e413f355d1b912f0dcb9d4cdc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d906716c0b2c59e34bff01153dc23d2"><td class="memItemLeft" align="right" valign="top">gboolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gnode-object_8c.html#a0d906716c0b2c59e34bff01153dc23d2">traverse_json_array_func</a> (GNode *node, gpointer data)</td></tr>
+<tr class="memdesc:a0d906716c0b2c59e34bff01153dc23d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">adds all objects of a tree to a JSON array.  <a href="#a0d906716c0b2c59e34bff01153dc23d2">More...</a><br /></td></tr>
 <tr class="separator:a0d906716c0b2c59e34bff01153dc23d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -107,6 +112,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>creates the JSON representation. </p>
+<dl class="section see"><dt>See also</dt><dd><a href="https://wiki.pantherx.org">https://wiki.pantherx.org</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">device</td><td>the device that is needed to have its JSON object be created </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="af75477fcbe781bc0b17c75c1ad6d1606"></a>
@@ -125,6 +139,16 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>destroys the NetDevice object. </p>
+<dl class="section see"><dt>See also</dt><dd><a href="https://wiki.pantherx.org">https://wiki.pantherx.org</a></dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>TODO free JSNO objects</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">nd</td><td>the object to be destroyed. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="ae666b3f20895e60917e691c81d464235"></a>
@@ -141,6 +165,10 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Creates a new ne_device object. </p>
+<dl class="section see"><dt>See also</dt><dd><a href="https://wiki.pantherx.org">https://wiki.pantherx.org</a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>NULL if cannot allocate object. Otherwise, the newly created object </dd></dl>
 
 </div>
 </div>
@@ -170,6 +198,17 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>adds all objects of a tree to a JSON array. </p>
+<dl class="section see"><dt>See also</dt><dd><a href="https://wiki.pantherx.org">https://wiki.pantherx.org</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">node</td><td>the root of the tree to be traversed. </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">data</td><td>the data passed to call-back function. It may be used as both input and output </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the TRUE shows that stop traverse </dd></dl>
+
 </div>
 </div>
 <a id="acde5d3e413f355d1b912f0dcb9d4cdc1"></a>
@@ -197,6 +236,18 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>creates the JSON representation for all objects of a tree. </p>
+<dl class="section see"><dt>See also</dt><dd><a href="https://wiki.pantherx.org">https://wiki.pantherx.org</a></dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>TODO Use user data</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">node</td><td>the root of the tree to be traversed. </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">data</td><td>the data passed to call-back function. It may be used as both input and output </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the TRUE shows that stop traverse </dd></dl>
 
 </div>
 </div>

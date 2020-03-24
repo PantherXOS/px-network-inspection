@@ -68,6 +68,9 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>the struct stores the required information of network device in routes  
+ <a href="structnet__device.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="gnode-object_8h_source.html">gnode-object.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for net_device:</div>
@@ -78,37 +81,54 @@ Collaboration diagram for net_device:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:af10284ed56562f2cd96fdb5ef22005d7"><td class="memItemLeft" align="right" valign="top">gboolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnet__device.html#af10284ed56562f2cd96fdb5ef22005d7">is_set</a></td></tr>
+<tr class="memdesc:af10284ed56562f2cd96fdb5ef22005d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">if the struct is set the has value TRUE  <a href="#af10284ed56562f2cd96fdb5ef22005d7">More...</a><br /></td></tr>
 <tr class="separator:af10284ed56562f2cd96fdb5ef22005d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8201165f1f516678fdbddffe8c786dd7"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnet__device.html#a8201165f1f516678fdbddffe8c786dd7">dev_pos</a></td></tr>
+<tr class="memdesc:a8201165f1f516678fdbddffe8c786dd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">the depth of device in the local routing tree  <a href="#a8201165f1f516678fdbddffe8c786dd7">More...</a><br /></td></tr>
 <tr class="separator:a8201165f1f516678fdbddffe8c786dd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a683f88ff26dc8478bba51b95c39d9b92"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnet__device.html#a683f88ff26dc8478bba51b95c39d9b92">dev_name</a> [16]</td></tr>
+<tr class="memdesc:a683f88ff26dc8478bba51b95c39d9b92"><td class="mdescLeft">&#160;</td><td class="mdescRight">the device name  <a href="#a683f88ff26dc8478bba51b95c39d9b92">More...</a><br /></td></tr>
 <tr class="separator:a683f88ff26dc8478bba51b95c39d9b92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a65788d250a2b47bbbafeedfaa99ac695"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnet__device.html#a65788d250a2b47bbbafeedfaa99ac695">dev_type</a> [20]</td></tr>
+<tr class="memdesc:a65788d250a2b47bbbafeedfaa99ac695"><td class="mdescLeft">&#160;</td><td class="mdescRight">the type device (physical and virtual)  <a href="#a65788d250a2b47bbbafeedfaa99ac695">More...</a><br /></td></tr>
 <tr class="separator:a65788d250a2b47bbbafeedfaa99ac695"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af33238d65f52774902101ad3255372f4"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnet__device.html#af33238d65f52774902101ad3255372f4">dev_method</a> [30]</td></tr>
+<tr class="memdesc:af33238d65f52774902101ad3255372f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">the method device uses (e.g. wifi)  <a href="#af33238d65f52774902101ad3255372f4">More...</a><br /></td></tr>
 <tr class="separator:af33238d65f52774902101ad3255372f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a92b5a35950b5bfaeb721be117e241528"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnet__device.html#a92b5a35950b5bfaeb721be117e241528">dev_ip4</a> [16]</td></tr>
+<tr class="memdesc:a92b5a35950b5bfaeb721be117e241528"><td class="mdescLeft">&#160;</td><td class="mdescRight">the device IPV4  <a href="#a92b5a35950b5bfaeb721be117e241528">More...</a><br /></td></tr>
 <tr class="separator:a92b5a35950b5bfaeb721be117e241528"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a8e6311682a530bfdeda88cfa808ed1"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnet__device.html#a7a8e6311682a530bfdeda88cfa808ed1">dev_ip6</a> [40]</td></tr>
+<tr class="memdesc:a7a8e6311682a530bfdeda88cfa808ed1"><td class="mdescLeft">&#160;</td><td class="mdescRight">the device IPV6  <a href="#a7a8e6311682a530bfdeda88cfa808ed1">More...</a><br /></td></tr>
 <tr class="separator:a7a8e6311682a530bfdeda88cfa808ed1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad708824b9b388d466795dc764d6fc477"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnet__device.html#ad708824b9b388d466795dc764d6fc477">dev_gateway</a> [40]</td></tr>
+<tr class="memdesc:ad708824b9b388d466795dc764d6fc477"><td class="mdescLeft">&#160;</td><td class="mdescRight">the gateway device uses  <a href="#ad708824b9b388d466795dc764d6fc477">More...</a><br /></td></tr>
 <tr class="separator:ad708824b9b388d466795dc764d6fc477"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9ae8e657fb43f5baafd0fafcee819fa"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnet__device.html#ac9ae8e657fb43f5baafd0fafcee819fa">dev_dns</a> [40]</td></tr>
+<tr class="memdesc:ac9ae8e657fb43f5baafd0fafcee819fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">the dns device uses  <a href="#ac9ae8e657fb43f5baafd0fafcee819fa">More...</a><br /></td></tr>
 <tr class="separator:ac9ae8e657fb43f5baafd0fafcee819fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1759ef9f942f991bff24268b2fc90c59"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnet__device.html#a1759ef9f942f991bff24268b2fc90c59">dev_active</a> [10]</td></tr>
+<tr class="memdesc:a1759ef9f942f991bff24268b2fc90c59"><td class="mdescLeft">&#160;</td><td class="mdescRight">the status of device (ACTIVE and NOACTIVE)  <a href="#a1759ef9f942f991bff24268b2fc90c59">More...</a><br /></td></tr>
 <tr class="separator:a1759ef9f942f991bff24268b2fc90c59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f2de2bdeda68898f48a0d9347239e04"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnet__device.html#a5f2de2bdeda68898f48a0d9347239e04">dev_wifi_ap</a> [IW_ESSID_MAX_SIZE+1]</td></tr>
+<tr class="memdesc:a5f2de2bdeda68898f48a0d9347239e04"><td class="mdescLeft">&#160;</td><td class="mdescRight">the access point name for wifi networks  <a href="#a5f2de2bdeda68898f48a0d9347239e04">More...</a><br /></td></tr>
 <tr class="separator:a5f2de2bdeda68898f48a0d9347239e04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a793c401280eb3afa81db485466aa77f2"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnet__device.html#a793c401280eb3afa81db485466aa77f2">phy_index</a></td></tr>
+<tr class="memdesc:a793c401280eb3afa81db485466aa77f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">the index in the static global physical interfaces list. It may indicates the associated interface of a TUN device.  <a href="#a793c401280eb3afa81db485466aa77f2">More...</a><br /></td></tr>
 <tr class="separator:a793c401280eb3afa81db485466aa77f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab9c29f0a4280c9f26bfedd0d7fd39789"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnet__device.html#ab9c29f0a4280c9f26bfedd0d7fd39789">dev_vpn_profile</a> [NAME_MAX]</td></tr>
+<tr class="memdesc:ab9c29f0a4280c9f26bfedd0d7fd39789"><td class="mdescLeft">&#160;</td><td class="mdescRight">the vpn profile name if the device used for a VPN.  <a href="#ab9c29f0a4280c9f26bfedd0d7fd39789">More...</a><br /></td></tr>
 <tr class="separator:ab9c29f0a4280c9f26bfedd0d7fd39789"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa50aa45beac692be04baf4faf9d063d4"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structnet__device.html">net_device</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnet__device.html#aa50aa45beac692be04baf4faf9d063d4">public_device</a></td></tr>
+<tr class="memdesc:aa50aa45beac692be04baf4faf9d063d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">the pointer to the public (remote) device. It has value if the device is a physical device and it has a connection to the internet  <a href="#aa50aa45beac692be04baf4faf9d063d4">More...</a><br /></td></tr>
 <tr class="separator:aa50aa45beac692be04baf4faf9d063d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3906a433b76b87e2c54069df9d5a342"><td class="memItemLeft" align="right" valign="top">json_object *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnet__device.html#ae3906a433b76b87e2c54069df9d5a342">jobj</a></td></tr>
+<tr class="memdesc:ae3906a433b76b87e2c54069df9d5a342"><td class="mdescLeft">&#160;</td><td class="mdescRight">the JSON representation of this device  <a href="#ae3906a433b76b87e2c54069df9d5a342">More...</a><br /></td></tr>
 <tr class="separator:ae3906a433b76b87e2c54069df9d5a342"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Data Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>the struct stores the required information of network device in routes </p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
 <a id="a1759ef9f942f991bff24268b2fc90c59"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1759ef9f942f991bff24268b2fc90c59">&#9670;&nbsp;</a></span>dev_active</h2>
 
@@ -120,6 +140,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>the status of device (ACTIVE and NOACTIVE) </p>
 
 </div>
 </div>
@@ -135,6 +157,9 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>the dns device uses </p>
+<dl class="section note"><dt>Note</dt><dd>may contain IPV6 </dd></dl>
+
 </div>
 </div>
 <a id="ad708824b9b388d466795dc764d6fc477"></a>
@@ -148,6 +173,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>the gateway device uses </p>
+<dl class="section note"><dt>Note</dt><dd>may contain IPV6 </dd></dl>
 
 </div>
 </div>
@@ -163,6 +191,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>the device IPV4 </p>
+
 </div>
 </div>
 <a id="a7a8e6311682a530bfdeda88cfa808ed1"></a>
@@ -176,6 +206,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>the device IPV6 </p>
 
 </div>
 </div>
@@ -191,6 +223,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>the method device uses (e.g. wifi) </p>
+
 </div>
 </div>
 <a id="a683f88ff26dc8478bba51b95c39d9b92"></a>
@@ -204,6 +238,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>the device name </p>
 
 </div>
 </div>
@@ -219,6 +255,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>the depth of device in the local routing tree </p>
+
 </div>
 </div>
 <a id="a65788d250a2b47bbbafeedfaa99ac695"></a>
@@ -232,6 +270,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>the type device (physical and virtual) </p>
 
 </div>
 </div>
@@ -247,6 +287,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>the vpn profile name if the device used for a VPN. </p>
+
 </div>
 </div>
 <a id="a5f2de2bdeda68898f48a0d9347239e04"></a>
@@ -260,6 +302,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>the access point name for wifi networks </p>
 
 </div>
 </div>
@@ -275,6 +319,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>if the struct is set the has value TRUE </p>
+
 </div>
 </div>
 <a id="ae3906a433b76b87e2c54069df9d5a342"></a>
@@ -288,6 +334,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>the JSON representation of this device </p>
 
 </div>
 </div>
@@ -303,6 +351,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>the index in the static global physical interfaces list. It may indicates the associated interface of a TUN device. </p>
+
 </div>
 </div>
 <a id="aa50aa45beac692be04baf4faf9d063d4"></a>
@@ -316,6 +366,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>the pointer to the public (remote) device. It has value if the device is a physical device and it has a connection to the internet </p>
 
 </div>
 </div>

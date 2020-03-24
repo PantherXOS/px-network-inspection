@@ -1,6 +1,13 @@
 #include <gnode-object.h>
 #include <stdio.h>
 
+/**
+ *  @brief Creates a new ne_device object.
+ *
+ *  @see	https://wiki.pantherx.org
+ *
+ * 	@return	NULL if cannot allocate object. Otherwise, the newly created object
+ */
 NetDevice* net_device_new()
 {
 	NetDevice *nd;
@@ -8,6 +15,15 @@ NetDevice* net_device_new()
 	return nd;
 }
 
+/**
+ *  @brief destroys the NetDevice object.
+ *
+ *  @see	https://wiki.pantherx.org
+ *
+ * 	@todo	TODO	free JSNO objects
+ *
+ * 	@param[in]	nd	the object to be destroyed.
+ */
 void net_device_free(NetDevice *nd)
 {
 	if (nd->jobj)
@@ -16,6 +32,13 @@ void net_device_free(NetDevice *nd)
 	}
 }
 
+/**
+ *  @brief creates the JSON representation.
+ *
+ *  @see	https://wiki.pantherx.org
+ *
+ * 	@param[in]	device	the device that is needed to have its JSON object be created
+ */
 void internal_traverse_json_func(NetDevice *device)
 {
 	device->jobj = json_object_new_object();
@@ -66,7 +89,17 @@ void internal_traverse_json_func(NetDevice *device)
 	}
 }
 
-// TODO: Use user data.
+/**
+ *  @brief creates the JSON representation for all objects of a tree.
+ *
+ *  @see	https://wiki.pantherx.org
+ *
+ *  @todo	TODO	Use user data
+ *
+ * 	@param[in]	node	the root of the tree to be traversed.
+ * 	@param[in, out]	data	the data passed to call-back function. It may be used as both input and output
+ * 	@return	the TRUE shows that stop traverse
+ */
 gboolean traverse_json_func(GNode * node, gpointer data)
 {
 	NetDevice *device = NETDEVICE(node->data);
@@ -75,6 +108,15 @@ gboolean traverse_json_func(GNode * node, gpointer data)
 	return FALSE;
 }
 
+/**
+ *  @brief adds all objects of a tree to a JSON array.
+ *
+ *  @see	https://wiki.pantherx.org
+ *
+ * 	@param[in]	node	the root of the tree to be traversed.
+ * 	@param[in, out]	data	the data passed to call-back function. It may be used as both input and output
+ * 	@return	the TRUE shows that stop traverse
+ */
 gboolean traverse_json_array_func(GNode *node, gpointer data)
 {
 	NetDevice *device = NETDEVICE(node->data);

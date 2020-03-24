@@ -2,6 +2,11 @@
 \label{structnet__device}\index{net\+\_\+device@{net\+\_\+device}}
 
 
+the struct stores the required information of network device in routes  
+
+
+
+
 {\ttfamily \#include $<$gnode-\/object.\+h$>$}
 
 
@@ -17,36 +22,39 @@ Collaboration diagram for net\+\_\+device\+:\nopagebreak
 \begin{DoxyCompactItemize}
 \item 
 gboolean \hyperlink{structnet__device_af10284ed56562f2cd96fdb5ef22005d7}{is\+\_\+set}
-\item 
+\begin{DoxyCompactList}\small\item\em if the struct is set the has value T\+R\+UE \end{DoxyCompactList}\item 
 uint32\+\_\+t \hyperlink{structnet__device_a8201165f1f516678fdbddffe8c786dd7}{dev\+\_\+pos}
-\item 
+\begin{DoxyCompactList}\small\item\em the depth of device in the local routing tree \end{DoxyCompactList}\item 
 char \hyperlink{structnet__device_a683f88ff26dc8478bba51b95c39d9b92}{dev\+\_\+name} \mbox{[}16\mbox{]}
-\item 
+\begin{DoxyCompactList}\small\item\em the device name \end{DoxyCompactList}\item 
 char \hyperlink{structnet__device_a65788d250a2b47bbbafeedfaa99ac695}{dev\+\_\+type} \mbox{[}20\mbox{]}
-\item 
+\begin{DoxyCompactList}\small\item\em the type device (physical and virtual) \end{DoxyCompactList}\item 
 char \hyperlink{structnet__device_af33238d65f52774902101ad3255372f4}{dev\+\_\+method} \mbox{[}30\mbox{]}
-\item 
+\begin{DoxyCompactList}\small\item\em the method device uses (e.\+g. wifi) \end{DoxyCompactList}\item 
 char \hyperlink{structnet__device_a92b5a35950b5bfaeb721be117e241528}{dev\+\_\+ip4} \mbox{[}16\mbox{]}
-\item 
+\begin{DoxyCompactList}\small\item\em the device I\+P\+V4 \end{DoxyCompactList}\item 
 char \hyperlink{structnet__device_a7a8e6311682a530bfdeda88cfa808ed1}{dev\+\_\+ip6} \mbox{[}40\mbox{]}
-\item 
+\begin{DoxyCompactList}\small\item\em the device I\+P\+V6 \end{DoxyCompactList}\item 
 char \hyperlink{structnet__device_ad708824b9b388d466795dc764d6fc477}{dev\+\_\+gateway} \mbox{[}40\mbox{]}
-\item 
+\begin{DoxyCompactList}\small\item\em the gateway device uses \end{DoxyCompactList}\item 
 char \hyperlink{structnet__device_ac9ae8e657fb43f5baafd0fafcee819fa}{dev\+\_\+dns} \mbox{[}40\mbox{]}
-\item 
+\begin{DoxyCompactList}\small\item\em the dns device uses \end{DoxyCompactList}\item 
 char \hyperlink{structnet__device_a1759ef9f942f991bff24268b2fc90c59}{dev\+\_\+active} \mbox{[}10\mbox{]}
-\item 
+\begin{DoxyCompactList}\small\item\em the status of device (A\+C\+T\+I\+VE and N\+O\+A\+C\+T\+I\+VE) \end{DoxyCompactList}\item 
 char \hyperlink{structnet__device_a5f2de2bdeda68898f48a0d9347239e04}{dev\+\_\+wifi\+\_\+ap} \mbox{[}I\+W\+\_\+\+E\+S\+S\+I\+D\+\_\+\+M\+A\+X\+\_\+\+S\+I\+ZE+1\mbox{]}
-\item 
+\begin{DoxyCompactList}\small\item\em the access point name for wifi networks \end{DoxyCompactList}\item 
 size\+\_\+t \hyperlink{structnet__device_a793c401280eb3afa81db485466aa77f2}{phy\+\_\+index}
-\item 
+\begin{DoxyCompactList}\small\item\em the index in the static global physical interfaces list. It may indicates the associated interface of a T\+UN device. \end{DoxyCompactList}\item 
 char \hyperlink{structnet__device_ab9c29f0a4280c9f26bfedd0d7fd39789}{dev\+\_\+vpn\+\_\+profile} \mbox{[}N\+A\+M\+E\+\_\+\+M\+AX\mbox{]}
-\item 
+\begin{DoxyCompactList}\small\item\em the vpn profile name if the device used for a V\+PN. \end{DoxyCompactList}\item 
 struct \hyperlink{structnet__device}{net\+\_\+device} $\ast$ \hyperlink{structnet__device_aa50aa45beac692be04baf4faf9d063d4}{public\+\_\+device}
-\item 
+\begin{DoxyCompactList}\small\item\em the pointer to the public (remote) device. It has value if the device is a physical device and it has a connection to the internet \end{DoxyCompactList}\item 
 json\+\_\+object $\ast$ \hyperlink{structnet__device_ae3906a433b76b87e2c54069df9d5a342}{jobj}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em the J\+S\+ON representation of this device \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\subsection{Detailed Description}
+the struct stores the required information of network device in routes 
 
 \subsection{Member Data Documentation}
 \mbox{\Hypertarget{structnet__device_a1759ef9f942f991bff24268b2fc90c59}\label{structnet__device_a1759ef9f942f991bff24268b2fc90c59}} 
@@ -55,23 +63,45 @@ json\+\_\+object $\ast$ \hyperlink{structnet__device_ae3906a433b76b87e2c54069df9
 \subsubsection{\texorpdfstring{dev\+\_\+active}{dev\_active}}
 {\footnotesize\ttfamily char net\+\_\+device\+::dev\+\_\+active\mbox{[}10\mbox{]}}
 
+
+
+the status of device (A\+C\+T\+I\+VE and N\+O\+A\+C\+T\+I\+VE) 
+
 \mbox{\Hypertarget{structnet__device_ac9ae8e657fb43f5baafd0fafcee819fa}\label{structnet__device_ac9ae8e657fb43f5baafd0fafcee819fa}} 
 \index{net\+\_\+device@{net\+\_\+device}!dev\+\_\+dns@{dev\+\_\+dns}}
 \index{dev\+\_\+dns@{dev\+\_\+dns}!net\+\_\+device@{net\+\_\+device}}
 \subsubsection{\texorpdfstring{dev\+\_\+dns}{dev\_dns}}
 {\footnotesize\ttfamily char net\+\_\+device\+::dev\+\_\+dns\mbox{[}40\mbox{]}}
 
+
+
+the dns device uses 
+
+\begin{DoxyNote}{Note}
+may contain I\+P\+V6 
+\end{DoxyNote}
 \mbox{\Hypertarget{structnet__device_ad708824b9b388d466795dc764d6fc477}\label{structnet__device_ad708824b9b388d466795dc764d6fc477}} 
 \index{net\+\_\+device@{net\+\_\+device}!dev\+\_\+gateway@{dev\+\_\+gateway}}
 \index{dev\+\_\+gateway@{dev\+\_\+gateway}!net\+\_\+device@{net\+\_\+device}}
 \subsubsection{\texorpdfstring{dev\+\_\+gateway}{dev\_gateway}}
 {\footnotesize\ttfamily char net\+\_\+device\+::dev\+\_\+gateway\mbox{[}40\mbox{]}}
 
+
+
+the gateway device uses 
+
+\begin{DoxyNote}{Note}
+may contain I\+P\+V6 
+\end{DoxyNote}
 \mbox{\Hypertarget{structnet__device_a92b5a35950b5bfaeb721be117e241528}\label{structnet__device_a92b5a35950b5bfaeb721be117e241528}} 
 \index{net\+\_\+device@{net\+\_\+device}!dev\+\_\+ip4@{dev\+\_\+ip4}}
 \index{dev\+\_\+ip4@{dev\+\_\+ip4}!net\+\_\+device@{net\+\_\+device}}
 \subsubsection{\texorpdfstring{dev\+\_\+ip4}{dev\_ip4}}
 {\footnotesize\ttfamily char net\+\_\+device\+::dev\+\_\+ip4\mbox{[}16\mbox{]}}
+
+
+
+the device I\+P\+V4 
 
 \mbox{\Hypertarget{structnet__device_a7a8e6311682a530bfdeda88cfa808ed1}\label{structnet__device_a7a8e6311682a530bfdeda88cfa808ed1}} 
 \index{net\+\_\+device@{net\+\_\+device}!dev\+\_\+ip6@{dev\+\_\+ip6}}
@@ -79,11 +109,19 @@ json\+\_\+object $\ast$ \hyperlink{structnet__device_ae3906a433b76b87e2c54069df9
 \subsubsection{\texorpdfstring{dev\+\_\+ip6}{dev\_ip6}}
 {\footnotesize\ttfamily char net\+\_\+device\+::dev\+\_\+ip6\mbox{[}40\mbox{]}}
 
+
+
+the device I\+P\+V6 
+
 \mbox{\Hypertarget{structnet__device_af33238d65f52774902101ad3255372f4}\label{structnet__device_af33238d65f52774902101ad3255372f4}} 
 \index{net\+\_\+device@{net\+\_\+device}!dev\+\_\+method@{dev\+\_\+method}}
 \index{dev\+\_\+method@{dev\+\_\+method}!net\+\_\+device@{net\+\_\+device}}
 \subsubsection{\texorpdfstring{dev\+\_\+method}{dev\_method}}
 {\footnotesize\ttfamily char net\+\_\+device\+::dev\+\_\+method\mbox{[}30\mbox{]}}
+
+
+
+the method device uses (e.\+g. wifi) 
 
 \mbox{\Hypertarget{structnet__device_a683f88ff26dc8478bba51b95c39d9b92}\label{structnet__device_a683f88ff26dc8478bba51b95c39d9b92}} 
 \index{net\+\_\+device@{net\+\_\+device}!dev\+\_\+name@{dev\+\_\+name}}
@@ -91,11 +129,19 @@ json\+\_\+object $\ast$ \hyperlink{structnet__device_ae3906a433b76b87e2c54069df9
 \subsubsection{\texorpdfstring{dev\+\_\+name}{dev\_name}}
 {\footnotesize\ttfamily char net\+\_\+device\+::dev\+\_\+name\mbox{[}16\mbox{]}}
 
+
+
+the device name 
+
 \mbox{\Hypertarget{structnet__device_a8201165f1f516678fdbddffe8c786dd7}\label{structnet__device_a8201165f1f516678fdbddffe8c786dd7}} 
 \index{net\+\_\+device@{net\+\_\+device}!dev\+\_\+pos@{dev\+\_\+pos}}
 \index{dev\+\_\+pos@{dev\+\_\+pos}!net\+\_\+device@{net\+\_\+device}}
 \subsubsection{\texorpdfstring{dev\+\_\+pos}{dev\_pos}}
 {\footnotesize\ttfamily uint32\+\_\+t net\+\_\+device\+::dev\+\_\+pos}
+
+
+
+the depth of device in the local routing tree 
 
 \mbox{\Hypertarget{structnet__device_a65788d250a2b47bbbafeedfaa99ac695}\label{structnet__device_a65788d250a2b47bbbafeedfaa99ac695}} 
 \index{net\+\_\+device@{net\+\_\+device}!dev\+\_\+type@{dev\+\_\+type}}
@@ -103,11 +149,19 @@ json\+\_\+object $\ast$ \hyperlink{structnet__device_ae3906a433b76b87e2c54069df9
 \subsubsection{\texorpdfstring{dev\+\_\+type}{dev\_type}}
 {\footnotesize\ttfamily char net\+\_\+device\+::dev\+\_\+type\mbox{[}20\mbox{]}}
 
+
+
+the type device (physical and virtual) 
+
 \mbox{\Hypertarget{structnet__device_ab9c29f0a4280c9f26bfedd0d7fd39789}\label{structnet__device_ab9c29f0a4280c9f26bfedd0d7fd39789}} 
 \index{net\+\_\+device@{net\+\_\+device}!dev\+\_\+vpn\+\_\+profile@{dev\+\_\+vpn\+\_\+profile}}
 \index{dev\+\_\+vpn\+\_\+profile@{dev\+\_\+vpn\+\_\+profile}!net\+\_\+device@{net\+\_\+device}}
 \subsubsection{\texorpdfstring{dev\+\_\+vpn\+\_\+profile}{dev\_vpn\_profile}}
 {\footnotesize\ttfamily char net\+\_\+device\+::dev\+\_\+vpn\+\_\+profile\mbox{[}N\+A\+M\+E\+\_\+\+M\+AX\mbox{]}}
+
+
+
+the vpn profile name if the device used for a V\+PN. 
 
 \mbox{\Hypertarget{structnet__device_a5f2de2bdeda68898f48a0d9347239e04}\label{structnet__device_a5f2de2bdeda68898f48a0d9347239e04}} 
 \index{net\+\_\+device@{net\+\_\+device}!dev\+\_\+wifi\+\_\+ap@{dev\+\_\+wifi\+\_\+ap}}
@@ -115,11 +169,19 @@ json\+\_\+object $\ast$ \hyperlink{structnet__device_ae3906a433b76b87e2c54069df9
 \subsubsection{\texorpdfstring{dev\+\_\+wifi\+\_\+ap}{dev\_wifi\_ap}}
 {\footnotesize\ttfamily char net\+\_\+device\+::dev\+\_\+wifi\+\_\+ap\mbox{[}I\+W\+\_\+\+E\+S\+S\+I\+D\+\_\+\+M\+A\+X\+\_\+\+S\+I\+ZE+1\mbox{]}}
 
+
+
+the access point name for wifi networks 
+
 \mbox{\Hypertarget{structnet__device_af10284ed56562f2cd96fdb5ef22005d7}\label{structnet__device_af10284ed56562f2cd96fdb5ef22005d7}} 
 \index{net\+\_\+device@{net\+\_\+device}!is\+\_\+set@{is\+\_\+set}}
 \index{is\+\_\+set@{is\+\_\+set}!net\+\_\+device@{net\+\_\+device}}
 \subsubsection{\texorpdfstring{is\+\_\+set}{is\_set}}
 {\footnotesize\ttfamily gboolean net\+\_\+device\+::is\+\_\+set}
+
+
+
+if the struct is set the has value T\+R\+UE 
 
 \mbox{\Hypertarget{structnet__device_ae3906a433b76b87e2c54069df9d5a342}\label{structnet__device_ae3906a433b76b87e2c54069df9d5a342}} 
 \index{net\+\_\+device@{net\+\_\+device}!jobj@{jobj}}
@@ -127,17 +189,29 @@ json\+\_\+object $\ast$ \hyperlink{structnet__device_ae3906a433b76b87e2c54069df9
 \subsubsection{\texorpdfstring{jobj}{jobj}}
 {\footnotesize\ttfamily json\+\_\+object$\ast$ net\+\_\+device\+::jobj}
 
+
+
+the J\+S\+ON representation of this device 
+
 \mbox{\Hypertarget{structnet__device_a793c401280eb3afa81db485466aa77f2}\label{structnet__device_a793c401280eb3afa81db485466aa77f2}} 
 \index{net\+\_\+device@{net\+\_\+device}!phy\+\_\+index@{phy\+\_\+index}}
 \index{phy\+\_\+index@{phy\+\_\+index}!net\+\_\+device@{net\+\_\+device}}
 \subsubsection{\texorpdfstring{phy\+\_\+index}{phy\_index}}
 {\footnotesize\ttfamily size\+\_\+t net\+\_\+device\+::phy\+\_\+index}
 
+
+
+the index in the static global physical interfaces list. It may indicates the associated interface of a T\+UN device. 
+
 \mbox{\Hypertarget{structnet__device_aa50aa45beac692be04baf4faf9d063d4}\label{structnet__device_aa50aa45beac692be04baf4faf9d063d4}} 
 \index{net\+\_\+device@{net\+\_\+device}!public\+\_\+device@{public\+\_\+device}}
 \index{public\+\_\+device@{public\+\_\+device}!net\+\_\+device@{net\+\_\+device}}
 \subsubsection{\texorpdfstring{public\+\_\+device}{public\_device}}
 {\footnotesize\ttfamily struct \hyperlink{structnet__device}{net\+\_\+device}$\ast$ net\+\_\+device\+::public\+\_\+device}
+
+
+
+the pointer to the public (remote) device. It has value if the device is a physical device and it has a connection to the internet 
 
 
 

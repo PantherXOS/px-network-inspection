@@ -13,15 +13,15 @@ Include dependency graph for gnode-\/object.c\+:\nopagebreak
 \begin{DoxyCompactItemize}
 \item 
 \hyperlink{gnode-object_8h_ab9c23d3a2ba4d9157b5ab053f61388dc}{Net\+Device} $\ast$ \hyperlink{gnode-object_8c_ae666b3f20895e60917e691c81d464235}{net\+\_\+device\+\_\+new} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Creates a new ne\+\_\+device object. \end{DoxyCompactList}\item 
 void \hyperlink{gnode-object_8c_af75477fcbe781bc0b17c75c1ad6d1606}{net\+\_\+device\+\_\+free} (\hyperlink{gnode-object_8h_ab9c23d3a2ba4d9157b5ab053f61388dc}{Net\+Device} $\ast$nd)
-\item 
+\begin{DoxyCompactList}\small\item\em destroys the Net\+Device object. \end{DoxyCompactList}\item 
 void \hyperlink{gnode-object_8c_a37bf3d0e5222ef4eeda3b40df60a1812}{internal\+\_\+traverse\+\_\+json\+\_\+func} (\hyperlink{gnode-object_8h_ab9c23d3a2ba4d9157b5ab053f61388dc}{Net\+Device} $\ast$device)
-\item 
+\begin{DoxyCompactList}\small\item\em creates the J\+S\+ON representation. \end{DoxyCompactList}\item 
 gboolean \hyperlink{gnode-object_8c_acde5d3e413f355d1b912f0dcb9d4cdc1}{traverse\+\_\+json\+\_\+func} (G\+Node $\ast$node, gpointer data)
-\item 
+\begin{DoxyCompactList}\small\item\em creates the J\+S\+ON representation for all objects of a tree. \end{DoxyCompactList}\item 
 gboolean \hyperlink{gnode-object_8c_a0d906716c0b2c59e34bff01153dc23d2}{traverse\+\_\+json\+\_\+array\+\_\+func} (G\+Node $\ast$node, gpointer data)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em adds all objects of a tree to a J\+S\+ON array. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Function Documentation}
@@ -31,27 +31,103 @@ gboolean \hyperlink{gnode-object_8c_a0d906716c0b2c59e34bff01153dc23d2}{traverse\
 \subsubsection{\texorpdfstring{internal\+\_\+traverse\+\_\+json\+\_\+func()}{internal\_traverse\_json\_func()}}
 {\footnotesize\ttfamily void internal\+\_\+traverse\+\_\+json\+\_\+func (\begin{DoxyParamCaption}\item[{\hyperlink{gnode-object_8h_ab9c23d3a2ba4d9157b5ab053f61388dc}{Net\+Device} $\ast$}]{device }\end{DoxyParamCaption})}
 
+
+
+creates the J\+S\+ON representation. 
+
+\begin{DoxySeeAlso}{See also}
+\href{https://wiki.pantherx.org}{\tt https\+://wiki.\+pantherx.\+org}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em device} & the device that is needed to have its J\+S\+ON object be created \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{gnode-object_8c_af75477fcbe781bc0b17c75c1ad6d1606}\label{gnode-object_8c_af75477fcbe781bc0b17c75c1ad6d1606}} 
 \index{gnode-\/object.\+c@{gnode-\/object.\+c}!net\+\_\+device\+\_\+free@{net\+\_\+device\+\_\+free}}
 \index{net\+\_\+device\+\_\+free@{net\+\_\+device\+\_\+free}!gnode-\/object.\+c@{gnode-\/object.\+c}}
 \subsubsection{\texorpdfstring{net\+\_\+device\+\_\+free()}{net\_device\_free()}}
 {\footnotesize\ttfamily void net\+\_\+device\+\_\+free (\begin{DoxyParamCaption}\item[{\hyperlink{gnode-object_8h_ab9c23d3a2ba4d9157b5ab053f61388dc}{Net\+Device} $\ast$}]{nd }\end{DoxyParamCaption})}
 
+
+
+destroys the Net\+Device object. 
+
+\begin{DoxySeeAlso}{See also}
+\href{https://wiki.pantherx.org}{\tt https\+://wiki.\+pantherx.\+org}
+\end{DoxySeeAlso}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000003}{Todo}]T\+O\+DO free J\+S\+NO objects\end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em nd} & the object to be destroyed. \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{gnode-object_8c_ae666b3f20895e60917e691c81d464235}\label{gnode-object_8c_ae666b3f20895e60917e691c81d464235}} 
 \index{gnode-\/object.\+c@{gnode-\/object.\+c}!net\+\_\+device\+\_\+new@{net\+\_\+device\+\_\+new}}
 \index{net\+\_\+device\+\_\+new@{net\+\_\+device\+\_\+new}!gnode-\/object.\+c@{gnode-\/object.\+c}}
 \subsubsection{\texorpdfstring{net\+\_\+device\+\_\+new()}{net\_device\_new()}}
 {\footnotesize\ttfamily \hyperlink{gnode-object_8h_ab9c23d3a2ba4d9157b5ab053f61388dc}{Net\+Device}$\ast$ net\+\_\+device\+\_\+new (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Creates a new ne\+\_\+device object. 
+
+\begin{DoxySeeAlso}{See also}
+\href{https://wiki.pantherx.org}{\tt https\+://wiki.\+pantherx.\+org}
+\end{DoxySeeAlso}
+\begin{DoxyReturn}{Returns}
+N\+U\+LL if cannot allocate object. Otherwise, the newly created object 
+\end{DoxyReturn}
 \mbox{\Hypertarget{gnode-object_8c_a0d906716c0b2c59e34bff01153dc23d2}\label{gnode-object_8c_a0d906716c0b2c59e34bff01153dc23d2}} 
 \index{gnode-\/object.\+c@{gnode-\/object.\+c}!traverse\+\_\+json\+\_\+array\+\_\+func@{traverse\+\_\+json\+\_\+array\+\_\+func}}
 \index{traverse\+\_\+json\+\_\+array\+\_\+func@{traverse\+\_\+json\+\_\+array\+\_\+func}!gnode-\/object.\+c@{gnode-\/object.\+c}}
 \subsubsection{\texorpdfstring{traverse\+\_\+json\+\_\+array\+\_\+func()}{traverse\_json\_array\_func()}}
 {\footnotesize\ttfamily gboolean traverse\+\_\+json\+\_\+array\+\_\+func (\begin{DoxyParamCaption}\item[{G\+Node $\ast$}]{node,  }\item[{gpointer}]{data }\end{DoxyParamCaption})}
 
+
+
+adds all objects of a tree to a J\+S\+ON array. 
+
+\begin{DoxySeeAlso}{See also}
+\href{https://wiki.pantherx.org}{\tt https\+://wiki.\+pantherx.\+org}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em node} & the root of the tree to be traversed. \\
+\hline
+\mbox{\tt in,out}  & {\em data} & the data passed to call-\/back function. It may be used as both input and output \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the T\+R\+UE shows that stop traverse 
+\end{DoxyReturn}
 \mbox{\Hypertarget{gnode-object_8c_acde5d3e413f355d1b912f0dcb9d4cdc1}\label{gnode-object_8c_acde5d3e413f355d1b912f0dcb9d4cdc1}} 
 \index{gnode-\/object.\+c@{gnode-\/object.\+c}!traverse\+\_\+json\+\_\+func@{traverse\+\_\+json\+\_\+func}}
 \index{traverse\+\_\+json\+\_\+func@{traverse\+\_\+json\+\_\+func}!gnode-\/object.\+c@{gnode-\/object.\+c}}
 \subsubsection{\texorpdfstring{traverse\+\_\+json\+\_\+func()}{traverse\_json\_func()}}
 {\footnotesize\ttfamily gboolean traverse\+\_\+json\+\_\+func (\begin{DoxyParamCaption}\item[{G\+Node $\ast$}]{node,  }\item[{gpointer}]{data }\end{DoxyParamCaption})}
 
+
+
+creates the J\+S\+ON representation for all objects of a tree. 
+
+\begin{DoxySeeAlso}{See also}
+\href{https://wiki.pantherx.org}{\tt https\+://wiki.\+pantherx.\+org}
+\end{DoxySeeAlso}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000004}{Todo}]T\+O\+DO Use user data\end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em node} & the root of the tree to be traversed. \\
+\hline
+\mbox{\tt in,out}  & {\em data} & the data passed to call-\/back function. It may be used as both input and output \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the T\+R\+UE shows that stop traverse 
+\end{DoxyReturn}
