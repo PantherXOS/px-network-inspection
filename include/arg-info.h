@@ -5,37 +5,53 @@
 #include <stdbool.h>
 #include <string.h>
 
-const char *argp_program_version = "0.0.6";
+///	@brief	version of the px-network-inspection
+const char *argp_program_version = "0.0.7";
+
+///	@brief	the bug report email address.
 const char *argp_program_bug_address = "<s.mahmood@pantherx.org>";
 
-/* Program documentation. */
+///	@brief	Program documentation.
 char doc[] = "A utility to collect network routing details of local machine.";
 
-/* A description of the arguments we accept. */
+///	@brief	A description of the arguments we accept.
 char args_doc[] = "";
 
-/* The options we understand. */
-struct argp_option options[] = {
+///	@brief	The options we understand.
+struct argp_option options[] =
+{
 	{"format", 'f', "Format <JSON:CXX>", 0, "File Format which has to be one of JSON or CXX" },
 	{"output", 'o', "File", 0, "Output to FILE instead of standard output" },
 	{ 0 }
 };
 
+/// @brief	the type of the output format
 enum Format
 {
 	JSON,
 	CXX
 };
 
-/* Used by main to communicate with parse_opt. */
+///	@brief	used by main to fetch the parsed arguments
 struct arguments 
 {
+	///	@brief	the output format
 	enum Format format;
+	///	@brief	the output file address
 	char *output_file;
 };
 
-/* Parse a single option. */
-/* Parse a single option. */
+/**
+ *  @brief Parse a single option
+ *
+ *  @details
+ *   The function is a call-back that is called by the arg-parser.
+ *
+ *  @see	https://wiki.pantherx.org
+ *
+ * 	@note	not to call from code.
+ * 	@post	use inf struct argp.
+ */
 error_t parse_opt (int key, char *arg, struct argp_state *state)
 {
 	/* Get the input argument from argp_parse, which we
@@ -67,7 +83,7 @@ error_t parse_opt (int key, char *arg, struct argp_state *state)
 	return 0;
 }
 
-/* Our argp parser. */
+///	@brief	The argp parser.
 struct argp argp = { options, parse_opt, args_doc, doc};
 
 #endif

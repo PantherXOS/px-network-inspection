@@ -21,34 +21,34 @@ This graph shows which files directly or indirectly include this file\+:\nopageb
 \begin{DoxyCompactItemize}
 \item 
 struct \hyperlink{structarguments}{arguments}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em used by main to fetch the parsed arguments \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
 enum \hyperlink{arg-info_8h_ab4e88c89b3b7ea1735996cc4def22d58}{Format} \{ \hyperlink{arg-info_8h_ab4e88c89b3b7ea1735996cc4def22d58aa5210511e3859748f136ab50c313ef05}{J\+S\+ON}, 
 \hyperlink{arg-info_8h_ab4e88c89b3b7ea1735996cc4def22d58afde1c37e079bb0efad8943458c4c6da8}{C\+XX}
- \}
+ \}\begin{DoxyCompactList}\small\item\em the type of the output format \end{DoxyCompactList}
 \end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 error\+\_\+t \hyperlink{arg-info_8h_a5fb6abc38ef248ec154591e0dd392c1b}{parse\+\_\+opt} (int key, char $\ast$arg, struct argp\+\_\+state $\ast$state)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Parse a single option. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-const char $\ast$ \hyperlink{arg-info_8h_a62f73ea01c816f1996aed4c66f57c4fb}{argp\+\_\+program\+\_\+version} = \char`\"{}0.\+0.\+6\char`\"{}
-\item 
+const char $\ast$ \hyperlink{arg-info_8h_a62f73ea01c816f1996aed4c66f57c4fb}{argp\+\_\+program\+\_\+version} = \char`\"{}0.\+0.\+7\char`\"{}
+\begin{DoxyCompactList}\small\item\em version of the px-\/network-\/inspection \end{DoxyCompactList}\item 
 const char $\ast$ \hyperlink{arg-info_8h_aaa037e59f26a80a8a2e35e6f2364004d}{argp\+\_\+program\+\_\+bug\+\_\+address} = \char`\"{}$<$s.\+mahmood@pantherx.\+org$>$\char`\"{}
-\item 
+\begin{DoxyCompactList}\small\item\em the bug report email address. \end{DoxyCompactList}\item 
 char \hyperlink{arg-info_8h_af6164deb8a824f8cb2b9147cfc3174f5}{doc} \mbox{[}$\,$\mbox{]} = \char`\"{}A utility to collect network routing details of local machine.\char`\"{}
-\item 
+\begin{DoxyCompactList}\small\item\em Program documentation. \end{DoxyCompactList}\item 
 char \hyperlink{arg-info_8h_a91b08784b3668a8a1fbe2eec1947fb9d}{args\+\_\+doc} \mbox{[}$\,$\mbox{]} = \char`\"{}\char`\"{}
-\item 
+\begin{DoxyCompactList}\small\item\em A description of the arguments we accept. \end{DoxyCompactList}\item 
 struct argp\+\_\+option \hyperlink{arg-info_8h_abc1fd3a47aea6a8944038c9100eb9135}{options} \mbox{[}$\,$\mbox{]}
-\item 
+\begin{DoxyCompactList}\small\item\em The options we understand. \end{DoxyCompactList}\item 
 struct argp \hyperlink{arg-info_8h_ab70c96531b1b652d70c221cfaf3207f3}{argp} = \{ \hyperlink{arg-info_8h_abc1fd3a47aea6a8944038c9100eb9135}{options}, \hyperlink{arg-info_8h_a5fb6abc38ef248ec154591e0dd392c1b}{parse\+\_\+opt}, \hyperlink{arg-info_8h_a91b08784b3668a8a1fbe2eec1947fb9d}{args\+\_\+doc}, \hyperlink{arg-info_8h_af6164deb8a824f8cb2b9147cfc3174f5}{doc}\}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em The argp parser. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Enumeration Type Documentation}
@@ -57,6 +57,10 @@ struct argp \hyperlink{arg-info_8h_ab70c96531b1b652d70c221cfaf3207f3}{argp} = \{
 \index{Format@{Format}!arg-\/info.\+h@{arg-\/info.\+h}}
 \subsubsection{\texorpdfstring{Format}{Format}}
 {\footnotesize\ttfamily enum \hyperlink{arg-info_8h_ab4e88c89b3b7ea1735996cc4def22d58}{Format}}
+
+
+
+the type of the output format 
 
 \begin{DoxyEnumFields}{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{J\+S\+ON@{J\+S\+ON}!arg-\/info.\+h@{arg-\/info.\+h}}\index{arg-\/info.\+h@{arg-\/info.\+h}!J\+S\+ON@{J\+S\+ON}}}\mbox{\Hypertarget{arg-info_8h_ab4e88c89b3b7ea1735996cc4def22d58aa5210511e3859748f136ab50c313ef05}\label{arg-info_8h_ab4e88c89b3b7ea1735996cc4def22d58aa5210511e3859748f136ab50c313ef05}} 
@@ -79,6 +83,21 @@ C\+XX&\\
 
 
 
+Parse a single option. 
+
+The function is a call-\/back that is called by the arg-\/parser.
+
+\begin{DoxySeeAlso}{See also}
+\href{https://wiki.pantherx.org}{\tt https\+://wiki.\+pantherx.\+org}
+\end{DoxySeeAlso}
+\begin{DoxyNote}{Note}
+not to call from code. 
+\end{DoxyNote}
+\begin{DoxyPostcond}{Postcondition}
+use inf struct argp. 
+\end{DoxyPostcond}
+
+
 \subsection{Variable Documentation}
 \mbox{\Hypertarget{arg-info_8h_ab70c96531b1b652d70c221cfaf3207f3}\label{arg-info_8h_ab70c96531b1b652d70c221cfaf3207f3}} 
 \index{arg-\/info.\+h@{arg-\/info.\+h}!argp@{argp}}
@@ -86,17 +105,29 @@ C\+XX&\\
 \subsubsection{\texorpdfstring{argp}{argp}}
 {\footnotesize\ttfamily struct argp argp = \{ \hyperlink{arg-info_8h_abc1fd3a47aea6a8944038c9100eb9135}{options}, \hyperlink{arg-info_8h_a5fb6abc38ef248ec154591e0dd392c1b}{parse\+\_\+opt}, \hyperlink{arg-info_8h_a91b08784b3668a8a1fbe2eec1947fb9d}{args\+\_\+doc}, \hyperlink{arg-info_8h_af6164deb8a824f8cb2b9147cfc3174f5}{doc}\}}
 
+
+
+The argp parser. 
+
 \mbox{\Hypertarget{arg-info_8h_aaa037e59f26a80a8a2e35e6f2364004d}\label{arg-info_8h_aaa037e59f26a80a8a2e35e6f2364004d}} 
 \index{arg-\/info.\+h@{arg-\/info.\+h}!argp\+\_\+program\+\_\+bug\+\_\+address@{argp\+\_\+program\+\_\+bug\+\_\+address}}
 \index{argp\+\_\+program\+\_\+bug\+\_\+address@{argp\+\_\+program\+\_\+bug\+\_\+address}!arg-\/info.\+h@{arg-\/info.\+h}}
 \subsubsection{\texorpdfstring{argp\+\_\+program\+\_\+bug\+\_\+address}{argp\_program\_bug\_address}}
 {\footnotesize\ttfamily const char$\ast$ argp\+\_\+program\+\_\+bug\+\_\+address = \char`\"{}$<$s.\+mahmood@pantherx.\+org$>$\char`\"{}}
 
+
+
+the bug report email address. 
+
 \mbox{\Hypertarget{arg-info_8h_a62f73ea01c816f1996aed4c66f57c4fb}\label{arg-info_8h_a62f73ea01c816f1996aed4c66f57c4fb}} 
 \index{arg-\/info.\+h@{arg-\/info.\+h}!argp\+\_\+program\+\_\+version@{argp\+\_\+program\+\_\+version}}
 \index{argp\+\_\+program\+\_\+version@{argp\+\_\+program\+\_\+version}!arg-\/info.\+h@{arg-\/info.\+h}}
 \subsubsection{\texorpdfstring{argp\+\_\+program\+\_\+version}{argp\_program\_version}}
-{\footnotesize\ttfamily const char$\ast$ argp\+\_\+program\+\_\+version = \char`\"{}0.\+0.\+6\char`\"{}}
+{\footnotesize\ttfamily const char$\ast$ argp\+\_\+program\+\_\+version = \char`\"{}0.\+0.\+7\char`\"{}}
+
+
+
+version of the px-\/network-\/inspection 
 
 \mbox{\Hypertarget{arg-info_8h_a91b08784b3668a8a1fbe2eec1947fb9d}\label{arg-info_8h_a91b08784b3668a8a1fbe2eec1947fb9d}} 
 \index{arg-\/info.\+h@{arg-\/info.\+h}!args\+\_\+doc@{args\+\_\+doc}}
@@ -104,11 +135,19 @@ C\+XX&\\
 \subsubsection{\texorpdfstring{args\+\_\+doc}{args\_doc}}
 {\footnotesize\ttfamily char args\+\_\+doc\mbox{[}$\,$\mbox{]} = \char`\"{}\char`\"{}}
 
+
+
+A description of the arguments we accept. 
+
 \mbox{\Hypertarget{arg-info_8h_af6164deb8a824f8cb2b9147cfc3174f5}\label{arg-info_8h_af6164deb8a824f8cb2b9147cfc3174f5}} 
 \index{arg-\/info.\+h@{arg-\/info.\+h}!doc@{doc}}
 \index{doc@{doc}!arg-\/info.\+h@{arg-\/info.\+h}}
 \subsubsection{\texorpdfstring{doc}{doc}}
 {\footnotesize\ttfamily char doc\mbox{[}$\,$\mbox{]} = \char`\"{}A utility to collect network routing details of local machine.\char`\"{}}
+
+
+
+Program documentation. 
 
 \mbox{\Hypertarget{arg-info_8h_abc1fd3a47aea6a8944038c9100eb9135}\label{arg-info_8h_abc1fd3a47aea6a8944038c9100eb9135}} 
 \index{arg-\/info.\+h@{arg-\/info.\+h}!options@{options}}
@@ -118,9 +157,14 @@ C\+XX&\\
 
 {\bfseries Initial value\+:}
 \begin{DoxyCode}
-= \{
+=
+\{
     \{\textcolor{stringliteral}{"format"}, \textcolor{charliteral}{'f'}, \textcolor{stringliteral}{"Format <JSON:CXX>"}, 0, \textcolor{stringliteral}{"File Format which has to be one of JSON or CXX"} \},
     \{\textcolor{stringliteral}{"output"}, \textcolor{charliteral}{'o'}, \textcolor{stringliteral}{"File"}, 0, \textcolor{stringliteral}{"Output to FILE instead of standard output"} \},
     \{ 0 \}
 \}
 \end{DoxyCode}
+
+
+The options we understand. 
+
