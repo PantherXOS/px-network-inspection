@@ -7,20 +7,44 @@
 #include <net/if.h>
 #include <linux/ethtool.h>
 
-/* Context for sub-commands */
-struct cmd_context {
-    const char *devname;    /* net device name */
-    int fd;         /* socket suitable for ethtool ioctl */
-    struct ifreq ifr;   /* ifreq suitable for ethtool ioctl */
-    int argc;       /* number of arguments to the sub-command */
-    char **argp;        /* arguments to the sub-command */
+/// @brief	The struct represents the request message for ioctl system call.
+struct cmd_context
+{
+	///	@brief	the queried device name
+    const char *devname;
+	/// @brief	the handling file descriptor
+    int fd;
+	///	@brief	the request suitable for ethtool ioctl
+    struct ifreq ifr;
+	/// @brief	the number of arguments to the sub-command
+    int argc;
+	///	@brief	arguments to the sub-command
+    char **argp;
 };
 
-int send_ioctl(struct cmd_context *ctx, void *cmd);
+//int send_ioctl(struct cmd_context *ctx, void *cmd);
 
+/**
+ *  @brief dumps the retrieved driver information
+ *
+ *  @see	https://wiki.pantherx.org
+ *
+ * 	@param[in]	info	the struct represents the driver information.
+ *	@pre	the info must be retrieved beforehand.
+ */
 int dump_drvinfo(struct ethtool_drvinfo *info);
 
-int do_gdrv(struct cmd_context *ctx, struct ethtool_drvinfo *drvinfo);
+//int do_gdrv(struct cmd_context *ctx, struct ethtool_drvinfo *drvinfo);
+
+/**
+ *  @brief gets the bus and hardware related device information from the driver.
+ *
+ *  @see	https://wiki.pantherx.org
+ *
+ * 	@param[in]	ifa_name	the name of the network interface device.
+ * 	@param[out]	drvinfo	the resulting driver information.
+ * 	@return	the successfulness of the request. 
+ */
 int get_drv_info(char *ifa_name, struct ethtool_drvinfo *drvinfo);
 
 #endif

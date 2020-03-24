@@ -86,12 +86,16 @@ Include dependency graph for ethtool-info.c:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a6d58a8ebd8093edbe407365d8f3e93e5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ethtool-info_8c.html#a6d58a8ebd8093edbe407365d8f3e93e5">send_ioctl</a> (struct <a class="el" href="structcmd__context.html">cmd_context</a> *ctx, void *cmd)</td></tr>
+<tr class="memdesc:a6d58a8ebd8093edbe407365d8f3e93e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">the wrapper for sending SIOCETHTOOL request via ioctl.  <a href="#a6d58a8ebd8093edbe407365d8f3e93e5">More...</a><br /></td></tr>
 <tr class="separator:a6d58a8ebd8093edbe407365d8f3e93e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a972c7feb6f25da37144ec7933d787147"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ethtool-info_8c.html#a972c7feb6f25da37144ec7933d787147">dump_drvinfo</a> (struct ethtool_drvinfo *info)</td></tr>
+<tr class="memdesc:a972c7feb6f25da37144ec7933d787147"><td class="mdescLeft">&#160;</td><td class="mdescRight">dumps the retrieved driver information  <a href="#a972c7feb6f25da37144ec7933d787147">More...</a><br /></td></tr>
 <tr class="separator:a972c7feb6f25da37144ec7933d787147"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a92defcf2493dee90aeaac81e3b15572c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ethtool-info_8c.html#a92defcf2493dee90aeaac81e3b15572c">do_gdrv</a> (struct <a class="el" href="structcmd__context.html">cmd_context</a> *ctx, struct ethtool_drvinfo *drvinfo)</td></tr>
+<tr class="memdesc:a92defcf2493dee90aeaac81e3b15572c"><td class="mdescLeft">&#160;</td><td class="mdescRight">gets driver information request form dump.  <a href="#a92defcf2493dee90aeaac81e3b15572c">More...</a><br /></td></tr>
 <tr class="separator:a92defcf2493dee90aeaac81e3b15572c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af4d8c485fa8cc199f6e1f27e949c9dc4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ethtool-info_8c.html#af4d8c485fa8cc199f6e1f27e949c9dc4">get_drv_info</a> (char *ifa_name, struct ethtool_drvinfo *drvinfo)</td></tr>
+<tr class="memdesc:af4d8c485fa8cc199f6e1f27e949c9dc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">gets the bus and hardware related device information from the driver.  <a href="#af4d8c485fa8cc199f6e1f27e949c9dc4">More...</a><br /></td></tr>
 <tr class="separator:af4d8c485fa8cc199f6e1f27e949c9dc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -121,6 +125,17 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>gets driver information request form dump. </p>
+<dl class="section see"><dt>See also</dt><dd><a href="https://wiki.pantherx.org">https://wiki.pantherx.org</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ctx</td><td>the command context to be submitted to ioctl. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">drvinfo</td><td>the resulting driver information. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the successfulness of the request. </dd></dl>
+
 </div>
 </div>
 <a id="a972c7feb6f25da37144ec7933d787147"></a>
@@ -138,6 +153,16 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>dumps the retrieved driver information </p>
+<dl class="section see"><dt>See also</dt><dd><a href="https://wiki.pantherx.org">https://wiki.pantherx.org</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">info</td><td>the struct represents the driver information. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd>the info must be retrieved beforehand. </dd></dl>
 
 </div>
 </div>
@@ -167,6 +192,17 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>gets the bus and hardware related device information from the driver. </p>
+<dl class="section see"><dt>See also</dt><dd><a href="https://wiki.pantherx.org">https://wiki.pantherx.org</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ifa_name</td><td>the name of the network interface device. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">drvinfo</td><td>the resulting driver information. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the successfulness of the request. </dd></dl>
+
 </div>
 </div>
 <a id="a6d58a8ebd8093edbe407365d8f3e93e5"></a>
@@ -194,6 +230,17 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>the wrapper for sending SIOCETHTOOL request via ioctl. </p>
+<dl class="section see"><dt>See also</dt><dd><a href="https://wiki.pantherx.org">https://wiki.pantherx.org</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ctx</td><td>the request to be sent. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">cmd</td><td>the result of the request. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd>the fd must be opened. </dd></dl>
 
 </div>
 </div>

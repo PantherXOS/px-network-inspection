@@ -14,7 +14,7 @@ var searchData=
   ['dev_5fvpn_5fprofile',['dev_vpn_profile',['../structnet__device.html#ab9c29f0a4280c9f26bfedd0d7fd39789',1,'net_device']]],
   ['dev_5fwifi_5fap',['dev_wifi_ap',['../structnet__device.html#a5f2de2bdeda68898f48a0d9347239e04',1,'net_device']]],
   ['devname',['devname',['../structcmd__context.html#ab8b7bd55de702a0928b0d27b7d7f46c4',1,'cmd_context']]],
-  ['do_5fgdrv',['do_gdrv',['../ethtool-info_8c.html#a92defcf2493dee90aeaac81e3b15572c',1,'do_gdrv(struct cmd_context *ctx, struct ethtool_drvinfo *drvinfo):&#160;ethtool-info.c'],['../ethtool-info_8h.html#a92defcf2493dee90aeaac81e3b15572c',1,'do_gdrv(struct cmd_context *ctx, struct ethtool_drvinfo *drvinfo):&#160;ethtool-info.c']]],
+  ['do_5fgdrv',['do_gdrv',['../ethtool-info_8c.html#a92defcf2493dee90aeaac81e3b15572c',1,'ethtool-info.c']]],
   ['doc',['doc',['../arg-info_8h.html#af6164deb8a824f8cb2b9147cfc3174f5',1,'arg-info.h']]],
   ['dst_5fipv4',['dst_ipv4',['../structroute__node.html#a27a750349a740654f57ad08fe87ff83f',1,'route_node']]],
   ['dump_5fdrvinfo',['dump_drvinfo',['../ethtool-info_8c.html#a972c7feb6f25da37144ec7933d787147',1,'dump_drvinfo(struct ethtool_drvinfo *info):&#160;ethtool-info.c'],['../ethtool-info_8h.html#a972c7feb6f25da37144ec7933d787147',1,'dump_drvinfo(struct ethtool_drvinfo *info):&#160;ethtool-info.c']]]

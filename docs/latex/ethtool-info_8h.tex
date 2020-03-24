@@ -23,42 +23,58 @@ This graph shows which files directly or indirectly include this file\+:\nopageb
 \begin{DoxyCompactItemize}
 \item 
 struct \hyperlink{structcmd__context}{cmd\+\_\+context}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em The struct represents the request message for ioctl system call. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-int \hyperlink{ethtool-info_8h_a6d58a8ebd8093edbe407365d8f3e93e5}{send\+\_\+ioctl} (struct \hyperlink{structcmd__context}{cmd\+\_\+context} $\ast$ctx, void $\ast$cmd)
-\item 
 int \hyperlink{ethtool-info_8h_a972c7feb6f25da37144ec7933d787147}{dump\+\_\+drvinfo} (struct ethtool\+\_\+drvinfo $\ast$info)
-\item 
-int \hyperlink{ethtool-info_8h_a92defcf2493dee90aeaac81e3b15572c}{do\+\_\+gdrv} (struct \hyperlink{structcmd__context}{cmd\+\_\+context} $\ast$ctx, struct ethtool\+\_\+drvinfo $\ast$drvinfo)
-\item 
+\begin{DoxyCompactList}\small\item\em dumps the retrieved driver information \end{DoxyCompactList}\item 
 int \hyperlink{ethtool-info_8h_af4d8c485fa8cc199f6e1f27e949c9dc4}{get\+\_\+drv\+\_\+info} (char $\ast$ifa\+\_\+name, struct ethtool\+\_\+drvinfo $\ast$drvinfo)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em gets the bus and hardware related device information from the driver. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Function Documentation}
-\mbox{\Hypertarget{ethtool-info_8h_a92defcf2493dee90aeaac81e3b15572c}\label{ethtool-info_8h_a92defcf2493dee90aeaac81e3b15572c}} 
-\index{ethtool-\/info.\+h@{ethtool-\/info.\+h}!do\+\_\+gdrv@{do\+\_\+gdrv}}
-\index{do\+\_\+gdrv@{do\+\_\+gdrv}!ethtool-\/info.\+h@{ethtool-\/info.\+h}}
-\subsubsection{\texorpdfstring{do\+\_\+gdrv()}{do\_gdrv()}}
-{\footnotesize\ttfamily int do\+\_\+gdrv (\begin{DoxyParamCaption}\item[{struct \hyperlink{structcmd__context}{cmd\+\_\+context} $\ast$}]{ctx,  }\item[{struct ethtool\+\_\+drvinfo $\ast$}]{drvinfo }\end{DoxyParamCaption})}
-
 \mbox{\Hypertarget{ethtool-info_8h_a972c7feb6f25da37144ec7933d787147}\label{ethtool-info_8h_a972c7feb6f25da37144ec7933d787147}} 
 \index{ethtool-\/info.\+h@{ethtool-\/info.\+h}!dump\+\_\+drvinfo@{dump\+\_\+drvinfo}}
 \index{dump\+\_\+drvinfo@{dump\+\_\+drvinfo}!ethtool-\/info.\+h@{ethtool-\/info.\+h}}
 \subsubsection{\texorpdfstring{dump\+\_\+drvinfo()}{dump\_drvinfo()}}
 {\footnotesize\ttfamily int dump\+\_\+drvinfo (\begin{DoxyParamCaption}\item[{struct ethtool\+\_\+drvinfo $\ast$}]{info }\end{DoxyParamCaption})}
 
+
+
+dumps the retrieved driver information 
+
+\begin{DoxySeeAlso}{See also}
+\href{https://wiki.pantherx.org}{\tt https\+://wiki.\+pantherx.\+org}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em info} & the struct represents the driver information. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyPrecond}{Precondition}
+the info must be retrieved beforehand. 
+\end{DoxyPrecond}
 \mbox{\Hypertarget{ethtool-info_8h_af4d8c485fa8cc199f6e1f27e949c9dc4}\label{ethtool-info_8h_af4d8c485fa8cc199f6e1f27e949c9dc4}} 
 \index{ethtool-\/info.\+h@{ethtool-\/info.\+h}!get\+\_\+drv\+\_\+info@{get\+\_\+drv\+\_\+info}}
 \index{get\+\_\+drv\+\_\+info@{get\+\_\+drv\+\_\+info}!ethtool-\/info.\+h@{ethtool-\/info.\+h}}
 \subsubsection{\texorpdfstring{get\+\_\+drv\+\_\+info()}{get\_drv\_info()}}
 {\footnotesize\ttfamily int get\+\_\+drv\+\_\+info (\begin{DoxyParamCaption}\item[{char $\ast$}]{ifa\+\_\+name,  }\item[{struct ethtool\+\_\+drvinfo $\ast$}]{drvinfo }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{ethtool-info_8h_a6d58a8ebd8093edbe407365d8f3e93e5}\label{ethtool-info_8h_a6d58a8ebd8093edbe407365d8f3e93e5}} 
-\index{ethtool-\/info.\+h@{ethtool-\/info.\+h}!send\+\_\+ioctl@{send\+\_\+ioctl}}
-\index{send\+\_\+ioctl@{send\+\_\+ioctl}!ethtool-\/info.\+h@{ethtool-\/info.\+h}}
-\subsubsection{\texorpdfstring{send\+\_\+ioctl()}{send\_ioctl()}}
-{\footnotesize\ttfamily int send\+\_\+ioctl (\begin{DoxyParamCaption}\item[{struct \hyperlink{structcmd__context}{cmd\+\_\+context} $\ast$}]{ctx,  }\item[{void $\ast$}]{cmd }\end{DoxyParamCaption})}
 
+
+gets the bus and hardware related device information from the driver. 
+
+\begin{DoxySeeAlso}{See also}
+\href{https://wiki.pantherx.org}{\tt https\+://wiki.\+pantherx.\+org}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em ifa\+\_\+name} & the name of the network interface device. \\
+\hline
+\mbox{\tt out}  & {\em drvinfo} & the resulting driver information. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the successfulness of the request. 
+\end{DoxyReturn}

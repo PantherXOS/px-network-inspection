@@ -7,13 +7,29 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
+/**
+ *  @brief the wrapper for sending SIOCETHTOOL request via ioctl.
+ *
+ *  @see	https://wiki.pantherx.org
+ *
+ * 	@param[in]	ctx	the request to be sent.
+ * 	@param[out]	cmd	the result of the request.
+ *	@pre	the fd must be opened.
+ */
 int send_ioctl(struct cmd_context *ctx, void *cmd)
 {
 	ctx->ifr.ifr_data = cmd;
 	return ioctl(ctx->fd, SIOCETHTOOL, &ctx->ifr);
 }
 
+/**
+ *  @brief dumps the retrieved driver information
+ *
+ *  @see	https://wiki.pantherx.org
+ *
+ * 	@param[in]	info	the struct represents the driver information.
+ *	@pre	the info must be retrieved beforehand.
+ */
 int dump_drvinfo(struct ethtool_drvinfo *info)
 {
 	fprintf(stdout,
@@ -38,6 +54,15 @@ int dump_drvinfo(struct ethtool_drvinfo *info)
 	return 0;
 }
 
+/**
+ *  @brief gets driver information request form dump.
+ *
+ *  @see	https://wiki.pantherx.org
+ *
+ * 	@param[in]	ctx	the command context to be submitted to ioctl.
+ * 	@param[out]	drvinfo	the resulting driver information.
+ * 	@return	the successfulness of the request. 
+ */
 int do_gdrv(struct cmd_context *ctx, struct ethtool_drvinfo *drvinfo)
 {
 	int err;
@@ -58,6 +83,15 @@ int do_gdrv(struct cmd_context *ctx, struct ethtool_drvinfo *drvinfo)
 	return 0;
 }
 
+/**
+ *  @brief gets the bus and hardware related device information from the driver.
+ *
+ *  @see	https://wiki.pantherx.org
+ *
+ * 	@param[in]	ifa_name	the name of the network interface device.
+ * 	@param[out]	drvinfo	the resulting driver information.
+ * 	@return	the successfulness of the request. 
+ */
 int get_drv_info(char *ifa_name, struct ethtool_drvinfo *drvinfo)
 {
 	struct cmd_context ctx;

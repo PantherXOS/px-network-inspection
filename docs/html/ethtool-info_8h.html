@@ -96,48 +96,19 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcmd__context.html">cmd_context</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The struct represents the request message for ioctl system call.  <a href="structcmd__context.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a6d58a8ebd8093edbe407365d8f3e93e5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ethtool-info_8h.html#a6d58a8ebd8093edbe407365d8f3e93e5">send_ioctl</a> (struct <a class="el" href="structcmd__context.html">cmd_context</a> *ctx, void *cmd)</td></tr>
-<tr class="separator:a6d58a8ebd8093edbe407365d8f3e93e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a972c7feb6f25da37144ec7933d787147"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ethtool-info_8h.html#a972c7feb6f25da37144ec7933d787147">dump_drvinfo</a> (struct ethtool_drvinfo *info)</td></tr>
+<tr class="memdesc:a972c7feb6f25da37144ec7933d787147"><td class="mdescLeft">&#160;</td><td class="mdescRight">dumps the retrieved driver information  <a href="#a972c7feb6f25da37144ec7933d787147">More...</a><br /></td></tr>
 <tr class="separator:a972c7feb6f25da37144ec7933d787147"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92defcf2493dee90aeaac81e3b15572c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ethtool-info_8h.html#a92defcf2493dee90aeaac81e3b15572c">do_gdrv</a> (struct <a class="el" href="structcmd__context.html">cmd_context</a> *ctx, struct ethtool_drvinfo *drvinfo)</td></tr>
-<tr class="separator:a92defcf2493dee90aeaac81e3b15572c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af4d8c485fa8cc199f6e1f27e949c9dc4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ethtool-info_8h.html#af4d8c485fa8cc199f6e1f27e949c9dc4">get_drv_info</a> (char *ifa_name, struct ethtool_drvinfo *drvinfo)</td></tr>
+<tr class="memdesc:af4d8c485fa8cc199f6e1f27e949c9dc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">gets the bus and hardware related device information from the driver.  <a href="#af4d8c485fa8cc199f6e1f27e949c9dc4">More...</a><br /></td></tr>
 <tr class="separator:af4d8c485fa8cc199f6e1f27e949c9dc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a92defcf2493dee90aeaac81e3b15572c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a92defcf2493dee90aeaac81e3b15572c">&#9670;&nbsp;</a></span>do_gdrv()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int do_gdrv </td>
-          <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structcmd__context.html">cmd_context</a> *&#160;</td>
-          <td class="paramname"><em>ctx</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">struct ethtool_drvinfo *&#160;</td>
-          <td class="paramname"><em>drvinfo</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a972c7feb6f25da37144ec7933d787147"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a972c7feb6f25da37144ec7933d787147">&#9670;&nbsp;</a></span>dump_drvinfo()</h2>
 
@@ -153,6 +124,16 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>dumps the retrieved driver information </p>
+<dl class="section see"><dt>See also</dt><dd><a href="https://wiki.pantherx.org">https://wiki.pantherx.org</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">info</td><td>the struct represents the driver information. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd>the info must be retrieved beforehand. </dd></dl>
 
 </div>
 </div>
@@ -182,33 +163,16 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="a6d58a8ebd8093edbe407365d8f3e93e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d58a8ebd8093edbe407365d8f3e93e5">&#9670;&nbsp;</a></span>send_ioctl()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int send_ioctl </td>
-          <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structcmd__context.html">cmd_context</a> *&#160;</td>
-          <td class="paramname"><em>ctx</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>cmd</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p>gets the bus and hardware related device information from the driver. </p>
+<dl class="section see"><dt>See also</dt><dd><a href="https://wiki.pantherx.org">https://wiki.pantherx.org</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ifa_name</td><td>the name of the network interface device. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">drvinfo</td><td>the resulting driver information. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the successfulness of the request. </dd></dl>
 
 </div>
 </div>

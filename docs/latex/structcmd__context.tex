@@ -2,22 +2,30 @@
 \label{structcmd__context}\index{cmd\+\_\+context@{cmd\+\_\+context}}
 
 
+The struct represents the request message for ioctl system call.  
+
+
+
+
 {\ttfamily \#include $<$ethtool-\/info.\+h$>$}
 
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 const char $\ast$ \hyperlink{structcmd__context_ab8b7bd55de702a0928b0d27b7d7f46c4}{devname}
-\item 
+\begin{DoxyCompactList}\small\item\em the queried device name \end{DoxyCompactList}\item 
 int \hyperlink{structcmd__context_a3482941a7d95d94958fd026e984aaad6}{fd}
-\item 
+\begin{DoxyCompactList}\small\item\em the handling file descriptor \end{DoxyCompactList}\item 
 struct ifreq \hyperlink{structcmd__context_a372549b7e45b707f07780719bc9f3b06}{ifr}
-\item 
+\begin{DoxyCompactList}\small\item\em the request suitable for ethtool ioctl \end{DoxyCompactList}\item 
 int \hyperlink{structcmd__context_a1aa1c9bed1f38cff4fd629b65a8cbca9}{argc}
-\item 
+\begin{DoxyCompactList}\small\item\em the number of arguments to the sub-\/command \end{DoxyCompactList}\item 
 char $\ast$$\ast$ \hyperlink{structcmd__context_a24ef49bb73e5c7212d3277860adce333}{argp}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em arguments to the sub-\/command \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\subsection{Detailed Description}
+The struct represents the request message for ioctl system call. 
 
 \subsection{Member Data Documentation}
 \mbox{\Hypertarget{structcmd__context_a1aa1c9bed1f38cff4fd629b65a8cbca9}\label{structcmd__context_a1aa1c9bed1f38cff4fd629b65a8cbca9}} 
@@ -26,11 +34,19 @@ char $\ast$$\ast$ \hyperlink{structcmd__context_a24ef49bb73e5c7212d3277860adce33
 \subsubsection{\texorpdfstring{argc}{argc}}
 {\footnotesize\ttfamily int cmd\+\_\+context\+::argc}
 
+
+
+the number of arguments to the sub-\/command 
+
 \mbox{\Hypertarget{structcmd__context_a24ef49bb73e5c7212d3277860adce333}\label{structcmd__context_a24ef49bb73e5c7212d3277860adce333}} 
 \index{cmd\+\_\+context@{cmd\+\_\+context}!argp@{argp}}
 \index{argp@{argp}!cmd\+\_\+context@{cmd\+\_\+context}}
 \subsubsection{\texorpdfstring{argp}{argp}}
 {\footnotesize\ttfamily char $\ast$$\ast$ cmd\+\_\+context\+::argp}
+
+
+
+arguments to the sub-\/command 
 
 \mbox{\Hypertarget{structcmd__context_ab8b7bd55de702a0928b0d27b7d7f46c4}\label{structcmd__context_ab8b7bd55de702a0928b0d27b7d7f46c4}} 
 \index{cmd\+\_\+context@{cmd\+\_\+context}!devname@{devname}}
@@ -38,17 +54,29 @@ char $\ast$$\ast$ \hyperlink{structcmd__context_a24ef49bb73e5c7212d3277860adce33
 \subsubsection{\texorpdfstring{devname}{devname}}
 {\footnotesize\ttfamily const char $\ast$ cmd\+\_\+context\+::devname}
 
+
+
+the queried device name 
+
 \mbox{\Hypertarget{structcmd__context_a3482941a7d95d94958fd026e984aaad6}\label{structcmd__context_a3482941a7d95d94958fd026e984aaad6}} 
 \index{cmd\+\_\+context@{cmd\+\_\+context}!fd@{fd}}
 \index{fd@{fd}!cmd\+\_\+context@{cmd\+\_\+context}}
 \subsubsection{\texorpdfstring{fd}{fd}}
 {\footnotesize\ttfamily int cmd\+\_\+context\+::fd}
 
+
+
+the handling file descriptor 
+
 \mbox{\Hypertarget{structcmd__context_a372549b7e45b707f07780719bc9f3b06}\label{structcmd__context_a372549b7e45b707f07780719bc9f3b06}} 
 \index{cmd\+\_\+context@{cmd\+\_\+context}!ifr@{ifr}}
 \index{ifr@{ifr}!cmd\+\_\+context@{cmd\+\_\+context}}
 \subsubsection{\texorpdfstring{ifr}{ifr}}
 {\footnotesize\ttfamily struct ifreq cmd\+\_\+context\+::ifr}
+
+
+
+the request suitable for ethtool ioctl 
 
 
 
