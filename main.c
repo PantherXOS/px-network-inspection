@@ -27,25 +27,64 @@
 
 // TODO: use all elemnts.
 /* Root of each route */
-static GNode *route_roots[MAX_ROOTS_NUMBER];	// TODO: avoid fix numbers.
+static GNode *route_roots[MAX_ROOTS_NUMBER];
 static int roots = 0;
 static GNode *kernel_route_roots[MAX_ROOTS_NUMBER];
 static int kernel_roots = 0;
 static int kernel_primary_root = 0;
 // Name of physical interfaces
-static char phy_if[MAX_PHYS_IFS][16];	// TODO: avoid fix numbers.
+static char phy_if[MAX_PHYS_IFS][IFNAMSIZ];
 static size_t phy_index;
 static size_t primary_if_index;
 
-static char tap_if[MAX_TAP_IFS][16]; 	//TODO: avoid fix numbers.
+static char tap_if[MAX_TAP_IFS][IFNAMSIZ];
 static size_t tap_index;
 
-static char tun_if[MAX_TUN_IFS][16]; 	//TODO: avoid fix numbers.
+static char tun_if[MAX_TUN_IFS][IFNAMSIZ];
 static size_t tun_index;
 
 static VpnMethod *detected_vpn_method = NULL; 
 static char profile_name[MAX_VPN_PROFILE_NAME];
 
+/// @brief	The traverse mode used for traversing group of interfaces
+enum IF_TRAVERSE_MODE
+{
+	/// Means physical interface
+	PHY,
+	/// Means tap-based interfaces
+	TAP,
+	/// Means tun-based interfaces
+	TUN,
+	/// Means public interfaces. Not used now.
+	PUB
+};
+
+/// @brief	The interface mode used to retrieve public IP
+enum IF_MODE
+{
+	/// The public IP is accessible via physical interface
+	PHY_MODE,
+	/// The public IP is accessible via tap interface
+	TAP_MODE,
+	/// The public IP is accessible via tun interface
+	TUN_MODE,
+	/// The public IP is accessibility is not determined
+	IF_NONE
+};
+
+/**
+ *  @brief Finds the primary interface.
+ *
+ *  @details
+ *   The function finds the primary physical interface through which, the main traffic of the machine goes.
+ *
+ *  @see	https://wiki.pantherx.org
+ *  @todo
+ *  	TODO Support tap-based interfaces.
+ *
+ *	@pre	The gstatic global variable kernel_route_roots must be set.
+ *	@note	It sets the static global variable primary_if_index that indicates the index of primary physical interface.
+ */
 void find_primary_if_index()
 {
 	char *primary_if_name = (ROUTENODE(kernel_route_roots[kernel_primary_root]->data))->if_name;
@@ -58,6 +97,19 @@ void find_primary_if_index()
 	}
 }
 
+/**
+ *  @brief The function get one interface information.
+ *
+ *  @details
+ *   The function uses many different API and libraries to gather interfaces information.
+ *
+ *  @see	https://wiki.pantherx.org
+ *
+ *	@param[in]	ifname	The input network interface to be checked for wifi information.
+ *	@param[out]	protocol	The running link-layer protocol of wifi (e.g IEEE 802.a).
+ *	@param[out]	essid_name	The name of the access point that the wifi interface is connected to.
+ *	@note	It uses kernel's wifi interface.
+ */
 int get_wifi_info(const char* ifname, char* protocol, char *essid_name)
 {
 	int sock = -1;
@@ -100,22 +152,22 @@ int get_wifi_info(const char* ifname, char* protocol, char *essid_name)
 	return 0;
 }
 
-enum IF_TRAVERSE_MODE
-{
-	PHY,
-	TAP,
-	TUN,
-	PUB
-};
-
-enum IF_MODE
-{
-	PHY_MODE,
-	TAP_MODE,
-	TUN_MODE,
-	IF_NONE
-};
-
+/**
+ *  @brief The function get one interface information.
+ *
+ *  @details
+ *   The function uses many different API and libraries to gather interfaces information.
+ *
+ *  @see	https://wiki.pantherx.org
+ *  @todo
+ *  	TODO Support tap-based interfaces.
+ *
+ *	@pre	The input must be provided. The kernel_route_roots must be set. The VPN type and profile must be detected.
+ *	@param[in]	ifa	The input network interface.
+ *	@param[in]	family	The protocol family of the interface (i.e inet or inet6).
+ *	@param[in]	tr_mode	The type of interfaces to be traversed.
+ *	@note	It uses kernel_route_roots and affects other static global variables and arrays.
+ */
 void get_if_info(struct ifaddrs *ifa, int family, enum IF_TRAVERSE_MODE tr_mode)
 {
 	int s, n;
@@ -258,13 +310,27 @@ void get_if_info(struct ifaddrs *ifa, int family, enum IF_TRAVERSE_MODE tr_mode)
 }
 }
 
+/**
+ *  @brief The function traverses interfaces.
+ *
+ *  @details
+ *   The function traverses a group network interfaces according to their device type: PHY, TUN, TAP, and ....
+ *
+ *  @see	https://wiki.pantherx.org
+ *  @todo
+ *  	TODO Support tap-based interfaces.
+ *
+ *	@pre	The input must be provided.
+ *	@param[in]	ifaddr	List of input network interfaces to be checked and traversed.
+ *	@param[in]	tr_mode	The type of interfaces to be traversed.
+ *	@note	It uses kernel_route_roots and affects other static global variables and arrays.
+ */
 void traverse_ifs(struct ifaddrs *ifaddr, enum IF_TRAVERSE_MODE tr_mode)
 {
 	int root = 0;
 
 	struct ifaddrs *ifa;
 	int family, s, n;
-	//char host[NI_MAXHOST];
 
 	struct rtnl_link *link;
 	struct nl_sock *sk;
@@ -300,8 +366,20 @@ void traverse_ifs(struct ifaddrs *ifaddr, enum IF_TRAVERSE_MODE tr_mode)
 	}
 }
 
+/**
+ *  @brief The function retrieve all public IPs.
+ *
+ *  @details
+ *   The main function gets publlic IPs based on the VPN model.
+ *
+ *  @see	https://wiki.pantherx.org
+ *  @todo
+ *  	TODO Support tap-based VPNs.
+ *
+ *	@pre	All routes must be extracted.
+ */
 void public_ip_retrieve()
-{	
+{
 	enum IF_MODE if_mode = IF_NONE;
 	char if_public_ips[MAX_PHYS_IFS][40];
 	if (tun_index == 0)
@@ -370,7 +448,20 @@ void public_ip_retrieve()
 	}
 }
 
-/* TODO: Add other devices too. */
+/**
+ *  @brief The main function detects all routes to public network (Internet).
+ *
+ *  @details
+ *   The main function traverse the route and interfaces trees to establish all routes.
+ *
+ *  @see	https://wiki.pantherx.org
+ *  @todo
+ *  	TODO Add complicated routes.
+ *  	TODO Support tap-based VPNs.
+ *
+ *	@pre	It must be called after detect_vpn_method, get_vpn_profile_name, argp_parse, and analyze_kernel_route functions.
+ *	@post	The detected routes have to be traversed to produce JSON output.
+ */
 void get_routes()
 {
 	// Read all NIC devices. Checks if a device is AF_PACKETS. Add it to the list.
@@ -400,6 +491,20 @@ void get_routes()
 	freeifaddrs(ifaddr);
 }
 
+/**
+ * 	@author	<Sina Mahmoodi>
+ *  @brief The main function of the project.
+ *
+ *  @details
+ *   The main get input arguments, uses the vpn detection, public IP detection, route parsing,
+ *   and network interface to inspect the network.
+ *
+ *  @see   https://wiki.pantherx.org
+ *
+ * 	@remark	
+ * 	 px-network-inspection provides JSON based output in both file and stdout.
+ * 	 Use px-network-inspection --usage to see the command help.
+ */
 int main (int argc, char **argv)
 {
 	detected_vpn_method = detect_vpn_method();

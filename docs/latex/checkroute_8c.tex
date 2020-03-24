@@ -1,0 +1,67 @@
+\hypertarget{checkroute_8c}{}\section{/home/sina/pantherx/networkinspection/git/checkroute.c File Reference}
+\label{checkroute_8c}\index{/home/sina/pantherx/networkinspection/git/checkroute.\+c@{/home/sina/pantherx/networkinspection/git/checkroute.\+c}}
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\newline
+{\ttfamily \#include $<$sys/socket.\+h$>$}\newline
+{\ttfamily \#include $<$netdb.\+h$>$}\newline
+{\ttfamily \#include $<$ifaddrs.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$linux/if\+\_\+link.\+h$>$}\newline
+{\ttfamily \#include $<$netlink/netlink.\+h$>$}\newline
+{\ttfamily \#include $<$netlink/route/link.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\newline
+{\ttfamily \#include $<$net/if.\+h$>$}\newline
+{\ttfamily \#include $<$sys/fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$linux/sockios.\+h$>$}\newline
+{\ttfamily \#include $<$linux/ethtool.\+h$>$}\newline
+Include dependency graph for checkroute.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{checkroute_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structcmd__context}{cmd\+\_\+context}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{checkroute_8c_a369266c24eacffb87046522897a570d5}{\+\_\+\+G\+N\+U\+\_\+\+S\+O\+U\+R\+CE}~/$\ast$ To get defns of N\+I\+\_\+\+M\+A\+X\+S\+E\+RV and N\+I\+\_\+\+M\+A\+X\+H\+O\+ST $\ast$/
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{checkroute_8c_a6d58a8ebd8093edbe407365d8f3e93e5}{send\+\_\+ioctl} (struct \hyperlink{structcmd__context}{cmd\+\_\+context} $\ast$ctx, void $\ast$cmd)
+\item 
+int \hyperlink{checkroute_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{checkroute_8c_a369266c24eacffb87046522897a570d5}\label{checkroute_8c_a369266c24eacffb87046522897a570d5}} 
+\index{checkroute.\+c@{checkroute.\+c}!\+\_\+\+G\+N\+U\+\_\+\+S\+O\+U\+R\+CE@{\+\_\+\+G\+N\+U\+\_\+\+S\+O\+U\+R\+CE}}
+\index{\+\_\+\+G\+N\+U\+\_\+\+S\+O\+U\+R\+CE@{\+\_\+\+G\+N\+U\+\_\+\+S\+O\+U\+R\+CE}!checkroute.\+c@{checkroute.\+c}}
+\subsubsection{\texorpdfstring{\+\_\+\+G\+N\+U\+\_\+\+S\+O\+U\+R\+CE}{\_GNU\_SOURCE}}
+{\footnotesize\ttfamily \#define \+\_\+\+G\+N\+U\+\_\+\+S\+O\+U\+R\+CE~/$\ast$ To get defns of N\+I\+\_\+\+M\+A\+X\+S\+E\+RV and N\+I\+\_\+\+M\+A\+X\+H\+O\+ST $\ast$/}
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{checkroute_8c_a0ddf1224851353fc92bfbff6f499fa97}\label{checkroute_8c_a0ddf1224851353fc92bfbff6f499fa97}} 
+\index{checkroute.\+c@{checkroute.\+c}!main@{main}}
+\index{main@{main}!checkroute.\+c@{checkroute.\+c}}
+\subsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{checkroute_8c_a6d58a8ebd8093edbe407365d8f3e93e5}\label{checkroute_8c_a6d58a8ebd8093edbe407365d8f3e93e5}} 
+\index{checkroute.\+c@{checkroute.\+c}!send\+\_\+ioctl@{send\+\_\+ioctl}}
+\index{send\+\_\+ioctl@{send\+\_\+ioctl}!checkroute.\+c@{checkroute.\+c}}
+\subsubsection{\texorpdfstring{send\+\_\+ioctl()}{send\_ioctl()}}
+{\footnotesize\ttfamily int send\+\_\+ioctl (\begin{DoxyParamCaption}\item[{struct \hyperlink{structcmd__context}{cmd\+\_\+context} $\ast$}]{ctx,  }\item[{void $\ast$}]{cmd }\end{DoxyParamCaption})}
+

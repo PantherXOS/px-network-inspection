@@ -1,0 +1,312 @@
+\hypertarget{main_8c}{}\section{/home/sina/pantherx/networkinspection/git/main.c File Reference}
+\label{main_8c}\index{/home/sina/pantherx/networkinspection/git/main.\+c@{/home/sina/pantherx/networkinspection/git/main.\+c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$search.\+h$>$}\newline
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\newline
+{\ttfamily \#include $<$sys/socket.\+h$>$}\newline
+{\ttfamily \#include $<$netdb.\+h$>$}\newline
+{\ttfamily \#include $<$ifaddrs.\+h$>$}\newline
+{\ttfamily \#include $<$linux/if\+\_\+link.\+h$>$}\newline
+{\ttfamily \#include $<$netlink/netlink.\+h$>$}\newline
+{\ttfamily \#include $<$netlink/route/link.\+h$>$}\newline
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\newline
+{\ttfamily \#include $<$netinet/in.\+h$>$}\newline
+{\ttfamily \#include $<$net/if.\+h$>$}\newline
+{\ttfamily \#include $<$linux/wireless.\+h$>$}\newline
+{\ttfamily \#include $<$arg-\/info.\+h$>$}\newline
+{\ttfamily \#include $<$ethtool-\/info.\+h$>$}\newline
+{\ttfamily \#include $<$gnode-\/object.\+h$>$}\newline
+{\ttfamily \#include $<$route-\/tree.\+h$>$}\newline
+{\ttfamily \#include $<$app-\/profile.\+h$>$}\newline
+{\ttfamily \#include $<$json-\/c/json.\+h$>$}\newline
+{\ttfamily \#include $<$public-\/ip.\+h$>$}\newline
+Include dependency graph for main.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{main_8c_a7bc1c477dae83ef66bdbd360fce8b3b7}{I\+F\+\_\+\+T\+R\+A\+V\+E\+R\+S\+E\+\_\+\+M\+O\+DE} \{ \hyperlink{main_8c_a7bc1c477dae83ef66bdbd360fce8b3b7a447898b405796e8408d14997383cd7f0}{P\+HY}, 
+\hyperlink{main_8c_a7bc1c477dae83ef66bdbd360fce8b3b7a75039ed322737bab50d3a284f7bfc381}{T\+AP}, 
+\hyperlink{main_8c_a7bc1c477dae83ef66bdbd360fce8b3b7a5a4e4e444e81403d9166b0fa64196761}{T\+UN}, 
+\hyperlink{main_8c_a7bc1c477dae83ef66bdbd360fce8b3b7a309fd8ba753197f13b23ede644b0d58c}{P\+UB}
+ \}\begin{DoxyCompactList}\small\item\em The traverse mode used for traversing group of interfaces. \end{DoxyCompactList}
+\item 
+enum \hyperlink{main_8c_a5ffcda19913c05c9d113f32fcd11805c}{I\+F\+\_\+\+M\+O\+DE} \{ \hyperlink{main_8c_a5ffcda19913c05c9d113f32fcd11805ca885cef154adf6c48c3392f8ca8898d75}{P\+H\+Y\+\_\+\+M\+O\+DE}, 
+\hyperlink{main_8c_a5ffcda19913c05c9d113f32fcd11805ca17b28ff1a59054d22c2d4bf08eb638f0}{T\+A\+P\+\_\+\+M\+O\+DE}, 
+\hyperlink{main_8c_a5ffcda19913c05c9d113f32fcd11805caac481b78320c3a986f8f81c29f86ef49}{T\+U\+N\+\_\+\+M\+O\+DE}, 
+\hyperlink{main_8c_a5ffcda19913c05c9d113f32fcd11805ca46dbf2e0f925aa7b0f3f9edd25acf5e6}{I\+F\+\_\+\+N\+O\+NE}
+ \}\begin{DoxyCompactList}\small\item\em The interface mode used to retrieve public IP. \end{DoxyCompactList}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{main_8c_a345bf2d3cf0cd82bcbbba3e054eafd48}{find\+\_\+primary\+\_\+if\+\_\+index} ()
+\begin{DoxyCompactList}\small\item\em Finds the primary interface. \end{DoxyCompactList}\item 
+int \hyperlink{main_8c_ae6c1cdef3918f1d4c01e4c3c566bb211}{get\+\_\+wifi\+\_\+info} (const char $\ast$ifname, char $\ast$protocol, char $\ast$essid\+\_\+name)
+\begin{DoxyCompactList}\small\item\em The function get one interface information. \end{DoxyCompactList}\item 
+void \hyperlink{main_8c_a6f5d8c51479e6196fb3d19e3538a46d0}{get\+\_\+if\+\_\+info} (struct ifaddrs $\ast$ifa, int family, enum \hyperlink{main_8c_a7bc1c477dae83ef66bdbd360fce8b3b7}{I\+F\+\_\+\+T\+R\+A\+V\+E\+R\+S\+E\+\_\+\+M\+O\+DE} tr\+\_\+mode)
+\begin{DoxyCompactList}\small\item\em The function get one interface information. \end{DoxyCompactList}\item 
+void \hyperlink{main_8c_a5e3d195dba2da8b65b35a85c7834dfa2}{traverse\+\_\+ifs} (struct ifaddrs $\ast$ifaddr, enum \hyperlink{main_8c_a7bc1c477dae83ef66bdbd360fce8b3b7}{I\+F\+\_\+\+T\+R\+A\+V\+E\+R\+S\+E\+\_\+\+M\+O\+DE} tr\+\_\+mode)
+\begin{DoxyCompactList}\small\item\em The function traverses interfaces. \end{DoxyCompactList}\item 
+void \hyperlink{main_8c_a9af8032bea78a008241c6a446021e90b}{public\+\_\+ip\+\_\+retrieve} ()
+\begin{DoxyCompactList}\small\item\em The function retrieve all public I\+Ps. \end{DoxyCompactList}\item 
+void \hyperlink{main_8c_a25501fb2b3310a216de1ece7fa86e233}{get\+\_\+routes} ()
+\begin{DoxyCompactList}\small\item\em The main function detects all routes to public network (Internet). \end{DoxyCompactList}\item 
+int \hyperlink{main_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\begin{DoxyCompactList}\small\item\em The main function of the project. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{main_8c_a5ffcda19913c05c9d113f32fcd11805c}\label{main_8c_a5ffcda19913c05c9d113f32fcd11805c}} 
+\index{main.\+c@{main.\+c}!I\+F\+\_\+\+M\+O\+DE@{I\+F\+\_\+\+M\+O\+DE}}
+\index{I\+F\+\_\+\+M\+O\+DE@{I\+F\+\_\+\+M\+O\+DE}!main.\+c@{main.\+c}}
+\subsubsection{\texorpdfstring{I\+F\+\_\+\+M\+O\+DE}{IF\_MODE}}
+{\footnotesize\ttfamily enum \hyperlink{main_8c_a5ffcda19913c05c9d113f32fcd11805c}{I\+F\+\_\+\+M\+O\+DE}}
+
+
+
+The interface mode used to retrieve public IP. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{P\+H\+Y\+\_\+\+M\+O\+DE@{P\+H\+Y\+\_\+\+M\+O\+DE}!main.\+c@{main.\+c}}\index{main.\+c@{main.\+c}!P\+H\+Y\+\_\+\+M\+O\+DE@{P\+H\+Y\+\_\+\+M\+O\+DE}}}\mbox{\Hypertarget{main_8c_a5ffcda19913c05c9d113f32fcd11805ca885cef154adf6c48c3392f8ca8898d75}\label{main_8c_a5ffcda19913c05c9d113f32fcd11805ca885cef154adf6c48c3392f8ca8898d75}} 
+P\+H\+Y\+\_\+\+M\+O\+DE&The public IP is accessible via physical interface. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{T\+A\+P\+\_\+\+M\+O\+DE@{T\+A\+P\+\_\+\+M\+O\+DE}!main.\+c@{main.\+c}}\index{main.\+c@{main.\+c}!T\+A\+P\+\_\+\+M\+O\+DE@{T\+A\+P\+\_\+\+M\+O\+DE}}}\mbox{\Hypertarget{main_8c_a5ffcda19913c05c9d113f32fcd11805ca17b28ff1a59054d22c2d4bf08eb638f0}\label{main_8c_a5ffcda19913c05c9d113f32fcd11805ca17b28ff1a59054d22c2d4bf08eb638f0}} 
+T\+A\+P\+\_\+\+M\+O\+DE&The public IP is accessible via tap interface. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{T\+U\+N\+\_\+\+M\+O\+DE@{T\+U\+N\+\_\+\+M\+O\+DE}!main.\+c@{main.\+c}}\index{main.\+c@{main.\+c}!T\+U\+N\+\_\+\+M\+O\+DE@{T\+U\+N\+\_\+\+M\+O\+DE}}}\mbox{\Hypertarget{main_8c_a5ffcda19913c05c9d113f32fcd11805caac481b78320c3a986f8f81c29f86ef49}\label{main_8c_a5ffcda19913c05c9d113f32fcd11805caac481b78320c3a986f8f81c29f86ef49}} 
+T\+U\+N\+\_\+\+M\+O\+DE&The public IP is accessible via tun interface. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{I\+F\+\_\+\+N\+O\+NE@{I\+F\+\_\+\+N\+O\+NE}!main.\+c@{main.\+c}}\index{main.\+c@{main.\+c}!I\+F\+\_\+\+N\+O\+NE@{I\+F\+\_\+\+N\+O\+NE}}}\mbox{\Hypertarget{main_8c_a5ffcda19913c05c9d113f32fcd11805ca46dbf2e0f925aa7b0f3f9edd25acf5e6}\label{main_8c_a5ffcda19913c05c9d113f32fcd11805ca46dbf2e0f925aa7b0f3f9edd25acf5e6}} 
+I\+F\+\_\+\+N\+O\+NE&The public IP is accessibility is not determined. \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{main_8c_a7bc1c477dae83ef66bdbd360fce8b3b7}\label{main_8c_a7bc1c477dae83ef66bdbd360fce8b3b7}} 
+\index{main.\+c@{main.\+c}!I\+F\+\_\+\+T\+R\+A\+V\+E\+R\+S\+E\+\_\+\+M\+O\+DE@{I\+F\+\_\+\+T\+R\+A\+V\+E\+R\+S\+E\+\_\+\+M\+O\+DE}}
+\index{I\+F\+\_\+\+T\+R\+A\+V\+E\+R\+S\+E\+\_\+\+M\+O\+DE@{I\+F\+\_\+\+T\+R\+A\+V\+E\+R\+S\+E\+\_\+\+M\+O\+DE}!main.\+c@{main.\+c}}
+\subsubsection{\texorpdfstring{I\+F\+\_\+\+T\+R\+A\+V\+E\+R\+S\+E\+\_\+\+M\+O\+DE}{IF\_TRAVERSE\_MODE}}
+{\footnotesize\ttfamily enum \hyperlink{main_8c_a7bc1c477dae83ef66bdbd360fce8b3b7}{I\+F\+\_\+\+T\+R\+A\+V\+E\+R\+S\+E\+\_\+\+M\+O\+DE}}
+
+
+
+The traverse mode used for traversing group of interfaces. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{P\+HY@{P\+HY}!main.\+c@{main.\+c}}\index{main.\+c@{main.\+c}!P\+HY@{P\+HY}}}\mbox{\Hypertarget{main_8c_a7bc1c477dae83ef66bdbd360fce8b3b7a447898b405796e8408d14997383cd7f0}\label{main_8c_a7bc1c477dae83ef66bdbd360fce8b3b7a447898b405796e8408d14997383cd7f0}} 
+P\+HY&Means physical interface. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{T\+AP@{T\+AP}!main.\+c@{main.\+c}}\index{main.\+c@{main.\+c}!T\+AP@{T\+AP}}}\mbox{\Hypertarget{main_8c_a7bc1c477dae83ef66bdbd360fce8b3b7a75039ed322737bab50d3a284f7bfc381}\label{main_8c_a7bc1c477dae83ef66bdbd360fce8b3b7a75039ed322737bab50d3a284f7bfc381}} 
+T\+AP&Means tap-\/based interfaces. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{T\+UN@{T\+UN}!main.\+c@{main.\+c}}\index{main.\+c@{main.\+c}!T\+UN@{T\+UN}}}\mbox{\Hypertarget{main_8c_a7bc1c477dae83ef66bdbd360fce8b3b7a5a4e4e444e81403d9166b0fa64196761}\label{main_8c_a7bc1c477dae83ef66bdbd360fce8b3b7a5a4e4e444e81403d9166b0fa64196761}} 
+T\+UN&Means tun-\/based interfaces. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{P\+UB@{P\+UB}!main.\+c@{main.\+c}}\index{main.\+c@{main.\+c}!P\+UB@{P\+UB}}}\mbox{\Hypertarget{main_8c_a7bc1c477dae83ef66bdbd360fce8b3b7a309fd8ba753197f13b23ede644b0d58c}\label{main_8c_a7bc1c477dae83ef66bdbd360fce8b3b7a309fd8ba753197f13b23ede644b0d58c}} 
+P\+UB&Means public interfaces. Not used now. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{main_8c_a345bf2d3cf0cd82bcbbba3e054eafd48}\label{main_8c_a345bf2d3cf0cd82bcbbba3e054eafd48}} 
+\index{main.\+c@{main.\+c}!find\+\_\+primary\+\_\+if\+\_\+index@{find\+\_\+primary\+\_\+if\+\_\+index}}
+\index{find\+\_\+primary\+\_\+if\+\_\+index@{find\+\_\+primary\+\_\+if\+\_\+index}!main.\+c@{main.\+c}}
+\subsubsection{\texorpdfstring{find\+\_\+primary\+\_\+if\+\_\+index()}{find\_primary\_if\_index()}}
+{\footnotesize\ttfamily void find\+\_\+primary\+\_\+if\+\_\+index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Finds the primary interface. 
+
+The function finds the primary physical interface through which, the main traffic of the machine goes.
+
+\begin{DoxySeeAlso}{See also}
+\href{https://wiki.pantherx.org}{\tt https\+://wiki.\+pantherx.\+org} 
+\end{DoxySeeAlso}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000001}{Todo}]T\+O\+DO Support tap-\/based interfaces.\end{DoxyRefDesc}
+
+
+\begin{DoxyPrecond}{Precondition}
+The gstatic global variable kernel\+\_\+route\+\_\+roots must be set. 
+\end{DoxyPrecond}
+\begin{DoxyNote}{Note}
+It sets the static global variable primary\+\_\+if\+\_\+index that indicates the index of primary physical interface. 
+\end{DoxyNote}
+\mbox{\Hypertarget{main_8c_a6f5d8c51479e6196fb3d19e3538a46d0}\label{main_8c_a6f5d8c51479e6196fb3d19e3538a46d0}} 
+\index{main.\+c@{main.\+c}!get\+\_\+if\+\_\+info@{get\+\_\+if\+\_\+info}}
+\index{get\+\_\+if\+\_\+info@{get\+\_\+if\+\_\+info}!main.\+c@{main.\+c}}
+\subsubsection{\texorpdfstring{get\+\_\+if\+\_\+info()}{get\_if\_info()}}
+{\footnotesize\ttfamily void get\+\_\+if\+\_\+info (\begin{DoxyParamCaption}\item[{struct ifaddrs $\ast$}]{ifa,  }\item[{int}]{family,  }\item[{enum \hyperlink{main_8c_a7bc1c477dae83ef66bdbd360fce8b3b7}{I\+F\+\_\+\+T\+R\+A\+V\+E\+R\+S\+E\+\_\+\+M\+O\+DE}}]{tr\+\_\+mode }\end{DoxyParamCaption})}
+
+
+
+The function get one interface information. 
+
+The function uses many different A\+PI and libraries to gather interfaces information.
+
+\begin{DoxySeeAlso}{See also}
+\href{https://wiki.pantherx.org}{\tt https\+://wiki.\+pantherx.\+org} 
+\end{DoxySeeAlso}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000002}{Todo}]T\+O\+DO Support tap-\/based interfaces.\end{DoxyRefDesc}
+
+
+\begin{DoxyPrecond}{Precondition}
+The input must be provided. The kernel\+\_\+route\+\_\+roots must be set. The V\+PN type and profile must be detected. 
+\end{DoxyPrecond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em ifa} & The input network interface. \\
+\hline
+\mbox{\tt in}  & {\em family} & The protocol family of the interface (i.\+e inet or inet6). \\
+\hline
+\mbox{\tt in}  & {\em tr\+\_\+mode} & The type of interfaces to be traversed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+It uses kernel\+\_\+route\+\_\+roots and affects other static global variables and arrays. 
+\end{DoxyNote}
+\mbox{\Hypertarget{main_8c_a25501fb2b3310a216de1ece7fa86e233}\label{main_8c_a25501fb2b3310a216de1ece7fa86e233}} 
+\index{main.\+c@{main.\+c}!get\+\_\+routes@{get\+\_\+routes}}
+\index{get\+\_\+routes@{get\+\_\+routes}!main.\+c@{main.\+c}}
+\subsubsection{\texorpdfstring{get\+\_\+routes()}{get\_routes()}}
+{\footnotesize\ttfamily void get\+\_\+routes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+The main function detects all routes to public network (Internet). 
+
+The main function traverse the route and interfaces trees to establish all routes.
+
+\begin{DoxySeeAlso}{See also}
+\href{https://wiki.pantherx.org}{\tt https\+://wiki.\+pantherx.\+org} 
+\end{DoxySeeAlso}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000005}{Todo}]T\+O\+DO Add complicated routes. T\+O\+DO Support tap-\/based V\+P\+Ns.\end{DoxyRefDesc}
+
+
+\begin{DoxyPrecond}{Precondition}
+It must be called after detect\+\_\+vpn\+\_\+method, get\+\_\+vpn\+\_\+profile\+\_\+name, argp\+\_\+parse, and analyze\+\_\+kernel\+\_\+route functions. 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+The detected routes have to be traversed to produce J\+S\+ON output. 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{main_8c_ae6c1cdef3918f1d4c01e4c3c566bb211}\label{main_8c_ae6c1cdef3918f1d4c01e4c3c566bb211}} 
+\index{main.\+c@{main.\+c}!get\+\_\+wifi\+\_\+info@{get\+\_\+wifi\+\_\+info}}
+\index{get\+\_\+wifi\+\_\+info@{get\+\_\+wifi\+\_\+info}!main.\+c@{main.\+c}}
+\subsubsection{\texorpdfstring{get\+\_\+wifi\+\_\+info()}{get\_wifi\_info()}}
+{\footnotesize\ttfamily int get\+\_\+wifi\+\_\+info (\begin{DoxyParamCaption}\item[{const char $\ast$}]{ifname,  }\item[{char $\ast$}]{protocol,  }\item[{char $\ast$}]{essid\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+The function get one interface information. 
+
+The function uses many different A\+PI and libraries to gather interfaces information.
+
+\begin{DoxySeeAlso}{See also}
+\href{https://wiki.pantherx.org}{\tt https\+://wiki.\+pantherx.\+org}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em ifname} & The input network interface to be checked for wifi information. \\
+\hline
+\mbox{\tt out}  & {\em protocol} & The running link-\/layer protocol of wifi (e.\+g I\+E\+EE 802.\+a). \\
+\hline
+\mbox{\tt out}  & {\em essid\+\_\+name} & The name of the access point that the wifi interface is connected to. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+It uses kernel\textquotesingle{}s wifi interface. 
+\end{DoxyNote}
+\mbox{\Hypertarget{main_8c_a3c04138a5bfe5d72780bb7e82a18e627}\label{main_8c_a3c04138a5bfe5d72780bb7e82a18e627}} 
+\index{main.\+c@{main.\+c}!main@{main}}
+\index{main@{main}!main.\+c@{main.\+c}}
+\subsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+
+
+The main function of the project. 
+
+\begin{DoxyAuthor}{Author}
+$<$\+Sina mahmoodi$>$=\char`\"{}\char`\"{}$>$
+\end{DoxyAuthor}
+The main get input arguments, uses the vpn detection, public IP detection, route parsing, and network interface to inspect the network.
+
+\begin{DoxySeeAlso}{See also}
+\href{https://wiki.pantherx.org}{\tt https\+://wiki.\+pantherx.\+org}
+\end{DoxySeeAlso}
+\begin{DoxyRemark}{Remarks}
+px-\/network-\/inspection provides J\+S\+ON based output in both file and stdout. Use px-\/network-\/inspection --usage to see the command help. 
+\end{DoxyRemark}
+\mbox{\Hypertarget{main_8c_a9af8032bea78a008241c6a446021e90b}\label{main_8c_a9af8032bea78a008241c6a446021e90b}} 
+\index{main.\+c@{main.\+c}!public\+\_\+ip\+\_\+retrieve@{public\+\_\+ip\+\_\+retrieve}}
+\index{public\+\_\+ip\+\_\+retrieve@{public\+\_\+ip\+\_\+retrieve}!main.\+c@{main.\+c}}
+\subsubsection{\texorpdfstring{public\+\_\+ip\+\_\+retrieve()}{public\_ip\_retrieve()}}
+{\footnotesize\ttfamily void public\+\_\+ip\+\_\+retrieve (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+The function retrieve all public I\+Ps. 
+
+The main function gets publlic I\+Ps based on the V\+PN model.
+
+\begin{DoxySeeAlso}{See also}
+\href{https://wiki.pantherx.org}{\tt https\+://wiki.\+pantherx.\+org} 
+\end{DoxySeeAlso}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000004}{Todo}]T\+O\+DO Support tap-\/based V\+P\+Ns.\end{DoxyRefDesc}
+
+
+\begin{DoxyPrecond}{Precondition}
+All routes must be extracted. 
+\end{DoxyPrecond}
+\mbox{\Hypertarget{main_8c_a5e3d195dba2da8b65b35a85c7834dfa2}\label{main_8c_a5e3d195dba2da8b65b35a85c7834dfa2}} 
+\index{main.\+c@{main.\+c}!traverse\+\_\+ifs@{traverse\+\_\+ifs}}
+\index{traverse\+\_\+ifs@{traverse\+\_\+ifs}!main.\+c@{main.\+c}}
+\subsubsection{\texorpdfstring{traverse\+\_\+ifs()}{traverse\_ifs()}}
+{\footnotesize\ttfamily void traverse\+\_\+ifs (\begin{DoxyParamCaption}\item[{struct ifaddrs $\ast$}]{ifaddr,  }\item[{enum \hyperlink{main_8c_a7bc1c477dae83ef66bdbd360fce8b3b7}{I\+F\+\_\+\+T\+R\+A\+V\+E\+R\+S\+E\+\_\+\+M\+O\+DE}}]{tr\+\_\+mode }\end{DoxyParamCaption})}
+
+
+
+The function traverses interfaces. 
+
+The function traverses a group network interfaces according to their device type\+: P\+HY, T\+UN, T\+AP, and ....
+
+\begin{DoxySeeAlso}{See also}
+\href{https://wiki.pantherx.org}{\tt https\+://wiki.\+pantherx.\+org} 
+\end{DoxySeeAlso}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000003}{Todo}]T\+O\+DO Support tap-\/based interfaces.\end{DoxyRefDesc}
+
+
+\begin{DoxyPrecond}{Precondition}
+The input must be provided. 
+\end{DoxyPrecond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em ifaddr} & List of input network interfaces to be checked and traversed. \\
+\hline
+\mbox{\tt in}  & {\em tr\+\_\+mode} & The type of interfaces to be traversed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+It uses kernel\+\_\+route\+\_\+roots and affects other static global variables and arrays. 
+\end{DoxyNote}

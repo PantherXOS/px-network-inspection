@@ -1,0 +1,55 @@
+\hypertarget{ethtool-info_8c}{}\section{/home/sina/pantherx/networkinspection/git/ethtool-\/info.c File Reference}
+\label{ethtool-info_8c}\index{/home/sina/pantherx/networkinspection/git/ethtool-\/info.\+c@{/home/sina/pantherx/networkinspection/git/ethtool-\/info.\+c}}
+{\ttfamily \#include $<$ethtool-\/info.\+h$>$}\newline
+{\ttfamily \#include $<$sys/socket.\+h$>$}\newline
+{\ttfamily \#include $<$sys/fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$netinet/in.\+h$>$}\newline
+{\ttfamily \#include $<$linux/sockios.\+h$>$}\newline
+{\ttfamily \#include $<$linux/ethtool.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+Include dependency graph for ethtool-\/info.c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ethtool-info_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{ethtool-info_8c_a6d58a8ebd8093edbe407365d8f3e93e5}{send\+\_\+ioctl} (struct \hyperlink{structcmd__context}{cmd\+\_\+context} $\ast$ctx, void $\ast$cmd)
+\item 
+int \hyperlink{ethtool-info_8c_a972c7feb6f25da37144ec7933d787147}{dump\+\_\+drvinfo} (struct ethtool\+\_\+drvinfo $\ast$info)
+\item 
+int \hyperlink{ethtool-info_8c_a92defcf2493dee90aeaac81e3b15572c}{do\+\_\+gdrv} (struct \hyperlink{structcmd__context}{cmd\+\_\+context} $\ast$ctx, struct ethtool\+\_\+drvinfo $\ast$drvinfo)
+\item 
+int \hyperlink{ethtool-info_8c_af4d8c485fa8cc199f6e1f27e949c9dc4}{get\+\_\+drv\+\_\+info} (char $\ast$ifa\+\_\+name, struct ethtool\+\_\+drvinfo $\ast$drvinfo)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{ethtool-info_8c_a92defcf2493dee90aeaac81e3b15572c}\label{ethtool-info_8c_a92defcf2493dee90aeaac81e3b15572c}} 
+\index{ethtool-\/info.\+c@{ethtool-\/info.\+c}!do\+\_\+gdrv@{do\+\_\+gdrv}}
+\index{do\+\_\+gdrv@{do\+\_\+gdrv}!ethtool-\/info.\+c@{ethtool-\/info.\+c}}
+\subsubsection{\texorpdfstring{do\+\_\+gdrv()}{do\_gdrv()}}
+{\footnotesize\ttfamily int do\+\_\+gdrv (\begin{DoxyParamCaption}\item[{struct \hyperlink{structcmd__context}{cmd\+\_\+context} $\ast$}]{ctx,  }\item[{struct ethtool\+\_\+drvinfo $\ast$}]{drvinfo }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{ethtool-info_8c_a972c7feb6f25da37144ec7933d787147}\label{ethtool-info_8c_a972c7feb6f25da37144ec7933d787147}} 
+\index{ethtool-\/info.\+c@{ethtool-\/info.\+c}!dump\+\_\+drvinfo@{dump\+\_\+drvinfo}}
+\index{dump\+\_\+drvinfo@{dump\+\_\+drvinfo}!ethtool-\/info.\+c@{ethtool-\/info.\+c}}
+\subsubsection{\texorpdfstring{dump\+\_\+drvinfo()}{dump\_drvinfo()}}
+{\footnotesize\ttfamily int dump\+\_\+drvinfo (\begin{DoxyParamCaption}\item[{struct ethtool\+\_\+drvinfo $\ast$}]{info }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{ethtool-info_8c_af4d8c485fa8cc199f6e1f27e949c9dc4}\label{ethtool-info_8c_af4d8c485fa8cc199f6e1f27e949c9dc4}} 
+\index{ethtool-\/info.\+c@{ethtool-\/info.\+c}!get\+\_\+drv\+\_\+info@{get\+\_\+drv\+\_\+info}}
+\index{get\+\_\+drv\+\_\+info@{get\+\_\+drv\+\_\+info}!ethtool-\/info.\+c@{ethtool-\/info.\+c}}
+\subsubsection{\texorpdfstring{get\+\_\+drv\+\_\+info()}{get\_drv\_info()}}
+{\footnotesize\ttfamily int get\+\_\+drv\+\_\+info (\begin{DoxyParamCaption}\item[{char $\ast$}]{ifa\+\_\+name,  }\item[{struct ethtool\+\_\+drvinfo $\ast$}]{drvinfo }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{ethtool-info_8c_a6d58a8ebd8093edbe407365d8f3e93e5}\label{ethtool-info_8c_a6d58a8ebd8093edbe407365d8f3e93e5}} 
+\index{ethtool-\/info.\+c@{ethtool-\/info.\+c}!send\+\_\+ioctl@{send\+\_\+ioctl}}
+\index{send\+\_\+ioctl@{send\+\_\+ioctl}!ethtool-\/info.\+c@{ethtool-\/info.\+c}}
+\subsubsection{\texorpdfstring{send\+\_\+ioctl()}{send\_ioctl()}}
+{\footnotesize\ttfamily int send\+\_\+ioctl (\begin{DoxyParamCaption}\item[{struct \hyperlink{structcmd__context}{cmd\+\_\+context} $\ast$}]{ctx,  }\item[{void $\ast$}]{cmd }\end{DoxyParamCaption})}
+

@@ -1,0 +1,184 @@
+\hypertarget{route-tree_8c}{}\section{/home/sina/pantherx/networkinspection/git/route-\/tree.c File Reference}
+\label{route-tree_8c}\index{/home/sina/pantherx/networkinspection/git/route-\/tree.\+c@{/home/sina/pantherx/networkinspection/git/route-\/tree.\+c}}
+{\ttfamily \#include $<$route-\/tree.\+h$>$}\newline
+{\ttfamily \#include $<$limits.\+h$>$}\newline
+Include dependency graph for route-\/tree.c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{route-tree_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structnode__params}{node\+\_\+params}
+\item 
+struct \hyperlink{structnode__search}{node\+\_\+search}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structnode__params}{node\+\_\+params} \hyperlink{route-tree_8c_a3aa763b62cd1d285ed35bb7f0fe4d149}{Node\+Params}
+\item 
+typedef struct \hyperlink{structnode__search}{node\+\_\+search} \hyperlink{route-tree_8c_a26d9b840f9226a0ce349b00950ea0bdc}{Node\+Search}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{route-tree_8c_aed8cdbb52dbe32c343a8c26887888e7f}{R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+RY} \{ \hyperlink{route-tree_8c_aed8cdbb52dbe32c343a8c26887888e7fab02d9a33d5a8476efc87ecc7049cc120}{R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+R\+Y\+\_\+\+G\+E\+T\+\_\+\+T\+R\+EE}, 
+\hyperlink{route-tree_8c_aed8cdbb52dbe32c343a8c26887888e7fae1f920d24672bfd2b4deee446627d969}{R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+R\+Y\+\_\+\+G\+E\+T\+\_\+\+F\+I\+R\+ST}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Vpn\+Method $\ast$ \hyperlink{route-tree_8c_a3ccbf1b413fe282c1490701f739273a8}{vpn\+\_\+method\+\_\+new} ()
+\item 
+void \hyperlink{route-tree_8c_a06257b65d43c86e35b44ae0d91b226cf}{vpn\+\_\+method\+\_\+free} ()
+\item 
+Route\+Node $\ast$ \hyperlink{route-tree_8c_a941ed51572db1d1d4720f8a329dd0d8b}{route\+\_\+node\+\_\+new} ()
+\item 
+void \hyperlink{route-tree_8c_a1b80d492072ee18f906bdd2fbaad9b4b}{route\+\_\+node\+\_\+free} (Route\+Node $\ast$nd)
+\item 
+void \hyperlink{route-tree_8c_ac750dd5c6890dd949d1029d4363fa0e0}{first\+\_\+entry\+\_\+cb} (struct nl\+\_\+object $\ast$obj, void $\ast$data)
+\item 
+void \hyperlink{route-tree_8c_a8402c2baca9819b3791b35b6c1645ce6}{next\+\_\+hop\+\_\+entry\+\_\+cb} (struct rtnl\+\_\+nexthop $\ast$nh, void $\ast$data)
+\item 
+void \hyperlink{route-tree_8c_a112b373b8e4a4a0eacfba3cc078e5ce2}{route\+\_\+entry\+\_\+cb} (struct nl\+\_\+object $\ast$obj, void $\ast$data)
+\item 
+void \hyperlink{route-tree_8c_a7e256826bca6c828a8564f27f84dd517}{get\+\_\+route\+\_\+trees} (enum \hyperlink{route-tree_8c_aed8cdbb52dbe32c343a8c26887888e7f}{R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+RY} query\+\_\+id, G\+Node $\ast$node\mbox{[}M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+ER\mbox{]}, int $\ast$roots, int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\item 
+int \hyperlink{route-tree_8c_a023982baea4d991af1755c75365e6070}{analyze\+\_\+openvpn\+\_\+kernel\+\_\+route} (G\+Node $\ast$kernel\+\_\+route\+\_\+roots\mbox{[}M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+ER\mbox{]}, int $\ast$kernel\+\_\+roots)
+\item 
+int \hyperlink{route-tree_8c_ad4fe4de0af6177aad9c1936fcaa1d988}{analyze\+\_\+anyconnect\+\_\+kernel\+\_\+route} (G\+Node $\ast$kernel\+\_\+route\+\_\+roots\mbox{[}M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+ER\mbox{]}, int $\ast$kernel\+\_\+roots)
+\item 
+int \hyperlink{route-tree_8c_a5a490e2e29be18ae630572e3776539af}{analyze\+\_\+kernel\+\_\+route} (G\+Node $\ast$kernel\+\_\+route\+\_\+roots\mbox{[}M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+ER\mbox{]}, int $\ast$kernel\+\_\+roots, enum V\+P\+N\+\_\+\+M\+E\+T\+H\+O\+DS vpn\+\_\+method)
+\item 
+gboolean \hyperlink{route-tree_8c_a3a0eeaa4d6b227ed8aa19e5d56096cd3}{find\+\_\+node\+\_\+traverse} (G\+Node $\ast$node, gpointer data)
+\item 
+G\+Node $\ast$ \hyperlink{route-tree_8c_a77affcaa875961893c05c7e211678ed1}{get\+\_\+kernel\+\_\+route\+\_\+node} (G\+Node $\ast$kernel\+\_\+route\+\_\+roots\mbox{[}M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+ER\mbox{]}, int roots, char $\ast$ifa\+\_\+name)
+\item 
+Vpn\+Method $\ast$ \hyperlink{route-tree_8c_a267529614de44218b8187f3ac46ce46f}{detect\+\_\+vpn\+\_\+method} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{route-tree_8c_a3aa763b62cd1d285ed35bb7f0fe4d149}\label{route-tree_8c_a3aa763b62cd1d285ed35bb7f0fe4d149}} 
+\index{route-\/tree.\+c@{route-\/tree.\+c}!Node\+Params@{Node\+Params}}
+\index{Node\+Params@{Node\+Params}!route-\/tree.\+c@{route-\/tree.\+c}}
+\subsubsection{\texorpdfstring{Node\+Params}{NodeParams}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structnode__params}{node\+\_\+params}  \hyperlink{route-tree_8c_a3aa763b62cd1d285ed35bb7f0fe4d149}{Node\+Params}}
+
+\mbox{\Hypertarget{route-tree_8c_a26d9b840f9226a0ce349b00950ea0bdc}\label{route-tree_8c_a26d9b840f9226a0ce349b00950ea0bdc}} 
+\index{route-\/tree.\+c@{route-\/tree.\+c}!Node\+Search@{Node\+Search}}
+\index{Node\+Search@{Node\+Search}!route-\/tree.\+c@{route-\/tree.\+c}}
+\subsubsection{\texorpdfstring{Node\+Search}{NodeSearch}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structnode__search}{node\+\_\+search}  \hyperlink{route-tree_8c_a26d9b840f9226a0ce349b00950ea0bdc}{Node\+Search}}
+
+
+
+\subsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{route-tree_8c_aed8cdbb52dbe32c343a8c26887888e7f}\label{route-tree_8c_aed8cdbb52dbe32c343a8c26887888e7f}} 
+\index{route-\/tree.\+c@{route-\/tree.\+c}!R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+RY@{R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+RY}}
+\index{R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+RY@{R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+RY}!route-\/tree.\+c@{route-\/tree.\+c}}
+\subsubsection{\texorpdfstring{R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+RY}{ROUTE\_QUERY}}
+{\footnotesize\ttfamily enum \hyperlink{route-tree_8c_aed8cdbb52dbe32c343a8c26887888e7f}{R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+RY}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+R\+Y\+\_\+\+G\+E\+T\+\_\+\+T\+R\+EE@{R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+R\+Y\+\_\+\+G\+E\+T\+\_\+\+T\+R\+EE}!route-\/tree.\+c@{route-\/tree.\+c}}\index{route-\/tree.\+c@{route-\/tree.\+c}!R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+R\+Y\+\_\+\+G\+E\+T\+\_\+\+T\+R\+EE@{R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+R\+Y\+\_\+\+G\+E\+T\+\_\+\+T\+R\+EE}}}\mbox{\Hypertarget{route-tree_8c_aed8cdbb52dbe32c343a8c26887888e7fab02d9a33d5a8476efc87ecc7049cc120}\label{route-tree_8c_aed8cdbb52dbe32c343a8c26887888e7fab02d9a33d5a8476efc87ecc7049cc120}} 
+R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+R\+Y\+\_\+\+G\+E\+T\+\_\+\+T\+R\+EE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+R\+Y\+\_\+\+G\+E\+T\+\_\+\+F\+I\+R\+ST@{R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+R\+Y\+\_\+\+G\+E\+T\+\_\+\+F\+I\+R\+ST}!route-\/tree.\+c@{route-\/tree.\+c}}\index{route-\/tree.\+c@{route-\/tree.\+c}!R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+R\+Y\+\_\+\+G\+E\+T\+\_\+\+F\+I\+R\+ST@{R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+R\+Y\+\_\+\+G\+E\+T\+\_\+\+F\+I\+R\+ST}}}\mbox{\Hypertarget{route-tree_8c_aed8cdbb52dbe32c343a8c26887888e7fae1f920d24672bfd2b4deee446627d969}\label{route-tree_8c_aed8cdbb52dbe32c343a8c26887888e7fae1f920d24672bfd2b4deee446627d969}} 
+R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+R\+Y\+\_\+\+G\+E\+T\+\_\+\+F\+I\+R\+ST&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{route-tree_8c_ad4fe4de0af6177aad9c1936fcaa1d988}\label{route-tree_8c_ad4fe4de0af6177aad9c1936fcaa1d988}} 
+\index{route-\/tree.\+c@{route-\/tree.\+c}!analyze\+\_\+anyconnect\+\_\+kernel\+\_\+route@{analyze\+\_\+anyconnect\+\_\+kernel\+\_\+route}}
+\index{analyze\+\_\+anyconnect\+\_\+kernel\+\_\+route@{analyze\+\_\+anyconnect\+\_\+kernel\+\_\+route}!route-\/tree.\+c@{route-\/tree.\+c}}
+\subsubsection{\texorpdfstring{analyze\+\_\+anyconnect\+\_\+kernel\+\_\+route()}{analyze\_anyconnect\_kernel\_route()}}
+{\footnotesize\ttfamily int analyze\+\_\+anyconnect\+\_\+kernel\+\_\+route (\begin{DoxyParamCaption}\item[{G\+Node $\ast$}]{kernel\+\_\+route\+\_\+roots\mbox{[}\+M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+E\+R\mbox{]},  }\item[{int $\ast$}]{kernel\+\_\+roots }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{route-tree_8c_a5a490e2e29be18ae630572e3776539af}\label{route-tree_8c_a5a490e2e29be18ae630572e3776539af}} 
+\index{route-\/tree.\+c@{route-\/tree.\+c}!analyze\+\_\+kernel\+\_\+route@{analyze\+\_\+kernel\+\_\+route}}
+\index{analyze\+\_\+kernel\+\_\+route@{analyze\+\_\+kernel\+\_\+route}!route-\/tree.\+c@{route-\/tree.\+c}}
+\subsubsection{\texorpdfstring{analyze\+\_\+kernel\+\_\+route()}{analyze\_kernel\_route()}}
+{\footnotesize\ttfamily int analyze\+\_\+kernel\+\_\+route (\begin{DoxyParamCaption}\item[{G\+Node $\ast$}]{kernel\+\_\+route\+\_\+roots\mbox{[}\+M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+E\+R\mbox{]},  }\item[{int $\ast$}]{kernel\+\_\+roots,  }\item[{enum V\+P\+N\+\_\+\+M\+E\+T\+H\+O\+DS}]{vpn\+\_\+method }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{route-tree_8c_a023982baea4d991af1755c75365e6070}\label{route-tree_8c_a023982baea4d991af1755c75365e6070}} 
+\index{route-\/tree.\+c@{route-\/tree.\+c}!analyze\+\_\+openvpn\+\_\+kernel\+\_\+route@{analyze\+\_\+openvpn\+\_\+kernel\+\_\+route}}
+\index{analyze\+\_\+openvpn\+\_\+kernel\+\_\+route@{analyze\+\_\+openvpn\+\_\+kernel\+\_\+route}!route-\/tree.\+c@{route-\/tree.\+c}}
+\subsubsection{\texorpdfstring{analyze\+\_\+openvpn\+\_\+kernel\+\_\+route()}{analyze\_openvpn\_kernel\_route()}}
+{\footnotesize\ttfamily int analyze\+\_\+openvpn\+\_\+kernel\+\_\+route (\begin{DoxyParamCaption}\item[{G\+Node $\ast$}]{kernel\+\_\+route\+\_\+roots\mbox{[}\+M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+E\+R\mbox{]},  }\item[{int $\ast$}]{kernel\+\_\+roots }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{route-tree_8c_a267529614de44218b8187f3ac46ce46f}\label{route-tree_8c_a267529614de44218b8187f3ac46ce46f}} 
+\index{route-\/tree.\+c@{route-\/tree.\+c}!detect\+\_\+vpn\+\_\+method@{detect\+\_\+vpn\+\_\+method}}
+\index{detect\+\_\+vpn\+\_\+method@{detect\+\_\+vpn\+\_\+method}!route-\/tree.\+c@{route-\/tree.\+c}}
+\subsubsection{\texorpdfstring{detect\+\_\+vpn\+\_\+method()}{detect\_vpn\_method()}}
+{\footnotesize\ttfamily Vpn\+Method$\ast$ detect\+\_\+vpn\+\_\+method (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{route-tree_8c_a3a0eeaa4d6b227ed8aa19e5d56096cd3}\label{route-tree_8c_a3a0eeaa4d6b227ed8aa19e5d56096cd3}} 
+\index{route-\/tree.\+c@{route-\/tree.\+c}!find\+\_\+node\+\_\+traverse@{find\+\_\+node\+\_\+traverse}}
+\index{find\+\_\+node\+\_\+traverse@{find\+\_\+node\+\_\+traverse}!route-\/tree.\+c@{route-\/tree.\+c}}
+\subsubsection{\texorpdfstring{find\+\_\+node\+\_\+traverse()}{find\_node\_traverse()}}
+{\footnotesize\ttfamily gboolean find\+\_\+node\+\_\+traverse (\begin{DoxyParamCaption}\item[{G\+Node $\ast$}]{node,  }\item[{gpointer}]{data }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{route-tree_8c_ac750dd5c6890dd949d1029d4363fa0e0}\label{route-tree_8c_ac750dd5c6890dd949d1029d4363fa0e0}} 
+\index{route-\/tree.\+c@{route-\/tree.\+c}!first\+\_\+entry\+\_\+cb@{first\+\_\+entry\+\_\+cb}}
+\index{first\+\_\+entry\+\_\+cb@{first\+\_\+entry\+\_\+cb}!route-\/tree.\+c@{route-\/tree.\+c}}
+\subsubsection{\texorpdfstring{first\+\_\+entry\+\_\+cb()}{first\_entry\_cb()}}
+{\footnotesize\ttfamily void first\+\_\+entry\+\_\+cb (\begin{DoxyParamCaption}\item[{struct nl\+\_\+object $\ast$}]{obj,  }\item[{void $\ast$}]{data }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{route-tree_8c_a77affcaa875961893c05c7e211678ed1}\label{route-tree_8c_a77affcaa875961893c05c7e211678ed1}} 
+\index{route-\/tree.\+c@{route-\/tree.\+c}!get\+\_\+kernel\+\_\+route\+\_\+node@{get\+\_\+kernel\+\_\+route\+\_\+node}}
+\index{get\+\_\+kernel\+\_\+route\+\_\+node@{get\+\_\+kernel\+\_\+route\+\_\+node}!route-\/tree.\+c@{route-\/tree.\+c}}
+\subsubsection{\texorpdfstring{get\+\_\+kernel\+\_\+route\+\_\+node()}{get\_kernel\_route\_node()}}
+{\footnotesize\ttfamily G\+Node$\ast$ get\+\_\+kernel\+\_\+route\+\_\+node (\begin{DoxyParamCaption}\item[{G\+Node $\ast$}]{kernel\+\_\+route\+\_\+roots\mbox{[}\+M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+E\+R\mbox{]},  }\item[{int}]{roots,  }\item[{char $\ast$}]{ifa\+\_\+name }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{route-tree_8c_a7e256826bca6c828a8564f27f84dd517}\label{route-tree_8c_a7e256826bca6c828a8564f27f84dd517}} 
+\index{route-\/tree.\+c@{route-\/tree.\+c}!get\+\_\+route\+\_\+trees@{get\+\_\+route\+\_\+trees}}
+\index{get\+\_\+route\+\_\+trees@{get\+\_\+route\+\_\+trees}!route-\/tree.\+c@{route-\/tree.\+c}}
+\subsubsection{\texorpdfstring{get\+\_\+route\+\_\+trees()}{get\_route\_trees()}}
+{\footnotesize\ttfamily void get\+\_\+route\+\_\+trees (\begin{DoxyParamCaption}\item[{enum \hyperlink{route-tree_8c_aed8cdbb52dbe32c343a8c26887888e7f}{R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+RY}}]{query\+\_\+id,  }\item[{G\+Node $\ast$}]{node\mbox{[}\+M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+E\+R\mbox{]},  }\item[{int $\ast$}]{roots,  }\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{route-tree_8c_a8402c2baca9819b3791b35b6c1645ce6}\label{route-tree_8c_a8402c2baca9819b3791b35b6c1645ce6}} 
+\index{route-\/tree.\+c@{route-\/tree.\+c}!next\+\_\+hop\+\_\+entry\+\_\+cb@{next\+\_\+hop\+\_\+entry\+\_\+cb}}
+\index{next\+\_\+hop\+\_\+entry\+\_\+cb@{next\+\_\+hop\+\_\+entry\+\_\+cb}!route-\/tree.\+c@{route-\/tree.\+c}}
+\subsubsection{\texorpdfstring{next\+\_\+hop\+\_\+entry\+\_\+cb()}{next\_hop\_entry\_cb()}}
+{\footnotesize\ttfamily void next\+\_\+hop\+\_\+entry\+\_\+cb (\begin{DoxyParamCaption}\item[{struct rtnl\+\_\+nexthop $\ast$}]{nh,  }\item[{void $\ast$}]{data }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{route-tree_8c_a112b373b8e4a4a0eacfba3cc078e5ce2}\label{route-tree_8c_a112b373b8e4a4a0eacfba3cc078e5ce2}} 
+\index{route-\/tree.\+c@{route-\/tree.\+c}!route\+\_\+entry\+\_\+cb@{route\+\_\+entry\+\_\+cb}}
+\index{route\+\_\+entry\+\_\+cb@{route\+\_\+entry\+\_\+cb}!route-\/tree.\+c@{route-\/tree.\+c}}
+\subsubsection{\texorpdfstring{route\+\_\+entry\+\_\+cb()}{route\_entry\_cb()}}
+{\footnotesize\ttfamily void route\+\_\+entry\+\_\+cb (\begin{DoxyParamCaption}\item[{struct nl\+\_\+object $\ast$}]{obj,  }\item[{void $\ast$}]{data }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{route-tree_8c_a1b80d492072ee18f906bdd2fbaad9b4b}\label{route-tree_8c_a1b80d492072ee18f906bdd2fbaad9b4b}} 
+\index{route-\/tree.\+c@{route-\/tree.\+c}!route\+\_\+node\+\_\+free@{route\+\_\+node\+\_\+free}}
+\index{route\+\_\+node\+\_\+free@{route\+\_\+node\+\_\+free}!route-\/tree.\+c@{route-\/tree.\+c}}
+\subsubsection{\texorpdfstring{route\+\_\+node\+\_\+free()}{route\_node\_free()}}
+{\footnotesize\ttfamily void route\+\_\+node\+\_\+free (\begin{DoxyParamCaption}\item[{Route\+Node $\ast$}]{nd }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{route-tree_8c_a941ed51572db1d1d4720f8a329dd0d8b}\label{route-tree_8c_a941ed51572db1d1d4720f8a329dd0d8b}} 
+\index{route-\/tree.\+c@{route-\/tree.\+c}!route\+\_\+node\+\_\+new@{route\+\_\+node\+\_\+new}}
+\index{route\+\_\+node\+\_\+new@{route\+\_\+node\+\_\+new}!route-\/tree.\+c@{route-\/tree.\+c}}
+\subsubsection{\texorpdfstring{route\+\_\+node\+\_\+new()}{route\_node\_new()}}
+{\footnotesize\ttfamily Route\+Node$\ast$ route\+\_\+node\+\_\+new (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{route-tree_8c_a06257b65d43c86e35b44ae0d91b226cf}\label{route-tree_8c_a06257b65d43c86e35b44ae0d91b226cf}} 
+\index{route-\/tree.\+c@{route-\/tree.\+c}!vpn\+\_\+method\+\_\+free@{vpn\+\_\+method\+\_\+free}}
+\index{vpn\+\_\+method\+\_\+free@{vpn\+\_\+method\+\_\+free}!route-\/tree.\+c@{route-\/tree.\+c}}
+\subsubsection{\texorpdfstring{vpn\+\_\+method\+\_\+free()}{vpn\_method\_free()}}
+{\footnotesize\ttfamily void vpn\+\_\+method\+\_\+free (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{route-tree_8c_a3ccbf1b413fe282c1490701f739273a8}\label{route-tree_8c_a3ccbf1b413fe282c1490701f739273a8}} 
+\index{route-\/tree.\+c@{route-\/tree.\+c}!vpn\+\_\+method\+\_\+new@{vpn\+\_\+method\+\_\+new}}
+\index{vpn\+\_\+method\+\_\+new@{vpn\+\_\+method\+\_\+new}!route-\/tree.\+c@{route-\/tree.\+c}}
+\subsubsection{\texorpdfstring{vpn\+\_\+method\+\_\+new()}{vpn\_method\_new()}}
+{\footnotesize\ttfamily Vpn\+Method$\ast$ vpn\+\_\+method\+\_\+new (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
