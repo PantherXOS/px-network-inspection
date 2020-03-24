@@ -1,6 +1,7 @@
 #include <route-tree.h>
 #include <limits.h>
 
+///	@brief	creates a new VpnMethod object
 VpnMethod* vpn_method_new()
 {
 	VpnMethod *vm = g_new(VpnMethod, 1);
@@ -9,9 +10,11 @@ VpnMethod* vpn_method_new()
 	return vm;
 }
 
-void vpn_method_free()
+///	@brief	destroys a VpnMethod object
+void vpn_method_free(VpnMethod *vm)
 {}
 
+///	@brief	creates a new RouteNode object
 RouteNode* route_node_new()
 {
 	RouteNode *rn;
@@ -19,9 +22,11 @@ RouteNode* route_node_new()
 	return rn;
 }
 
+///	@brief	destroys a RouteNode object
 void route_node_free(RouteNode *nd)
 {}
 
+///	@brief	puts together the information extracted from rtnl_route entries
 typedef struct node_params
 {
 	GNode **node;
@@ -30,6 +35,7 @@ typedef struct node_params
 	char gateway_ipv4[16];
 } NodeParams;
 
+///	@brief	prints the model of parsing of route list
 static void print_usage(void)
 {
 	printf(
@@ -64,6 +70,17 @@ static void print_usage(void)
 	exit(0);
 }
 
+/**
+ *  @brief checks the pattern of the first entry in kernel route table to detect the pattern
+ *
+ *  @see	https://wiki.pantherx.org
+ *  @todo
+ *  	TODO	Support tap-based interfaces.
+ *  	TODO	Support complicated patterns.
+ *
+ *  @param[in]	obj	the	rtnl_route object
+ *  @param[out]	data	the detected vpn method
+ */
 void first_entry_cb(struct nl_object * obj, void * data)
 {
 	enum VPN_METHODS *vpn_method = (enum VPN_METHODS*)data;
@@ -103,11 +120,22 @@ void first_entry_cb(struct nl_object * obj, void * data)
 		}
 		else
 		{
-				(*vpn_method) = NO_VPN_METHOD;
+			(*vpn_method) = NO_VPN_METHOD;
 		}
 	}
 }
 
+/**
+ *  @brief extract the next hop information in a route table entry
+ *
+ *  @see	https://wiki.pantherx.org
+ *  @todo
+ *  	TODO	Support tap-based interfaces.
+ *  	TODO	Support complicated patterns.
+ *
+ *  @param[in]	nh	the next hop object
+ *  @param[out]	data	the extracted information in form of NodeParam
+ */
 void next_hop_entry_cb(struct rtnl_nexthop *nh, void *data)
 {
 	NodeParams *nparam = (NodeParams *) data;
@@ -118,6 +146,17 @@ void next_hop_entry_cb(struct rtnl_nexthop *nh, void *data)
 	nl_addr2str(rtnl_route_nh_get_gateway(nh), nparam->gateway_ipv4, 16);
 }
 
+/**
+ *  @brief extract information in a route table entry
+ *
+ *  @see	https://wiki.pantherx.org
+ *  @todo
+ *  	TODO	Support tap-based interfaces.
+ *  	TODO	Support complicated patterns.
+ *
+ *  @param[in]	obj	the rtnl_route object
+ *  @param[out]	data	the extracted information in form of NodeParam
+ */
 void route_entry_cb(struct nl_object * obj, void * data)
 {
 	struct rtnl_route *r = (struct rtnl_route *) obj;
@@ -147,12 +186,27 @@ void route_entry_cb(struct nl_object * obj, void * data)
 	nparam->node[*(nparam->roots) - 1] = new_node;
 }
 
+///	@brief	the type request for extracting kernel route table
 enum ROUTE_QUERY
 {
 	ROUTE_QUERY_GET_TREE,
 	ROUTE_QUERY_GET_FIRST
 };
 
+/**
+ *  @brief get the route tree represented in the requested model
+ *
+ *  @see	https://wiki.pantherx.org
+ *  @todo
+ *  	TODO	Support tap-based interfaces.
+ *  	TODO	Support complicated patterns.
+ *
+ * 	@param[in]	query_id	the ID of the route query
+ * 	@param[out]	node	jungle retrieved
+ * 	@param[out]	roots	the number of roots in the jungle
+ * 	@param[in]	argc	the number of parameter for request commands
+ * 	@param[in]	argv the request commands
+ */
 void get_route_trees(enum ROUTE_QUERY query_id, GNode *node[MAX_ROOTS_NUMBER], int *roots, int argc, char *argv[])
 {
 	// To set argument parsing to 1
@@ -270,6 +324,18 @@ void get_route_trees(enum ROUTE_QUERY query_id, GNode *node[MAX_ROOTS_NUMBER], i
 	nl_object_free((struct nl_object *)route);
 }
 
+/**
+ *  @brief analyze the kernel route when openvpn is used
+ *
+ *  @see	https://wiki.pantherx.org
+ *  @todo
+ *  	TODO	Support tap-based interfaces.
+ *  	TODO	Support complicated patterns.
+ *
+ * 	@param[out]	kernel_route_roots	jungle retrieved
+ * 	@param[out]	kernel_roots	the number of roots in the jungle
+ * 	@return	the kernel primary route index
+ */
 int analyze_openvpn_kernel_route(GNode *kernel_route_roots[MAX_ROOTS_NUMBER], int *kernel_roots)
 {
 	int roots = 0;
@@ -340,6 +406,18 @@ int analyze_openvpn_kernel_route(GNode *kernel_route_roots[MAX_ROOTS_NUMBER], in
 	return primary_index;
 }
 
+/**
+ *  @brief analyze the kernel route when cisco anyconnect is used
+ *
+ *  @see	https://wiki.pantherx.org
+ *  @todo
+ *  	TODO	Support tap-based interfaces.
+ *  	TODO	Support complicated patterns.
+ *
+ * 	@param[out]	kernel_route_roots	jungle retrieved
+ * 	@param[out]	kernel_roots	the number of roots in the jungle
+ * 	@return	the kernel primary route index
+ */
 int analyze_anyconnect_kernel_route(GNode *kernel_route_roots[MAX_ROOTS_NUMBER], int *kernel_roots)
 {
 	int roots = 0;
@@ -390,6 +468,21 @@ int analyze_anyconnect_kernel_route(GNode *kernel_route_roots[MAX_ROOTS_NUMBER],
 	return primary_index;
 }
 
+/**
+ *  @brief detect VPN method based on kernel routing pattern
+ *
+ *  @see	https://wiki.pantherx.org
+ *  @todo
+ *  	TODO	Support tap-based interfaces.
+ *  	TODO	Support complicated patterns.
+ *
+ *  @param[out]	kernel_route_roots	indicates the jungle of the kernel route table
+ *  @param[out]	kernel_roots	the number of roots in jungle
+ *  @param[in]	vpn_method	the VPN method detected
+ *  @return	the index of the primary kernel route
+ *
+ *  @pre	the vpn method has to be detected
+ */
 int analyze_kernel_route(GNode *kernel_route_roots[MAX_ROOTS_NUMBER], int *kernel_roots, enum VPN_METHODS vpn_method)
 {
 	int result = -1;
@@ -411,12 +504,23 @@ int analyze_kernel_route(GNode *kernel_route_roots[MAX_ROOTS_NUMBER], int *kerne
 	};
 }
 
+///	@brief	put together the input/output of find_node_traverse function
 typedef struct node_search
 {
 	char *ifa_name;
 	GNode *krt_node;
 } NodeSearch;
 
+/**
+ *  @brief a per-node call-back that checks if the node interface name is equal to the requested name
+ *
+ *  @see	https://wiki.pantherx.org
+ *  @todo
+ *
+ * 	@param[in]	node	the node for checking
+ * 	@param[in, out]	data	the interface name and the node pointer
+ * 	@return	if the node find, it returns TRUE to stop the traverse
+ */
 gboolean find_node_traverse(GNode *node, gpointer data)
 {
 	RouteNode *rn = ROUTENODE(node->data);
@@ -429,6 +533,21 @@ gboolean find_node_traverse(GNode *node, gpointer data)
 	return FALSE;
 }
 
+/**
+ *  @brief find the node with the interface name within the jungle of kernel route table
+ *
+ *  @see	https://wiki.pantherx.org
+ *  @todo
+ *  	TODO	Support tap-based interfaces.
+ *  	TODO	Support complicated patterns.
+ *
+ *  @param[in]	kernel_route_roots	indicates the jungle of the kernel route table
+ *  @param[in]	roots	the number of roots in jungle
+ *  @param[in]	ifa_name	the name to be searched for
+ *  @return	the node if any find
+ *
+ *  @pre	the kernel route table has to be retrieved before
+ */
 GNode* get_kernel_route_node(GNode *kernel_route_roots[MAX_ROOTS_NUMBER], int roots, char *ifa_name)
 {
 	NodeSearch ns_param;
@@ -443,6 +562,14 @@ GNode* get_kernel_route_node(GNode *kernel_route_roots[MAX_ROOTS_NUMBER], int ro
 	return ns_param.krt_node;
 }
 
+/**
+ *  @brief detect VPN method based on kernel routing pattern
+ *
+ *  @see	https://wiki.pantherx.org
+ *  @todo
+ *  	TODO	Support tap-based interfaces.
+ *  	TODO	Support complicated patterns.
+ */
 VpnMethod *detect_vpn_method()
 {
 	int roots = 0;

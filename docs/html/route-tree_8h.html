@@ -109,8 +109,10 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structvpnmethod.html">vpnmethod</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">the struct to be put both VPN method and name together  <a href="structvpnmethod.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structroute__node.html">route_node</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">the extracted information of a node in a kernel route table  <a href="structroute__node.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
@@ -135,8 +137,10 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:a1034dd038389279bf422489d4d99d43a"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structvpnmethod.html">vpnmethod</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="route-tree_8h.html#a1034dd038389279bf422489d4d99d43a">VpnMethod</a></td></tr>
+<tr class="memdesc:a1034dd038389279bf422489d4d99d43a"><td class="mdescLeft">&#160;</td><td class="mdescRight">the struct to be put both VPN method and name together  <a href="#a1034dd038389279bf422489d4d99d43a">More...</a><br /></td></tr>
 <tr class="separator:a1034dd038389279bf422489d4d99d43a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1296be44c6672a1adb94ba6dc416682c"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structroute__node.html">route_node</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="route-tree_8h.html#a1296be44c6672a1adb94ba6dc416682c">RouteNode</a></td></tr>
+<tr class="memdesc:a1296be44c6672a1adb94ba6dc416682c"><td class="mdescLeft">&#160;</td><td class="mdescRight">the extracted information of a node in a kernel route table  <a href="#a1296be44c6672a1adb94ba6dc416682c">More...</a><br /></td></tr>
 <tr class="separator:a1296be44c6672a1adb94ba6dc416682c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
@@ -150,24 +154,32 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="route-tree_8h.html#a5b876670828c4e38106ba1c6d91024b7a096310080aa42637b2920b2e9e78aacd">NO_VPN_METHOD</a>, 
 <a class="el" href="route-tree_8h.html#a5b876670828c4e38106ba1c6d91024b7a7df79fc150333242d7a3df021b1b2206">VPN_METHOD_UNKNOWN</a>
 <br />
- }</td></tr>
+ }<tr class="memdesc:a5b876670828c4e38106ba1c6d91024b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">the supported methods for running VPN on a machine  <a href="route-tree_8h.html#a5b876670828c4e38106ba1c6d91024b7">More...</a><br /></td></tr>
+</td></tr>
 <tr class="separator:a5b876670828c4e38106ba1c6d91024b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a3ccbf1b413fe282c1490701f739273a8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="route-tree_8h.html#a1034dd038389279bf422489d4d99d43a">VpnMethod</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="route-tree_8h.html#a3ccbf1b413fe282c1490701f739273a8">vpn_method_new</a> ()</td></tr>
+<tr class="memdesc:a3ccbf1b413fe282c1490701f739273a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">creates a new VpnMethod object  <a href="#a3ccbf1b413fe282c1490701f739273a8">More...</a><br /></td></tr>
 <tr class="separator:a3ccbf1b413fe282c1490701f739273a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06257b65d43c86e35b44ae0d91b226cf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="route-tree_8h.html#a06257b65d43c86e35b44ae0d91b226cf">vpn_method_free</a> ()</td></tr>
-<tr class="separator:a06257b65d43c86e35b44ae0d91b226cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24c2b4e2f6cd24a639b2fe63bb48f48e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="route-tree_8h.html#a24c2b4e2f6cd24a639b2fe63bb48f48e">vpn_method_free</a> (<a class="el" href="route-tree_8h.html#a1034dd038389279bf422489d4d99d43a">VpnMethod</a> *vm)</td></tr>
+<tr class="memdesc:a24c2b4e2f6cd24a639b2fe63bb48f48e"><td class="mdescLeft">&#160;</td><td class="mdescRight">destroys a VpnMethod object  <a href="#a24c2b4e2f6cd24a639b2fe63bb48f48e">More...</a><br /></td></tr>
+<tr class="separator:a24c2b4e2f6cd24a639b2fe63bb48f48e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a267529614de44218b8187f3ac46ce46f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="route-tree_8h.html#a1034dd038389279bf422489d4d99d43a">VpnMethod</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="route-tree_8h.html#a267529614de44218b8187f3ac46ce46f">detect_vpn_method</a> ()</td></tr>
+<tr class="memdesc:a267529614de44218b8187f3ac46ce46f"><td class="mdescLeft">&#160;</td><td class="mdescRight">detect VPN method based on kernel routing pattern  <a href="#a267529614de44218b8187f3ac46ce46f">More...</a><br /></td></tr>
 <tr class="separator:a267529614de44218b8187f3ac46ce46f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a941ed51572db1d1d4720f8a329dd0d8b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="route-tree_8h.html#a1296be44c6672a1adb94ba6dc416682c">RouteNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="route-tree_8h.html#a941ed51572db1d1d4720f8a329dd0d8b">route_node_new</a> ()</td></tr>
+<tr class="memdesc:a941ed51572db1d1d4720f8a329dd0d8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">creates a new RouteNode object  <a href="#a941ed51572db1d1d4720f8a329dd0d8b">More...</a><br /></td></tr>
 <tr class="separator:a941ed51572db1d1d4720f8a329dd0d8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b80d492072ee18f906bdd2fbaad9b4b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="route-tree_8h.html#a1b80d492072ee18f906bdd2fbaad9b4b">route_node_free</a> (<a class="el" href="route-tree_8h.html#a1296be44c6672a1adb94ba6dc416682c">RouteNode</a> *nd)</td></tr>
+<tr class="memdesc:a1b80d492072ee18f906bdd2fbaad9b4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">destroys a RouteNode object  <a href="#a1b80d492072ee18f906bdd2fbaad9b4b">More...</a><br /></td></tr>
 <tr class="separator:a1b80d492072ee18f906bdd2fbaad9b4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a967fa487bc211d2b9e159ba5be25d641"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="route-tree_8h.html#a967fa487bc211d2b9e159ba5be25d641">analyze_kernel_route</a> (GNode *[<a class="el" href="route-tree_8h.html#a8e1da3af3417de420798c8b448b6a8cb">MAX_ROOTS_NUMBER</a>], int *kernel_roots, enum <a class="el" href="route-tree_8h.html#a5b876670828c4e38106ba1c6d91024b7">VPN_METHODS</a> vpn_method)</td></tr>
-<tr class="separator:a967fa487bc211d2b9e159ba5be25d641"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a490e2e29be18ae630572e3776539af"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="route-tree_8h.html#a5a490e2e29be18ae630572e3776539af">analyze_kernel_route</a> (GNode *kernel_route_roots[<a class="el" href="route-tree_8h.html#a8e1da3af3417de420798c8b448b6a8cb">MAX_ROOTS_NUMBER</a>], int *kernel_roots, enum <a class="el" href="route-tree_8h.html#a5b876670828c4e38106ba1c6d91024b7">VPN_METHODS</a> vpn_method)</td></tr>
+<tr class="memdesc:a5a490e2e29be18ae630572e3776539af"><td class="mdescLeft">&#160;</td><td class="mdescRight">detect VPN method based on kernel routing pattern  <a href="#a5a490e2e29be18ae630572e3776539af">More...</a><br /></td></tr>
+<tr class="separator:a5a490e2e29be18ae630572e3776539af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77affcaa875961893c05c7e211678ed1"><td class="memItemLeft" align="right" valign="top">GNode *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="route-tree_8h.html#a77affcaa875961893c05c7e211678ed1">get_kernel_route_node</a> (GNode *kernel_route_roots[<a class="el" href="route-tree_8h.html#a8e1da3af3417de420798c8b448b6a8cb">MAX_ROOTS_NUMBER</a>], int roots, char *ifa_name)</td></tr>
+<tr class="memdesc:a77affcaa875961893c05c7e211678ed1"><td class="mdescLeft">&#160;</td><td class="mdescRight">find the node with the interface name within the jungle of kernel route table  <a href="#a77affcaa875961893c05c7e211678ed1">More...</a><br /></td></tr>
 <tr class="separator:a77affcaa875961893c05c7e211678ed1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
@@ -304,6 +316,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>the extracted information of a node in a kernel route table </p>
+
 </div>
 </div>
 <a id="a1034dd038389279bf422489d4d99d43a"></a>
@@ -317,6 +331,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>the struct to be put both VPN method and name together </p>
 
 </div>
 </div>
@@ -332,11 +348,14 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>the supported methods for running VPN on a machine </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a5b876670828c4e38106ba1c6d91024b7ab1ae185eb0d77c55896e16a13cc83fcd"></a>OPENVPN&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a5b876670828c4e38106ba1c6d91024b7a16a826749e7c59a1ac398c5fea811044"></a>WIREGUARD&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a5b876670828c4e38106ba1c6d91024b7ac610d0f8eb941cb8d8a5a1e30f60ea1b"></a>ANYCONNECT&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a5b876670828c4e38106ba1c6d91024b7a12890d8b7f1c543c687d8d72ce33d749"></a>VPN_METHODS_NUMBERS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a5b876670828c4e38106ba1c6d91024b7a12890d8b7f1c543c687d8d72ce33d749"></a>VPN_METHODS_NUMBERS&#160;</td><td class="fielddoc"><p>represents the number of supported VPN methods </p>
+</td></tr>
 <tr><td class="fieldname"><a id="a5b876670828c4e38106ba1c6d91024b7a096310080aa42637b2920b2e9e78aacd"></a>NO_VPN_METHOD&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a5b876670828c4e38106ba1c6d91024b7a7df79fc150333242d7a3df021b1b2206"></a>VPN_METHOD_UNKNOWN&#160;</td><td class="fielddoc"></td></tr>
 </table>
@@ -344,8 +363,8 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a967fa487bc211d2b9e159ba5be25d641"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a967fa487bc211d2b9e159ba5be25d641">&#9670;&nbsp;</a></span>analyze_kernel_route()</h2>
+<a id="a5a490e2e29be18ae630572e3776539af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a490e2e29be18ae630572e3776539af">&#9670;&nbsp;</a></span>analyze_kernel_route()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -354,7 +373,7 @@ Functions</h2></td></tr>
           <td class="memname">int analyze_kernel_route </td>
           <td>(</td>
           <td class="paramtype">GNode *&#160;</td>
-          <td class="paramname">[MAX_ROOTS_NUMBER], </td>
+          <td class="paramname"><em>kernel_route_roots</em>[MAX_ROOTS_NUMBER], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -376,6 +395,32 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>detect VPN method based on kernel routing pattern </p>
+<dl class="section see"><dt>See also</dt><dd><a href="https://wiki.pantherx.org">https://wiki.pantherx.org</a> </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000024">Todo:</a></b></dt><dd>TODO Support tap-based interfaces. TODO Support complicated patterns.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">kernel_route_roots</td><td>indicates the jungle of the kernel route table </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">kernel_roots</td><td>the number of roots in jungle </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">vpn_method</td><td>the VPN method detected </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the index of the primary kernel route</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>the vpn method has to be detected</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://wiki.pantherx.org">https://wiki.pantherx.org</a> </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000016">Todo:</a></b></dt><dd>TODO Support tap-based interfaces. TODO Support complicated patterns.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">kernel_route_roots</td><td>indicates the jungle of the kernel route table </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">kernel_roots</td><td>the number of roots in jungle </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">vpn_method</td><td>the VPN method detected </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the index of the primary kernel route</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>the vpn method has to be detected </dd></dl>
+
 </div>
 </div>
 <a id="a267529614de44218b8187f3ac46ce46f"></a>
@@ -392,6 +437,12 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>detect VPN method based on kernel routing pattern </p>
+<dl class="section see"><dt>See also</dt><dd><a href="https://wiki.pantherx.org">https://wiki.pantherx.org</a> </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000023">Todo:</a></b></dt><dd>TODO Support tap-based interfaces. TODO Support complicated patterns. </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://wiki.pantherx.org">https://wiki.pantherx.org</a> </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000019">Todo:</a></b></dt><dd>TODO Support tap-based interfaces. TODO Support complicated patterns. </dd></dl>
 
 </div>
 </div>
@@ -427,6 +478,32 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>find the node with the interface name within the jungle of kernel route table </p>
+<dl class="section see"><dt>See also</dt><dd><a href="https://wiki.pantherx.org">https://wiki.pantherx.org</a> </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000025">Todo:</a></b></dt><dd>TODO Support tap-based interfaces. TODO Support complicated patterns.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">kernel_route_roots</td><td>indicates the jungle of the kernel route table </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">roots</td><td>the number of roots in jungle </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ifa_name</td><td>the name to be searched for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the node if any find</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>the kernel route table has to be retrieved before</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://wiki.pantherx.org">https://wiki.pantherx.org</a> </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000018">Todo:</a></b></dt><dd>TODO Support tap-based interfaces. TODO Support complicated patterns.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">kernel_route_roots</td><td>indicates the jungle of the kernel route table </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">roots</td><td>the number of roots in jungle </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ifa_name</td><td>the name to be searched for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the node if any find</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>the kernel route table has to be retrieved before </dd></dl>
+
 </div>
 </div>
 <a id="a1b80d492072ee18f906bdd2fbaad9b4b"></a>
@@ -445,6 +522,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>destroys a RouteNode object </p>
+
 </div>
 </div>
 <a id="a941ed51572db1d1d4720f8a329dd0d8b"></a>
@@ -462,10 +541,12 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>creates a new RouteNode object </p>
+
 </div>
 </div>
-<a id="a06257b65d43c86e35b44ae0d91b226cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a06257b65d43c86e35b44ae0d91b226cf">&#9670;&nbsp;</a></span>vpn_method_free()</h2>
+<a id="a24c2b4e2f6cd24a639b2fe63bb48f48e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24c2b4e2f6cd24a639b2fe63bb48f48e">&#9670;&nbsp;</a></span>vpn_method_free()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -473,11 +554,14 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void vpn_method_free </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="route-tree_8h.html#a1034dd038389279bf422489d4d99d43a">VpnMethod</a> *&#160;</td>
+          <td class="paramname"><em>vm</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>destroys a VpnMethod object </p>
 
 </div>
 </div>
@@ -495,6 +579,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>creates a new VpnMethod object </p>
 
 </div>
 </div>

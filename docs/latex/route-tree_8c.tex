@@ -13,54 +13,54 @@ Include dependency graph for route-\/tree.c\+:\nopagebreak
 \begin{DoxyCompactItemize}
 \item 
 struct \hyperlink{structnode__params}{node\+\_\+params}
-\item 
+\begin{DoxyCompactList}\small\item\em puts together the information extracted from rtnl\+\_\+route entries \end{DoxyCompactList}\item 
 struct \hyperlink{structnode__search}{node\+\_\+search}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em put together the input/output of find\+\_\+node\+\_\+traverse function \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
 typedef struct \hyperlink{structnode__params}{node\+\_\+params} \hyperlink{route-tree_8c_a3aa763b62cd1d285ed35bb7f0fe4d149}{Node\+Params}
-\item 
+\begin{DoxyCompactList}\small\item\em puts together the information extracted from rtnl\+\_\+route entries \end{DoxyCompactList}\item 
 typedef struct \hyperlink{structnode__search}{node\+\_\+search} \hyperlink{route-tree_8c_a26d9b840f9226a0ce349b00950ea0bdc}{Node\+Search}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em put together the input/output of find\+\_\+node\+\_\+traverse function \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
 enum \hyperlink{route-tree_8c_aed8cdbb52dbe32c343a8c26887888e7f}{R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+RY} \{ \hyperlink{route-tree_8c_aed8cdbb52dbe32c343a8c26887888e7fab02d9a33d5a8476efc87ecc7049cc120}{R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+R\+Y\+\_\+\+G\+E\+T\+\_\+\+T\+R\+EE}, 
 \hyperlink{route-tree_8c_aed8cdbb52dbe32c343a8c26887888e7fae1f920d24672bfd2b4deee446627d969}{R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+R\+Y\+\_\+\+G\+E\+T\+\_\+\+F\+I\+R\+ST}
- \}
+ \}\begin{DoxyCompactList}\small\item\em the type request for extracting kernel route table \end{DoxyCompactList}
 \end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 \hyperlink{route-tree_8h_a1034dd038389279bf422489d4d99d43a}{Vpn\+Method} $\ast$ \hyperlink{route-tree_8c_a3ccbf1b413fe282c1490701f739273a8}{vpn\+\_\+method\+\_\+new} ()
-\item 
-void \hyperlink{route-tree_8c_a06257b65d43c86e35b44ae0d91b226cf}{vpn\+\_\+method\+\_\+free} ()
-\item 
+\begin{DoxyCompactList}\small\item\em creates a new Vpn\+Method object \end{DoxyCompactList}\item 
+void \hyperlink{route-tree_8c_a24c2b4e2f6cd24a639b2fe63bb48f48e}{vpn\+\_\+method\+\_\+free} (\hyperlink{route-tree_8h_a1034dd038389279bf422489d4d99d43a}{Vpn\+Method} $\ast$vm)
+\begin{DoxyCompactList}\small\item\em destroys a Vpn\+Method object \end{DoxyCompactList}\item 
 \hyperlink{route-tree_8h_a1296be44c6672a1adb94ba6dc416682c}{Route\+Node} $\ast$ \hyperlink{route-tree_8c_a941ed51572db1d1d4720f8a329dd0d8b}{route\+\_\+node\+\_\+new} ()
-\item 
+\begin{DoxyCompactList}\small\item\em creates a new Route\+Node object \end{DoxyCompactList}\item 
 void \hyperlink{route-tree_8c_a1b80d492072ee18f906bdd2fbaad9b4b}{route\+\_\+node\+\_\+free} (\hyperlink{route-tree_8h_a1296be44c6672a1adb94ba6dc416682c}{Route\+Node} $\ast$nd)
-\item 
+\begin{DoxyCompactList}\small\item\em destroys a Route\+Node object \end{DoxyCompactList}\item 
 void \hyperlink{route-tree_8c_ac750dd5c6890dd949d1029d4363fa0e0}{first\+\_\+entry\+\_\+cb} (struct nl\+\_\+object $\ast$obj, void $\ast$data)
-\item 
+\begin{DoxyCompactList}\small\item\em checks the pattern of the first entry in kernel route table to detect the pattern \end{DoxyCompactList}\item 
 void \hyperlink{route-tree_8c_a8402c2baca9819b3791b35b6c1645ce6}{next\+\_\+hop\+\_\+entry\+\_\+cb} (struct rtnl\+\_\+nexthop $\ast$nh, void $\ast$data)
-\item 
+\begin{DoxyCompactList}\small\item\em extract the next hop information in a route table entry \end{DoxyCompactList}\item 
 void \hyperlink{route-tree_8c_a112b373b8e4a4a0eacfba3cc078e5ce2}{route\+\_\+entry\+\_\+cb} (struct nl\+\_\+object $\ast$obj, void $\ast$data)
-\item 
+\begin{DoxyCompactList}\small\item\em extract information in a route table entry \end{DoxyCompactList}\item 
 void \hyperlink{route-tree_8c_a7e256826bca6c828a8564f27f84dd517}{get\+\_\+route\+\_\+trees} (enum \hyperlink{route-tree_8c_aed8cdbb52dbe32c343a8c26887888e7f}{R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+RY} query\+\_\+id, G\+Node $\ast$node\mbox{[}\hyperlink{route-tree_8h_a8e1da3af3417de420798c8b448b6a8cb}{M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+ER}\mbox{]}, int $\ast$roots, int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
-\item 
+\begin{DoxyCompactList}\small\item\em get the route tree represented in the requested model \end{DoxyCompactList}\item 
 int \hyperlink{route-tree_8c_a023982baea4d991af1755c75365e6070}{analyze\+\_\+openvpn\+\_\+kernel\+\_\+route} (G\+Node $\ast$kernel\+\_\+route\+\_\+roots\mbox{[}\hyperlink{route-tree_8h_a8e1da3af3417de420798c8b448b6a8cb}{M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+ER}\mbox{]}, int $\ast$kernel\+\_\+roots)
-\item 
+\begin{DoxyCompactList}\small\item\em analyze the kernel route when openvpn is used \end{DoxyCompactList}\item 
 int \hyperlink{route-tree_8c_ad4fe4de0af6177aad9c1936fcaa1d988}{analyze\+\_\+anyconnect\+\_\+kernel\+\_\+route} (G\+Node $\ast$kernel\+\_\+route\+\_\+roots\mbox{[}\hyperlink{route-tree_8h_a8e1da3af3417de420798c8b448b6a8cb}{M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+ER}\mbox{]}, int $\ast$kernel\+\_\+roots)
-\item 
+\begin{DoxyCompactList}\small\item\em analyze the kernel route when cisco anyconnect is used \end{DoxyCompactList}\item 
 int \hyperlink{route-tree_8c_a5a490e2e29be18ae630572e3776539af}{analyze\+\_\+kernel\+\_\+route} (G\+Node $\ast$kernel\+\_\+route\+\_\+roots\mbox{[}\hyperlink{route-tree_8h_a8e1da3af3417de420798c8b448b6a8cb}{M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+ER}\mbox{]}, int $\ast$kernel\+\_\+roots, enum \hyperlink{route-tree_8h_a5b876670828c4e38106ba1c6d91024b7}{V\+P\+N\+\_\+\+M\+E\+T\+H\+O\+DS} vpn\+\_\+method)
-\item 
+\begin{DoxyCompactList}\small\item\em detect V\+PN method based on kernel routing pattern \end{DoxyCompactList}\item 
 gboolean \hyperlink{route-tree_8c_a3a0eeaa4d6b227ed8aa19e5d56096cd3}{find\+\_\+node\+\_\+traverse} (G\+Node $\ast$node, gpointer data)
-\item 
+\begin{DoxyCompactList}\small\item\em a per-\/node call-\/back that checks if the node interface name is equal to the requested name \end{DoxyCompactList}\item 
 G\+Node $\ast$ \hyperlink{route-tree_8c_a77affcaa875961893c05c7e211678ed1}{get\+\_\+kernel\+\_\+route\+\_\+node} (G\+Node $\ast$kernel\+\_\+route\+\_\+roots\mbox{[}\hyperlink{route-tree_8h_a8e1da3af3417de420798c8b448b6a8cb}{M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+ER}\mbox{]}, int roots, char $\ast$ifa\+\_\+name)
-\item 
+\begin{DoxyCompactList}\small\item\em find the node with the interface name within the jungle of kernel route table \end{DoxyCompactList}\item 
 \hyperlink{route-tree_8h_a1034dd038389279bf422489d4d99d43a}{Vpn\+Method} $\ast$ \hyperlink{route-tree_8c_a267529614de44218b8187f3ac46ce46f}{detect\+\_\+vpn\+\_\+method} ()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em detect V\+PN method based on kernel routing pattern \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Typedef Documentation}
@@ -70,11 +70,19 @@ G\+Node $\ast$ \hyperlink{route-tree_8c_a77affcaa875961893c05c7e211678ed1}{get\+
 \subsubsection{\texorpdfstring{Node\+Params}{NodeParams}}
 {\footnotesize\ttfamily typedef struct \hyperlink{structnode__params}{node\+\_\+params}  \hyperlink{route-tree_8c_a3aa763b62cd1d285ed35bb7f0fe4d149}{Node\+Params}}
 
+
+
+puts together the information extracted from rtnl\+\_\+route entries 
+
 \mbox{\Hypertarget{route-tree_8c_a26d9b840f9226a0ce349b00950ea0bdc}\label{route-tree_8c_a26d9b840f9226a0ce349b00950ea0bdc}} 
 \index{route-\/tree.\+c@{route-\/tree.\+c}!Node\+Search@{Node\+Search}}
 \index{Node\+Search@{Node\+Search}!route-\/tree.\+c@{route-\/tree.\+c}}
 \subsubsection{\texorpdfstring{Node\+Search}{NodeSearch}}
 {\footnotesize\ttfamily typedef struct \hyperlink{structnode__search}{node\+\_\+search}  \hyperlink{route-tree_8c_a26d9b840f9226a0ce349b00950ea0bdc}{Node\+Search}}
+
+
+
+put together the input/output of find\+\_\+node\+\_\+traverse function 
 
 
 
@@ -84,6 +92,10 @@ G\+Node $\ast$ \hyperlink{route-tree_8c_a77affcaa875961893c05c7e211678ed1}{get\+
 \index{R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+RY@{R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+RY}!route-\/tree.\+c@{route-\/tree.\+c}}
 \subsubsection{\texorpdfstring{R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+RY}{ROUTE\_QUERY}}
 {\footnotesize\ttfamily enum \hyperlink{route-tree_8c_aed8cdbb52dbe32c343a8c26887888e7f}{R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+RY}}
+
+
+
+the type request for extracting kernel route table 
 
 \begin{DoxyEnumFields}{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+R\+Y\+\_\+\+G\+E\+T\+\_\+\+T\+R\+EE@{R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+R\+Y\+\_\+\+G\+E\+T\+\_\+\+T\+R\+EE}!route-\/tree.\+c@{route-\/tree.\+c}}\index{route-\/tree.\+c@{route-\/tree.\+c}!R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+R\+Y\+\_\+\+G\+E\+T\+\_\+\+T\+R\+EE@{R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+R\+Y\+\_\+\+G\+E\+T\+\_\+\+T\+R\+EE}}}\mbox{\Hypertarget{route-tree_8c_aed8cdbb52dbe32c343a8c26887888e7fab02d9a33d5a8476efc87ecc7049cc120}\label{route-tree_8c_aed8cdbb52dbe32c343a8c26887888e7fab02d9a33d5a8476efc87ecc7049cc120}} 
@@ -104,65 +116,271 @@ R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+R\+Y\+\_\+\+G\+E\+T\+\_\+\+F\+I\+R\+ST&\\
 \subsubsection{\texorpdfstring{analyze\+\_\+anyconnect\+\_\+kernel\+\_\+route()}{analyze\_anyconnect\_kernel\_route()}}
 {\footnotesize\ttfamily int analyze\+\_\+anyconnect\+\_\+kernel\+\_\+route (\begin{DoxyParamCaption}\item[{G\+Node $\ast$}]{kernel\+\_\+route\+\_\+roots\mbox{[}\+M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+E\+R\mbox{]},  }\item[{int $\ast$}]{kernel\+\_\+roots }\end{DoxyParamCaption})}
 
+
+
+analyze the kernel route when cisco anyconnect is used 
+
+\begin{DoxySeeAlso}{See also}
+\href{https://wiki.pantherx.org}{\tt https\+://wiki.\+pantherx.\+org} 
+\end{DoxySeeAlso}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000015}{Todo}]T\+O\+DO Support tap-\/based interfaces. T\+O\+DO Support complicated patterns.\end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em kernel\+\_\+route\+\_\+roots} & jungle retrieved \\
+\hline
+\mbox{\tt out}  & {\em kernel\+\_\+roots} & the number of roots in the jungle \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the kernel primary route index 
+\end{DoxyReturn}
 \mbox{\Hypertarget{route-tree_8c_a5a490e2e29be18ae630572e3776539af}\label{route-tree_8c_a5a490e2e29be18ae630572e3776539af}} 
 \index{route-\/tree.\+c@{route-\/tree.\+c}!analyze\+\_\+kernel\+\_\+route@{analyze\+\_\+kernel\+\_\+route}}
 \index{analyze\+\_\+kernel\+\_\+route@{analyze\+\_\+kernel\+\_\+route}!route-\/tree.\+c@{route-\/tree.\+c}}
 \subsubsection{\texorpdfstring{analyze\+\_\+kernel\+\_\+route()}{analyze\_kernel\_route()}}
 {\footnotesize\ttfamily int analyze\+\_\+kernel\+\_\+route (\begin{DoxyParamCaption}\item[{G\+Node $\ast$}]{kernel\+\_\+route\+\_\+roots\mbox{[}\+M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+E\+R\mbox{]},  }\item[{int $\ast$}]{kernel\+\_\+roots,  }\item[{enum \hyperlink{route-tree_8h_a5b876670828c4e38106ba1c6d91024b7}{V\+P\+N\+\_\+\+M\+E\+T\+H\+O\+DS}}]{vpn\+\_\+method }\end{DoxyParamCaption})}
 
+
+
+detect V\+PN method based on kernel routing pattern 
+
+\begin{DoxySeeAlso}{See also}
+\href{https://wiki.pantherx.org}{\tt https\+://wiki.\+pantherx.\+org} 
+\end{DoxySeeAlso}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000016}{Todo}]T\+O\+DO Support tap-\/based interfaces. T\+O\+DO Support complicated patterns.\end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em kernel\+\_\+route\+\_\+roots} & indicates the jungle of the kernel route table \\
+\hline
+\mbox{\tt out}  & {\em kernel\+\_\+roots} & the number of roots in jungle \\
+\hline
+\mbox{\tt in}  & {\em vpn\+\_\+method} & the V\+PN method detected \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the index of the primary kernel route
+\end{DoxyReturn}
+\begin{DoxyPrecond}{Precondition}
+the vpn method has to be detected 
+\end{DoxyPrecond}
 \mbox{\Hypertarget{route-tree_8c_a023982baea4d991af1755c75365e6070}\label{route-tree_8c_a023982baea4d991af1755c75365e6070}} 
 \index{route-\/tree.\+c@{route-\/tree.\+c}!analyze\+\_\+openvpn\+\_\+kernel\+\_\+route@{analyze\+\_\+openvpn\+\_\+kernel\+\_\+route}}
 \index{analyze\+\_\+openvpn\+\_\+kernel\+\_\+route@{analyze\+\_\+openvpn\+\_\+kernel\+\_\+route}!route-\/tree.\+c@{route-\/tree.\+c}}
 \subsubsection{\texorpdfstring{analyze\+\_\+openvpn\+\_\+kernel\+\_\+route()}{analyze\_openvpn\_kernel\_route()}}
 {\footnotesize\ttfamily int analyze\+\_\+openvpn\+\_\+kernel\+\_\+route (\begin{DoxyParamCaption}\item[{G\+Node $\ast$}]{kernel\+\_\+route\+\_\+roots\mbox{[}\+M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+E\+R\mbox{]},  }\item[{int $\ast$}]{kernel\+\_\+roots }\end{DoxyParamCaption})}
 
+
+
+analyze the kernel route when openvpn is used 
+
+\begin{DoxySeeAlso}{See also}
+\href{https://wiki.pantherx.org}{\tt https\+://wiki.\+pantherx.\+org} 
+\end{DoxySeeAlso}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000014}{Todo}]T\+O\+DO Support tap-\/based interfaces. T\+O\+DO Support complicated patterns.\end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em kernel\+\_\+route\+\_\+roots} & jungle retrieved \\
+\hline
+\mbox{\tt out}  & {\em kernel\+\_\+roots} & the number of roots in the jungle \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the kernel primary route index 
+\end{DoxyReturn}
 \mbox{\Hypertarget{route-tree_8c_a267529614de44218b8187f3ac46ce46f}\label{route-tree_8c_a267529614de44218b8187f3ac46ce46f}} 
 \index{route-\/tree.\+c@{route-\/tree.\+c}!detect\+\_\+vpn\+\_\+method@{detect\+\_\+vpn\+\_\+method}}
 \index{detect\+\_\+vpn\+\_\+method@{detect\+\_\+vpn\+\_\+method}!route-\/tree.\+c@{route-\/tree.\+c}}
 \subsubsection{\texorpdfstring{detect\+\_\+vpn\+\_\+method()}{detect\_vpn\_method()}}
 {\footnotesize\ttfamily \hyperlink{route-tree_8h_a1034dd038389279bf422489d4d99d43a}{Vpn\+Method}$\ast$ detect\+\_\+vpn\+\_\+method (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+detect V\+PN method based on kernel routing pattern 
+
+\begin{DoxySeeAlso}{See also}
+\href{https://wiki.pantherx.org}{\tt https\+://wiki.\+pantherx.\+org} 
+\end{DoxySeeAlso}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000019}{Todo}]T\+O\+DO Support tap-\/based interfaces. T\+O\+DO Support complicated patterns. \end{DoxyRefDesc}
 \mbox{\Hypertarget{route-tree_8c_a3a0eeaa4d6b227ed8aa19e5d56096cd3}\label{route-tree_8c_a3a0eeaa4d6b227ed8aa19e5d56096cd3}} 
 \index{route-\/tree.\+c@{route-\/tree.\+c}!find\+\_\+node\+\_\+traverse@{find\+\_\+node\+\_\+traverse}}
 \index{find\+\_\+node\+\_\+traverse@{find\+\_\+node\+\_\+traverse}!route-\/tree.\+c@{route-\/tree.\+c}}
 \subsubsection{\texorpdfstring{find\+\_\+node\+\_\+traverse()}{find\_node\_traverse()}}
 {\footnotesize\ttfamily gboolean find\+\_\+node\+\_\+traverse (\begin{DoxyParamCaption}\item[{G\+Node $\ast$}]{node,  }\item[{gpointer}]{data }\end{DoxyParamCaption})}
 
+
+
+a per-\/node call-\/back that checks if the node interface name is equal to the requested name 
+
+\begin{DoxySeeAlso}{See also}
+\href{https://wiki.pantherx.org}{\tt https\+://wiki.\+pantherx.\+org} 
+\end{DoxySeeAlso}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000017}{Todo}]\end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em node} & the node for checking \\
+\hline
+\mbox{\tt in,out}  & {\em data} & the interface name and the node pointer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+if the node find, it returns T\+R\+UE to stop the traverse 
+\end{DoxyReturn}
 \mbox{\Hypertarget{route-tree_8c_ac750dd5c6890dd949d1029d4363fa0e0}\label{route-tree_8c_ac750dd5c6890dd949d1029d4363fa0e0}} 
 \index{route-\/tree.\+c@{route-\/tree.\+c}!first\+\_\+entry\+\_\+cb@{first\+\_\+entry\+\_\+cb}}
 \index{first\+\_\+entry\+\_\+cb@{first\+\_\+entry\+\_\+cb}!route-\/tree.\+c@{route-\/tree.\+c}}
 \subsubsection{\texorpdfstring{first\+\_\+entry\+\_\+cb()}{first\_entry\_cb()}}
 {\footnotesize\ttfamily void first\+\_\+entry\+\_\+cb (\begin{DoxyParamCaption}\item[{struct nl\+\_\+object $\ast$}]{obj,  }\item[{void $\ast$}]{data }\end{DoxyParamCaption})}
 
+
+
+checks the pattern of the first entry in kernel route table to detect the pattern 
+
+\begin{DoxySeeAlso}{See also}
+\href{https://wiki.pantherx.org}{\tt https\+://wiki.\+pantherx.\+org} 
+\end{DoxySeeAlso}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000010}{Todo}]T\+O\+DO Support tap-\/based interfaces. T\+O\+DO Support complicated patterns.\end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em obj} & the rtnl\+\_\+route object \\
+\hline
+\mbox{\tt out}  & {\em data} & the detected vpn method \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{route-tree_8c_a77affcaa875961893c05c7e211678ed1}\label{route-tree_8c_a77affcaa875961893c05c7e211678ed1}} 
 \index{route-\/tree.\+c@{route-\/tree.\+c}!get\+\_\+kernel\+\_\+route\+\_\+node@{get\+\_\+kernel\+\_\+route\+\_\+node}}
 \index{get\+\_\+kernel\+\_\+route\+\_\+node@{get\+\_\+kernel\+\_\+route\+\_\+node}!route-\/tree.\+c@{route-\/tree.\+c}}
 \subsubsection{\texorpdfstring{get\+\_\+kernel\+\_\+route\+\_\+node()}{get\_kernel\_route\_node()}}
 {\footnotesize\ttfamily G\+Node$\ast$ get\+\_\+kernel\+\_\+route\+\_\+node (\begin{DoxyParamCaption}\item[{G\+Node $\ast$}]{kernel\+\_\+route\+\_\+roots\mbox{[}\+M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+E\+R\mbox{]},  }\item[{int}]{roots,  }\item[{char $\ast$}]{ifa\+\_\+name }\end{DoxyParamCaption})}
 
+
+
+find the node with the interface name within the jungle of kernel route table 
+
+\begin{DoxySeeAlso}{See also}
+\href{https://wiki.pantherx.org}{\tt https\+://wiki.\+pantherx.\+org} 
+\end{DoxySeeAlso}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000018}{Todo}]T\+O\+DO Support tap-\/based interfaces. T\+O\+DO Support complicated patterns.\end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em kernel\+\_\+route\+\_\+roots} & indicates the jungle of the kernel route table \\
+\hline
+\mbox{\tt in}  & {\em roots} & the number of roots in jungle \\
+\hline
+\mbox{\tt in}  & {\em ifa\+\_\+name} & the name to be searched for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the node if any find
+\end{DoxyReturn}
+\begin{DoxyPrecond}{Precondition}
+the kernel route table has to be retrieved before 
+\end{DoxyPrecond}
 \mbox{\Hypertarget{route-tree_8c_a7e256826bca6c828a8564f27f84dd517}\label{route-tree_8c_a7e256826bca6c828a8564f27f84dd517}} 
 \index{route-\/tree.\+c@{route-\/tree.\+c}!get\+\_\+route\+\_\+trees@{get\+\_\+route\+\_\+trees}}
 \index{get\+\_\+route\+\_\+trees@{get\+\_\+route\+\_\+trees}!route-\/tree.\+c@{route-\/tree.\+c}}
 \subsubsection{\texorpdfstring{get\+\_\+route\+\_\+trees()}{get\_route\_trees()}}
 {\footnotesize\ttfamily void get\+\_\+route\+\_\+trees (\begin{DoxyParamCaption}\item[{enum \hyperlink{route-tree_8c_aed8cdbb52dbe32c343a8c26887888e7f}{R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+RY}}]{query\+\_\+id,  }\item[{G\+Node $\ast$}]{node\mbox{[}\+M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+E\+R\mbox{]},  }\item[{int $\ast$}]{roots,  }\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
 
+
+
+get the route tree represented in the requested model 
+
+\begin{DoxySeeAlso}{See also}
+\href{https://wiki.pantherx.org}{\tt https\+://wiki.\+pantherx.\+org} 
+\end{DoxySeeAlso}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000013}{Todo}]T\+O\+DO Support tap-\/based interfaces. T\+O\+DO Support complicated patterns.\end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em query\+\_\+id} & the ID of the route query \\
+\hline
+\mbox{\tt out}  & {\em node} & jungle retrieved \\
+\hline
+\mbox{\tt out}  & {\em roots} & the number of roots in the jungle \\
+\hline
+\mbox{\tt in}  & {\em argc} & the number of parameter for request commands \\
+\hline
+\mbox{\tt in}  & {\em argv} & the request commands \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{route-tree_8c_a8402c2baca9819b3791b35b6c1645ce6}\label{route-tree_8c_a8402c2baca9819b3791b35b6c1645ce6}} 
 \index{route-\/tree.\+c@{route-\/tree.\+c}!next\+\_\+hop\+\_\+entry\+\_\+cb@{next\+\_\+hop\+\_\+entry\+\_\+cb}}
 \index{next\+\_\+hop\+\_\+entry\+\_\+cb@{next\+\_\+hop\+\_\+entry\+\_\+cb}!route-\/tree.\+c@{route-\/tree.\+c}}
 \subsubsection{\texorpdfstring{next\+\_\+hop\+\_\+entry\+\_\+cb()}{next\_hop\_entry\_cb()}}
 {\footnotesize\ttfamily void next\+\_\+hop\+\_\+entry\+\_\+cb (\begin{DoxyParamCaption}\item[{struct rtnl\+\_\+nexthop $\ast$}]{nh,  }\item[{void $\ast$}]{data }\end{DoxyParamCaption})}
 
+
+
+extract the next hop information in a route table entry 
+
+\begin{DoxySeeAlso}{See also}
+\href{https://wiki.pantherx.org}{\tt https\+://wiki.\+pantherx.\+org} 
+\end{DoxySeeAlso}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000011}{Todo}]T\+O\+DO Support tap-\/based interfaces. T\+O\+DO Support complicated patterns.\end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em nh} & the next hop object \\
+\hline
+\mbox{\tt out}  & {\em data} & the extracted information in form of Node\+Param \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{route-tree_8c_a112b373b8e4a4a0eacfba3cc078e5ce2}\label{route-tree_8c_a112b373b8e4a4a0eacfba3cc078e5ce2}} 
 \index{route-\/tree.\+c@{route-\/tree.\+c}!route\+\_\+entry\+\_\+cb@{route\+\_\+entry\+\_\+cb}}
 \index{route\+\_\+entry\+\_\+cb@{route\+\_\+entry\+\_\+cb}!route-\/tree.\+c@{route-\/tree.\+c}}
 \subsubsection{\texorpdfstring{route\+\_\+entry\+\_\+cb()}{route\_entry\_cb()}}
 {\footnotesize\ttfamily void route\+\_\+entry\+\_\+cb (\begin{DoxyParamCaption}\item[{struct nl\+\_\+object $\ast$}]{obj,  }\item[{void $\ast$}]{data }\end{DoxyParamCaption})}
 
+
+
+extract information in a route table entry 
+
+\begin{DoxySeeAlso}{See also}
+\href{https://wiki.pantherx.org}{\tt https\+://wiki.\+pantherx.\+org} 
+\end{DoxySeeAlso}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000012}{Todo}]T\+O\+DO Support tap-\/based interfaces. T\+O\+DO Support complicated patterns.\end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em obj} & the rtnl\+\_\+route object \\
+\hline
+\mbox{\tt out}  & {\em data} & the extracted information in form of Node\+Param \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{route-tree_8c_a1b80d492072ee18f906bdd2fbaad9b4b}\label{route-tree_8c_a1b80d492072ee18f906bdd2fbaad9b4b}} 
 \index{route-\/tree.\+c@{route-\/tree.\+c}!route\+\_\+node\+\_\+free@{route\+\_\+node\+\_\+free}}
 \index{route\+\_\+node\+\_\+free@{route\+\_\+node\+\_\+free}!route-\/tree.\+c@{route-\/tree.\+c}}
 \subsubsection{\texorpdfstring{route\+\_\+node\+\_\+free()}{route\_node\_free()}}
 {\footnotesize\ttfamily void route\+\_\+node\+\_\+free (\begin{DoxyParamCaption}\item[{\hyperlink{route-tree_8h_a1296be44c6672a1adb94ba6dc416682c}{Route\+Node} $\ast$}]{nd }\end{DoxyParamCaption})}
+
+
+
+destroys a Route\+Node object 
 
 \mbox{\Hypertarget{route-tree_8c_a941ed51572db1d1d4720f8a329dd0d8b}\label{route-tree_8c_a941ed51572db1d1d4720f8a329dd0d8b}} 
 \index{route-\/tree.\+c@{route-\/tree.\+c}!route\+\_\+node\+\_\+new@{route\+\_\+node\+\_\+new}}
@@ -170,15 +388,27 @@ R\+O\+U\+T\+E\+\_\+\+Q\+U\+E\+R\+Y\+\_\+\+G\+E\+T\+\_\+\+F\+I\+R\+ST&\\
 \subsubsection{\texorpdfstring{route\+\_\+node\+\_\+new()}{route\_node\_new()}}
 {\footnotesize\ttfamily \hyperlink{route-tree_8h_a1296be44c6672a1adb94ba6dc416682c}{Route\+Node}$\ast$ route\+\_\+node\+\_\+new (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{route-tree_8c_a06257b65d43c86e35b44ae0d91b226cf}\label{route-tree_8c_a06257b65d43c86e35b44ae0d91b226cf}} 
+
+
+creates a new Route\+Node object 
+
+\mbox{\Hypertarget{route-tree_8c_a24c2b4e2f6cd24a639b2fe63bb48f48e}\label{route-tree_8c_a24c2b4e2f6cd24a639b2fe63bb48f48e}} 
 \index{route-\/tree.\+c@{route-\/tree.\+c}!vpn\+\_\+method\+\_\+free@{vpn\+\_\+method\+\_\+free}}
 \index{vpn\+\_\+method\+\_\+free@{vpn\+\_\+method\+\_\+free}!route-\/tree.\+c@{route-\/tree.\+c}}
 \subsubsection{\texorpdfstring{vpn\+\_\+method\+\_\+free()}{vpn\_method\_free()}}
-{\footnotesize\ttfamily void vpn\+\_\+method\+\_\+free (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void vpn\+\_\+method\+\_\+free (\begin{DoxyParamCaption}\item[{\hyperlink{route-tree_8h_a1034dd038389279bf422489d4d99d43a}{Vpn\+Method} $\ast$}]{vm }\end{DoxyParamCaption})}
+
+
+
+destroys a Vpn\+Method object 
 
 \mbox{\Hypertarget{route-tree_8c_a3ccbf1b413fe282c1490701f739273a8}\label{route-tree_8c_a3ccbf1b413fe282c1490701f739273a8}} 
 \index{route-\/tree.\+c@{route-\/tree.\+c}!vpn\+\_\+method\+\_\+new@{vpn\+\_\+method\+\_\+new}}
 \index{vpn\+\_\+method\+\_\+new@{vpn\+\_\+method\+\_\+new}!route-\/tree.\+c@{route-\/tree.\+c}}
 \subsubsection{\texorpdfstring{vpn\+\_\+method\+\_\+new()}{vpn\_method\_new()}}
 {\footnotesize\ttfamily \hyperlink{route-tree_8h_a1034dd038389279bf422489d4d99d43a}{Vpn\+Method}$\ast$ vpn\+\_\+method\+\_\+new (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+creates a new Vpn\+Method object 
 
