@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['if_5fmode',['IF_MODE',['../main_8c.html#a5ffcda19913c05c9d113f32fcd11805c',1,'main.c']]],
-  ['if_5ftraverse_5fmode',['IF_TRAVERSE_MODE',['../main_8c.html#a7bc1c477dae83ef66bdbd360fce8b3b7',1,'main.c']]]
+  ['format',['Format',['../arg-info_8h.html#ab4e88c89b3b7ea1735996cc4def22d58',1,'arg-info.h']]]
 ];

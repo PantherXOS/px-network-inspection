@@ -1,0 +1,92 @@
+\hypertarget{gnode-object_8h}{}\section{/home/sina/pantherx/networkinspection/git/include/gnode-\/object.h File Reference}
+\label{gnode-object_8h}\index{/home/sina/pantherx/networkinspection/git/include/gnode-\/object.\+h@{/home/sina/pantherx/networkinspection/git/include/gnode-\/object.\+h}}
+{\ttfamily \#include $<$glib.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$json-\/c/json.\+h$>$}\newline
+{\ttfamily \#include $<$linux/wireless.\+h$>$}\newline
+{\ttfamily \#include $<$linux/limits.\+h$>$}\newline
+Include dependency graph for gnode-\/object.h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gnode-object_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{gnode-object_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structnet__device}{net\+\_\+device}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gnode-object_8h_a92eeaa07ea1bf740872e6f0fc1cf0caf}{N\+E\+T\+D\+E\+V\+I\+CE}(o)~(\hyperlink{gnode-object_8h_ab9c23d3a2ba4d9157b5ab053f61388dc}{Net\+Device}$\ast$)(o)
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structnet__device}{net\+\_\+device} \hyperlink{gnode-object_8h_ab9c23d3a2ba4d9157b5ab053f61388dc}{Net\+Device}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{gnode-object_8h_ab9c23d3a2ba4d9157b5ab053f61388dc}{Net\+Device} $\ast$ \hyperlink{gnode-object_8h_ae666b3f20895e60917e691c81d464235}{net\+\_\+device\+\_\+new} ()
+\item 
+void \hyperlink{gnode-object_8h_af75477fcbe781bc0b17c75c1ad6d1606}{net\+\_\+device\+\_\+free} (\hyperlink{gnode-object_8h_ab9c23d3a2ba4d9157b5ab053f61388dc}{Net\+Device} $\ast$nd)
+\item 
+gboolean \hyperlink{gnode-object_8h_acde5d3e413f355d1b912f0dcb9d4cdc1}{traverse\+\_\+json\+\_\+func} (G\+Node $\ast$node, gpointer data)
+\item 
+gboolean \hyperlink{gnode-object_8h_a0d906716c0b2c59e34bff01153dc23d2}{traverse\+\_\+json\+\_\+array\+\_\+func} (G\+Node $\ast$node, gpointer data)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{gnode-object_8h_a92eeaa07ea1bf740872e6f0fc1cf0caf}\label{gnode-object_8h_a92eeaa07ea1bf740872e6f0fc1cf0caf}} 
+\index{gnode-\/object.\+h@{gnode-\/object.\+h}!N\+E\+T\+D\+E\+V\+I\+CE@{N\+E\+T\+D\+E\+V\+I\+CE}}
+\index{N\+E\+T\+D\+E\+V\+I\+CE@{N\+E\+T\+D\+E\+V\+I\+CE}!gnode-\/object.\+h@{gnode-\/object.\+h}}
+\subsubsection{\texorpdfstring{N\+E\+T\+D\+E\+V\+I\+CE}{NETDEVICE}}
+{\footnotesize\ttfamily \#define N\+E\+T\+D\+E\+V\+I\+CE(\begin{DoxyParamCaption}\item[{}]{o }\end{DoxyParamCaption})~(\hyperlink{gnode-object_8h_ab9c23d3a2ba4d9157b5ab053f61388dc}{Net\+Device}$\ast$)(o)}
+
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{gnode-object_8h_ab9c23d3a2ba4d9157b5ab053f61388dc}\label{gnode-object_8h_ab9c23d3a2ba4d9157b5ab053f61388dc}} 
+\index{gnode-\/object.\+h@{gnode-\/object.\+h}!Net\+Device@{Net\+Device}}
+\index{Net\+Device@{Net\+Device}!gnode-\/object.\+h@{gnode-\/object.\+h}}
+\subsubsection{\texorpdfstring{Net\+Device}{NetDevice}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structnet__device}{net\+\_\+device}  \hyperlink{gnode-object_8h_ab9c23d3a2ba4d9157b5ab053f61388dc}{Net\+Device}}
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{gnode-object_8h_af75477fcbe781bc0b17c75c1ad6d1606}\label{gnode-object_8h_af75477fcbe781bc0b17c75c1ad6d1606}} 
+\index{gnode-\/object.\+h@{gnode-\/object.\+h}!net\+\_\+device\+\_\+free@{net\+\_\+device\+\_\+free}}
+\index{net\+\_\+device\+\_\+free@{net\+\_\+device\+\_\+free}!gnode-\/object.\+h@{gnode-\/object.\+h}}
+\subsubsection{\texorpdfstring{net\+\_\+device\+\_\+free()}{net\_device\_free()}}
+{\footnotesize\ttfamily void net\+\_\+device\+\_\+free (\begin{DoxyParamCaption}\item[{\hyperlink{gnode-object_8h_ab9c23d3a2ba4d9157b5ab053f61388dc}{Net\+Device} $\ast$}]{nd }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{gnode-object_8h_ae666b3f20895e60917e691c81d464235}\label{gnode-object_8h_ae666b3f20895e60917e691c81d464235}} 
+\index{gnode-\/object.\+h@{gnode-\/object.\+h}!net\+\_\+device\+\_\+new@{net\+\_\+device\+\_\+new}}
+\index{net\+\_\+device\+\_\+new@{net\+\_\+device\+\_\+new}!gnode-\/object.\+h@{gnode-\/object.\+h}}
+\subsubsection{\texorpdfstring{net\+\_\+device\+\_\+new()}{net\_device\_new()}}
+{\footnotesize\ttfamily \hyperlink{gnode-object_8h_ab9c23d3a2ba4d9157b5ab053f61388dc}{Net\+Device}$\ast$ net\+\_\+device\+\_\+new (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{gnode-object_8h_a0d906716c0b2c59e34bff01153dc23d2}\label{gnode-object_8h_a0d906716c0b2c59e34bff01153dc23d2}} 
+\index{gnode-\/object.\+h@{gnode-\/object.\+h}!traverse\+\_\+json\+\_\+array\+\_\+func@{traverse\+\_\+json\+\_\+array\+\_\+func}}
+\index{traverse\+\_\+json\+\_\+array\+\_\+func@{traverse\+\_\+json\+\_\+array\+\_\+func}!gnode-\/object.\+h@{gnode-\/object.\+h}}
+\subsubsection{\texorpdfstring{traverse\+\_\+json\+\_\+array\+\_\+func()}{traverse\_json\_array\_func()}}
+{\footnotesize\ttfamily gboolean traverse\+\_\+json\+\_\+array\+\_\+func (\begin{DoxyParamCaption}\item[{G\+Node $\ast$}]{node,  }\item[{gpointer}]{data }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{gnode-object_8h_acde5d3e413f355d1b912f0dcb9d4cdc1}\label{gnode-object_8h_acde5d3e413f355d1b912f0dcb9d4cdc1}} 
+\index{gnode-\/object.\+h@{gnode-\/object.\+h}!traverse\+\_\+json\+\_\+func@{traverse\+\_\+json\+\_\+func}}
+\index{traverse\+\_\+json\+\_\+func@{traverse\+\_\+json\+\_\+func}!gnode-\/object.\+h@{gnode-\/object.\+h}}
+\subsubsection{\texorpdfstring{traverse\+\_\+json\+\_\+func()}{traverse\_json\_func()}}
+{\footnotesize\ttfamily gboolean traverse\+\_\+json\+\_\+func (\begin{DoxyParamCaption}\item[{G\+Node $\ast$}]{node,  }\item[{gpointer}]{data }\end{DoxyParamCaption})}
+

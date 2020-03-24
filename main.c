@@ -492,7 +492,7 @@ void get_routes()
 }
 
 /**
- * 	@author	<Sina Mahmoodi>
+ * 	@author	Sina Mahmoodi
  *  @brief The main function of the project.
  *
  *  @details

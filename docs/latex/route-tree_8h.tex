@@ -1,0 +1,236 @@
+\hypertarget{route-tree_8h}{}\section{/home/sina/pantherx/networkinspection/git/include/route-\/tree.h File Reference}
+\label{route-tree_8h}\index{/home/sina/pantherx/networkinspection/git/include/route-\/tree.\+h@{/home/sina/pantherx/networkinspection/git/include/route-\/tree.\+h}}
+{\ttfamily \#include $<$netlink/cache.\+h$>$}\newline
+{\ttfamily \#include $<$netlink/object.\+h$>$}\newline
+{\ttfamily \#include $<$netlink/types.\+h$>$}\newline
+{\ttfamily \#include $<$netlink/list.\+h$>$}\newline
+{\ttfamily \#include $<$netlink/cli/utils.\+h$>$}\newline
+{\ttfamily \#include $<$netlink/cli/route.\+h$>$}\newline
+{\ttfamily \#include $<$netlink/cli/link.\+h$>$}\newline
+{\ttfamily \#include $<$linux/netlink.\+h$>$}\newline
+{\ttfamily \#include $<$glib.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$linux/limits.\+h$>$}\newline
+Include dependency graph for route-\/tree.h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{route-tree_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{route-tree_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structvpnmethod}{vpnmethod}
+\item 
+struct \hyperlink{structroute__node}{route\+\_\+node}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{route-tree_8h_a8e1da3af3417de420798c8b448b6a8cb}{M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+ER}~10
+\item 
+\#define \hyperlink{route-tree_8h_a5f66955385e84e67789d731b5cad24c7}{M\+A\+X\+\_\+\+P\+H\+Y\+S\+\_\+\+I\+FS}~\hyperlink{route-tree_8h_a8e1da3af3417de420798c8b448b6a8cb}{M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+ER}
+\item 
+\#define \hyperlink{route-tree_8h_a82e5e4b05dda947b534dc0941ad418ba}{M\+A\+X\+\_\+\+T\+A\+P\+\_\+\+I\+FS}~10
+\item 
+\#define \hyperlink{route-tree_8h_a0d314d64c79d675bd2614b20e738d527}{M\+A\+X\+\_\+\+T\+U\+N\+\_\+\+I\+FS}~10
+\item 
+\#define \hyperlink{route-tree_8h_a77ed9a5f9670b7a2d69c376d1199eddf}{M\+A\+X\+\_\+\+V\+P\+N\+\_\+\+N\+A\+ME}~50
+\item 
+\#define \hyperlink{route-tree_8h_ab6867a2365732ebd41ddf7459525d032}{M\+A\+X\+\_\+\+V\+P\+N\+\_\+\+P\+R\+O\+F\+I\+L\+E\+\_\+\+N\+A\+ME}~N\+A\+M\+E\+\_\+\+M\+AX
+\item 
+\#define \hyperlink{route-tree_8h_ab4431a377dee3e169cfe060fe7666758}{R\+O\+U\+T\+E\+N\+O\+DE}(o)~(\hyperlink{route-tree_8h_a1296be44c6672a1adb94ba6dc416682c}{Route\+Node}$\ast$)(o)
+\item 
+\#define \hyperlink{route-tree_8h_a58aa26c75d296ca73e2bca481e6e036f}{V\+P\+N\+M\+E\+T\+H\+OD}(o)~(\hyperlink{route-tree_8h_a1034dd038389279bf422489d4d99d43a}{Vpn\+Method}$\ast$)(o)
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structvpnmethod}{vpnmethod} \hyperlink{route-tree_8h_a1034dd038389279bf422489d4d99d43a}{Vpn\+Method}
+\item 
+typedef struct \hyperlink{structroute__node}{route\+\_\+node} \hyperlink{route-tree_8h_a1296be44c6672a1adb94ba6dc416682c}{Route\+Node}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{route-tree_8h_a5b876670828c4e38106ba1c6d91024b7}{V\+P\+N\+\_\+\+M\+E\+T\+H\+O\+DS} \{ \newline
+\hyperlink{route-tree_8h_a5b876670828c4e38106ba1c6d91024b7ab1ae185eb0d77c55896e16a13cc83fcd}{O\+P\+E\+N\+V\+PN}, 
+\hyperlink{route-tree_8h_a5b876670828c4e38106ba1c6d91024b7a16a826749e7c59a1ac398c5fea811044}{W\+I\+R\+E\+G\+U\+A\+RD}, 
+\hyperlink{route-tree_8h_a5b876670828c4e38106ba1c6d91024b7ac610d0f8eb941cb8d8a5a1e30f60ea1b}{A\+N\+Y\+C\+O\+N\+N\+E\+CT}, 
+\hyperlink{route-tree_8h_a5b876670828c4e38106ba1c6d91024b7a12890d8b7f1c543c687d8d72ce33d749}{V\+P\+N\+\_\+\+M\+E\+T\+H\+O\+D\+S\+\_\+\+N\+U\+M\+B\+E\+RS}, 
+\newline
+\hyperlink{route-tree_8h_a5b876670828c4e38106ba1c6d91024b7a096310080aa42637b2920b2e9e78aacd}{N\+O\+\_\+\+V\+P\+N\+\_\+\+M\+E\+T\+H\+OD}, 
+\hyperlink{route-tree_8h_a5b876670828c4e38106ba1c6d91024b7a7df79fc150333242d7a3df021b1b2206}{V\+P\+N\+\_\+\+M\+E\+T\+H\+O\+D\+\_\+\+U\+N\+K\+N\+O\+WN}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{route-tree_8h_a1034dd038389279bf422489d4d99d43a}{Vpn\+Method} $\ast$ \hyperlink{route-tree_8h_a3ccbf1b413fe282c1490701f739273a8}{vpn\+\_\+method\+\_\+new} ()
+\item 
+void \hyperlink{route-tree_8h_a06257b65d43c86e35b44ae0d91b226cf}{vpn\+\_\+method\+\_\+free} ()
+\item 
+\hyperlink{route-tree_8h_a1034dd038389279bf422489d4d99d43a}{Vpn\+Method} $\ast$ \hyperlink{route-tree_8h_a267529614de44218b8187f3ac46ce46f}{detect\+\_\+vpn\+\_\+method} ()
+\item 
+\hyperlink{route-tree_8h_a1296be44c6672a1adb94ba6dc416682c}{Route\+Node} $\ast$ \hyperlink{route-tree_8h_a941ed51572db1d1d4720f8a329dd0d8b}{route\+\_\+node\+\_\+new} ()
+\item 
+void \hyperlink{route-tree_8h_a1b80d492072ee18f906bdd2fbaad9b4b}{route\+\_\+node\+\_\+free} (\hyperlink{route-tree_8h_a1296be44c6672a1adb94ba6dc416682c}{Route\+Node} $\ast$nd)
+\item 
+int \hyperlink{route-tree_8h_a967fa487bc211d2b9e159ba5be25d641}{analyze\+\_\+kernel\+\_\+route} (G\+Node $\ast$\mbox{[}\hyperlink{route-tree_8h_a8e1da3af3417de420798c8b448b6a8cb}{M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+ER}\mbox{]}, int $\ast$kernel\+\_\+roots, enum \hyperlink{route-tree_8h_a5b876670828c4e38106ba1c6d91024b7}{V\+P\+N\+\_\+\+M\+E\+T\+H\+O\+DS} vpn\+\_\+method)
+\item 
+G\+Node $\ast$ \hyperlink{route-tree_8h_a77affcaa875961893c05c7e211678ed1}{get\+\_\+kernel\+\_\+route\+\_\+node} (G\+Node $\ast$kernel\+\_\+route\+\_\+roots\mbox{[}\hyperlink{route-tree_8h_a8e1da3af3417de420798c8b448b6a8cb}{M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+ER}\mbox{]}, int roots, char $\ast$ifa\+\_\+name)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{route-tree_8h_a5f66955385e84e67789d731b5cad24c7}\label{route-tree_8h_a5f66955385e84e67789d731b5cad24c7}} 
+\index{route-\/tree.\+h@{route-\/tree.\+h}!M\+A\+X\+\_\+\+P\+H\+Y\+S\+\_\+\+I\+FS@{M\+A\+X\+\_\+\+P\+H\+Y\+S\+\_\+\+I\+FS}}
+\index{M\+A\+X\+\_\+\+P\+H\+Y\+S\+\_\+\+I\+FS@{M\+A\+X\+\_\+\+P\+H\+Y\+S\+\_\+\+I\+FS}!route-\/tree.\+h@{route-\/tree.\+h}}
+\subsubsection{\texorpdfstring{M\+A\+X\+\_\+\+P\+H\+Y\+S\+\_\+\+I\+FS}{MAX\_PHYS\_IFS}}
+{\footnotesize\ttfamily \#define M\+A\+X\+\_\+\+P\+H\+Y\+S\+\_\+\+I\+FS~\hyperlink{route-tree_8h_a8e1da3af3417de420798c8b448b6a8cb}{M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+ER}}
+
+\mbox{\Hypertarget{route-tree_8h_a8e1da3af3417de420798c8b448b6a8cb}\label{route-tree_8h_a8e1da3af3417de420798c8b448b6a8cb}} 
+\index{route-\/tree.\+h@{route-\/tree.\+h}!M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+ER@{M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+ER}}
+\index{M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+ER@{M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+ER}!route-\/tree.\+h@{route-\/tree.\+h}}
+\subsubsection{\texorpdfstring{M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+ER}{MAX\_ROOTS\_NUMBER}}
+{\footnotesize\ttfamily \#define M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+ER~10}
+
+\mbox{\Hypertarget{route-tree_8h_a82e5e4b05dda947b534dc0941ad418ba}\label{route-tree_8h_a82e5e4b05dda947b534dc0941ad418ba}} 
+\index{route-\/tree.\+h@{route-\/tree.\+h}!M\+A\+X\+\_\+\+T\+A\+P\+\_\+\+I\+FS@{M\+A\+X\+\_\+\+T\+A\+P\+\_\+\+I\+FS}}
+\index{M\+A\+X\+\_\+\+T\+A\+P\+\_\+\+I\+FS@{M\+A\+X\+\_\+\+T\+A\+P\+\_\+\+I\+FS}!route-\/tree.\+h@{route-\/tree.\+h}}
+\subsubsection{\texorpdfstring{M\+A\+X\+\_\+\+T\+A\+P\+\_\+\+I\+FS}{MAX\_TAP\_IFS}}
+{\footnotesize\ttfamily \#define M\+A\+X\+\_\+\+T\+A\+P\+\_\+\+I\+FS~10}
+
+\mbox{\Hypertarget{route-tree_8h_a0d314d64c79d675bd2614b20e738d527}\label{route-tree_8h_a0d314d64c79d675bd2614b20e738d527}} 
+\index{route-\/tree.\+h@{route-\/tree.\+h}!M\+A\+X\+\_\+\+T\+U\+N\+\_\+\+I\+FS@{M\+A\+X\+\_\+\+T\+U\+N\+\_\+\+I\+FS}}
+\index{M\+A\+X\+\_\+\+T\+U\+N\+\_\+\+I\+FS@{M\+A\+X\+\_\+\+T\+U\+N\+\_\+\+I\+FS}!route-\/tree.\+h@{route-\/tree.\+h}}
+\subsubsection{\texorpdfstring{M\+A\+X\+\_\+\+T\+U\+N\+\_\+\+I\+FS}{MAX\_TUN\_IFS}}
+{\footnotesize\ttfamily \#define M\+A\+X\+\_\+\+T\+U\+N\+\_\+\+I\+FS~10}
+
+\mbox{\Hypertarget{route-tree_8h_a77ed9a5f9670b7a2d69c376d1199eddf}\label{route-tree_8h_a77ed9a5f9670b7a2d69c376d1199eddf}} 
+\index{route-\/tree.\+h@{route-\/tree.\+h}!M\+A\+X\+\_\+\+V\+P\+N\+\_\+\+N\+A\+ME@{M\+A\+X\+\_\+\+V\+P\+N\+\_\+\+N\+A\+ME}}
+\index{M\+A\+X\+\_\+\+V\+P\+N\+\_\+\+N\+A\+ME@{M\+A\+X\+\_\+\+V\+P\+N\+\_\+\+N\+A\+ME}!route-\/tree.\+h@{route-\/tree.\+h}}
+\subsubsection{\texorpdfstring{M\+A\+X\+\_\+\+V\+P\+N\+\_\+\+N\+A\+ME}{MAX\_VPN\_NAME}}
+{\footnotesize\ttfamily \#define M\+A\+X\+\_\+\+V\+P\+N\+\_\+\+N\+A\+ME~50}
+
+\mbox{\Hypertarget{route-tree_8h_ab6867a2365732ebd41ddf7459525d032}\label{route-tree_8h_ab6867a2365732ebd41ddf7459525d032}} 
+\index{route-\/tree.\+h@{route-\/tree.\+h}!M\+A\+X\+\_\+\+V\+P\+N\+\_\+\+P\+R\+O\+F\+I\+L\+E\+\_\+\+N\+A\+ME@{M\+A\+X\+\_\+\+V\+P\+N\+\_\+\+P\+R\+O\+F\+I\+L\+E\+\_\+\+N\+A\+ME}}
+\index{M\+A\+X\+\_\+\+V\+P\+N\+\_\+\+P\+R\+O\+F\+I\+L\+E\+\_\+\+N\+A\+ME@{M\+A\+X\+\_\+\+V\+P\+N\+\_\+\+P\+R\+O\+F\+I\+L\+E\+\_\+\+N\+A\+ME}!route-\/tree.\+h@{route-\/tree.\+h}}
+\subsubsection{\texorpdfstring{M\+A\+X\+\_\+\+V\+P\+N\+\_\+\+P\+R\+O\+F\+I\+L\+E\+\_\+\+N\+A\+ME}{MAX\_VPN\_PROFILE\_NAME}}
+{\footnotesize\ttfamily \#define M\+A\+X\+\_\+\+V\+P\+N\+\_\+\+P\+R\+O\+F\+I\+L\+E\+\_\+\+N\+A\+ME~N\+A\+M\+E\+\_\+\+M\+AX}
+
+\mbox{\Hypertarget{route-tree_8h_ab4431a377dee3e169cfe060fe7666758}\label{route-tree_8h_ab4431a377dee3e169cfe060fe7666758}} 
+\index{route-\/tree.\+h@{route-\/tree.\+h}!R\+O\+U\+T\+E\+N\+O\+DE@{R\+O\+U\+T\+E\+N\+O\+DE}}
+\index{R\+O\+U\+T\+E\+N\+O\+DE@{R\+O\+U\+T\+E\+N\+O\+DE}!route-\/tree.\+h@{route-\/tree.\+h}}
+\subsubsection{\texorpdfstring{R\+O\+U\+T\+E\+N\+O\+DE}{ROUTENODE}}
+{\footnotesize\ttfamily \#define R\+O\+U\+T\+E\+N\+O\+DE(\begin{DoxyParamCaption}\item[{}]{o }\end{DoxyParamCaption})~(\hyperlink{route-tree_8h_a1296be44c6672a1adb94ba6dc416682c}{Route\+Node}$\ast$)(o)}
+
+\mbox{\Hypertarget{route-tree_8h_a58aa26c75d296ca73e2bca481e6e036f}\label{route-tree_8h_a58aa26c75d296ca73e2bca481e6e036f}} 
+\index{route-\/tree.\+h@{route-\/tree.\+h}!V\+P\+N\+M\+E\+T\+H\+OD@{V\+P\+N\+M\+E\+T\+H\+OD}}
+\index{V\+P\+N\+M\+E\+T\+H\+OD@{V\+P\+N\+M\+E\+T\+H\+OD}!route-\/tree.\+h@{route-\/tree.\+h}}
+\subsubsection{\texorpdfstring{V\+P\+N\+M\+E\+T\+H\+OD}{VPNMETHOD}}
+{\footnotesize\ttfamily \#define V\+P\+N\+M\+E\+T\+H\+OD(\begin{DoxyParamCaption}\item[{}]{o }\end{DoxyParamCaption})~(\hyperlink{route-tree_8h_a1034dd038389279bf422489d4d99d43a}{Vpn\+Method}$\ast$)(o)}
+
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{route-tree_8h_a1296be44c6672a1adb94ba6dc416682c}\label{route-tree_8h_a1296be44c6672a1adb94ba6dc416682c}} 
+\index{route-\/tree.\+h@{route-\/tree.\+h}!Route\+Node@{Route\+Node}}
+\index{Route\+Node@{Route\+Node}!route-\/tree.\+h@{route-\/tree.\+h}}
+\subsubsection{\texorpdfstring{Route\+Node}{RouteNode}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structroute__node}{route\+\_\+node} \hyperlink{route-tree_8h_a1296be44c6672a1adb94ba6dc416682c}{Route\+Node}}
+
+\mbox{\Hypertarget{route-tree_8h_a1034dd038389279bf422489d4d99d43a}\label{route-tree_8h_a1034dd038389279bf422489d4d99d43a}} 
+\index{route-\/tree.\+h@{route-\/tree.\+h}!Vpn\+Method@{Vpn\+Method}}
+\index{Vpn\+Method@{Vpn\+Method}!route-\/tree.\+h@{route-\/tree.\+h}}
+\subsubsection{\texorpdfstring{Vpn\+Method}{VpnMethod}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structvpnmethod}{vpnmethod}  \hyperlink{route-tree_8h_a1034dd038389279bf422489d4d99d43a}{Vpn\+Method}}
+
+
+
+\subsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{route-tree_8h_a5b876670828c4e38106ba1c6d91024b7}\label{route-tree_8h_a5b876670828c4e38106ba1c6d91024b7}} 
+\index{route-\/tree.\+h@{route-\/tree.\+h}!V\+P\+N\+\_\+\+M\+E\+T\+H\+O\+DS@{V\+P\+N\+\_\+\+M\+E\+T\+H\+O\+DS}}
+\index{V\+P\+N\+\_\+\+M\+E\+T\+H\+O\+DS@{V\+P\+N\+\_\+\+M\+E\+T\+H\+O\+DS}!route-\/tree.\+h@{route-\/tree.\+h}}
+\subsubsection{\texorpdfstring{V\+P\+N\+\_\+\+M\+E\+T\+H\+O\+DS}{VPN\_METHODS}}
+{\footnotesize\ttfamily enum \hyperlink{route-tree_8h_a5b876670828c4e38106ba1c6d91024b7}{V\+P\+N\+\_\+\+M\+E\+T\+H\+O\+DS}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{O\+P\+E\+N\+V\+PN@{O\+P\+E\+N\+V\+PN}!route-\/tree.\+h@{route-\/tree.\+h}}\index{route-\/tree.\+h@{route-\/tree.\+h}!O\+P\+E\+N\+V\+PN@{O\+P\+E\+N\+V\+PN}}}\mbox{\Hypertarget{route-tree_8h_a5b876670828c4e38106ba1c6d91024b7ab1ae185eb0d77c55896e16a13cc83fcd}\label{route-tree_8h_a5b876670828c4e38106ba1c6d91024b7ab1ae185eb0d77c55896e16a13cc83fcd}} 
+O\+P\+E\+N\+V\+PN&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{W\+I\+R\+E\+G\+U\+A\+RD@{W\+I\+R\+E\+G\+U\+A\+RD}!route-\/tree.\+h@{route-\/tree.\+h}}\index{route-\/tree.\+h@{route-\/tree.\+h}!W\+I\+R\+E\+G\+U\+A\+RD@{W\+I\+R\+E\+G\+U\+A\+RD}}}\mbox{\Hypertarget{route-tree_8h_a5b876670828c4e38106ba1c6d91024b7a16a826749e7c59a1ac398c5fea811044}\label{route-tree_8h_a5b876670828c4e38106ba1c6d91024b7a16a826749e7c59a1ac398c5fea811044}} 
+W\+I\+R\+E\+G\+U\+A\+RD&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{A\+N\+Y\+C\+O\+N\+N\+E\+CT@{A\+N\+Y\+C\+O\+N\+N\+E\+CT}!route-\/tree.\+h@{route-\/tree.\+h}}\index{route-\/tree.\+h@{route-\/tree.\+h}!A\+N\+Y\+C\+O\+N\+N\+E\+CT@{A\+N\+Y\+C\+O\+N\+N\+E\+CT}}}\mbox{\Hypertarget{route-tree_8h_a5b876670828c4e38106ba1c6d91024b7ac610d0f8eb941cb8d8a5a1e30f60ea1b}\label{route-tree_8h_a5b876670828c4e38106ba1c6d91024b7ac610d0f8eb941cb8d8a5a1e30f60ea1b}} 
+A\+N\+Y\+C\+O\+N\+N\+E\+CT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{V\+P\+N\+\_\+\+M\+E\+T\+H\+O\+D\+S\+\_\+\+N\+U\+M\+B\+E\+RS@{V\+P\+N\+\_\+\+M\+E\+T\+H\+O\+D\+S\+\_\+\+N\+U\+M\+B\+E\+RS}!route-\/tree.\+h@{route-\/tree.\+h}}\index{route-\/tree.\+h@{route-\/tree.\+h}!V\+P\+N\+\_\+\+M\+E\+T\+H\+O\+D\+S\+\_\+\+N\+U\+M\+B\+E\+RS@{V\+P\+N\+\_\+\+M\+E\+T\+H\+O\+D\+S\+\_\+\+N\+U\+M\+B\+E\+RS}}}\mbox{\Hypertarget{route-tree_8h_a5b876670828c4e38106ba1c6d91024b7a12890d8b7f1c543c687d8d72ce33d749}\label{route-tree_8h_a5b876670828c4e38106ba1c6d91024b7a12890d8b7f1c543c687d8d72ce33d749}} 
+V\+P\+N\+\_\+\+M\+E\+T\+H\+O\+D\+S\+\_\+\+N\+U\+M\+B\+E\+RS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{N\+O\+\_\+\+V\+P\+N\+\_\+\+M\+E\+T\+H\+OD@{N\+O\+\_\+\+V\+P\+N\+\_\+\+M\+E\+T\+H\+OD}!route-\/tree.\+h@{route-\/tree.\+h}}\index{route-\/tree.\+h@{route-\/tree.\+h}!N\+O\+\_\+\+V\+P\+N\+\_\+\+M\+E\+T\+H\+OD@{N\+O\+\_\+\+V\+P\+N\+\_\+\+M\+E\+T\+H\+OD}}}\mbox{\Hypertarget{route-tree_8h_a5b876670828c4e38106ba1c6d91024b7a096310080aa42637b2920b2e9e78aacd}\label{route-tree_8h_a5b876670828c4e38106ba1c6d91024b7a096310080aa42637b2920b2e9e78aacd}} 
+N\+O\+\_\+\+V\+P\+N\+\_\+\+M\+E\+T\+H\+OD&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{V\+P\+N\+\_\+\+M\+E\+T\+H\+O\+D\+\_\+\+U\+N\+K\+N\+O\+WN@{V\+P\+N\+\_\+\+M\+E\+T\+H\+O\+D\+\_\+\+U\+N\+K\+N\+O\+WN}!route-\/tree.\+h@{route-\/tree.\+h}}\index{route-\/tree.\+h@{route-\/tree.\+h}!V\+P\+N\+\_\+\+M\+E\+T\+H\+O\+D\+\_\+\+U\+N\+K\+N\+O\+WN@{V\+P\+N\+\_\+\+M\+E\+T\+H\+O\+D\+\_\+\+U\+N\+K\+N\+O\+WN}}}\mbox{\Hypertarget{route-tree_8h_a5b876670828c4e38106ba1c6d91024b7a7df79fc150333242d7a3df021b1b2206}\label{route-tree_8h_a5b876670828c4e38106ba1c6d91024b7a7df79fc150333242d7a3df021b1b2206}} 
+V\+P\+N\+\_\+\+M\+E\+T\+H\+O\+D\+\_\+\+U\+N\+K\+N\+O\+WN&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{route-tree_8h_a967fa487bc211d2b9e159ba5be25d641}\label{route-tree_8h_a967fa487bc211d2b9e159ba5be25d641}} 
+\index{route-\/tree.\+h@{route-\/tree.\+h}!analyze\+\_\+kernel\+\_\+route@{analyze\+\_\+kernel\+\_\+route}}
+\index{analyze\+\_\+kernel\+\_\+route@{analyze\+\_\+kernel\+\_\+route}!route-\/tree.\+h@{route-\/tree.\+h}}
+\subsubsection{\texorpdfstring{analyze\+\_\+kernel\+\_\+route()}{analyze\_kernel\_route()}}
+{\footnotesize\ttfamily int analyze\+\_\+kernel\+\_\+route (\begin{DoxyParamCaption}\item[{G\+Node $\ast$}]{\mbox{[}\+M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+E\+R\mbox{]},  }\item[{int $\ast$}]{kernel\+\_\+roots,  }\item[{enum \hyperlink{route-tree_8h_a5b876670828c4e38106ba1c6d91024b7}{V\+P\+N\+\_\+\+M\+E\+T\+H\+O\+DS}}]{vpn\+\_\+method }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{route-tree_8h_a267529614de44218b8187f3ac46ce46f}\label{route-tree_8h_a267529614de44218b8187f3ac46ce46f}} 
+\index{route-\/tree.\+h@{route-\/tree.\+h}!detect\+\_\+vpn\+\_\+method@{detect\+\_\+vpn\+\_\+method}}
+\index{detect\+\_\+vpn\+\_\+method@{detect\+\_\+vpn\+\_\+method}!route-\/tree.\+h@{route-\/tree.\+h}}
+\subsubsection{\texorpdfstring{detect\+\_\+vpn\+\_\+method()}{detect\_vpn\_method()}}
+{\footnotesize\ttfamily \hyperlink{route-tree_8h_a1034dd038389279bf422489d4d99d43a}{Vpn\+Method}$\ast$ detect\+\_\+vpn\+\_\+method (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{route-tree_8h_a77affcaa875961893c05c7e211678ed1}\label{route-tree_8h_a77affcaa875961893c05c7e211678ed1}} 
+\index{route-\/tree.\+h@{route-\/tree.\+h}!get\+\_\+kernel\+\_\+route\+\_\+node@{get\+\_\+kernel\+\_\+route\+\_\+node}}
+\index{get\+\_\+kernel\+\_\+route\+\_\+node@{get\+\_\+kernel\+\_\+route\+\_\+node}!route-\/tree.\+h@{route-\/tree.\+h}}
+\subsubsection{\texorpdfstring{get\+\_\+kernel\+\_\+route\+\_\+node()}{get\_kernel\_route\_node()}}
+{\footnotesize\ttfamily G\+Node$\ast$ get\+\_\+kernel\+\_\+route\+\_\+node (\begin{DoxyParamCaption}\item[{G\+Node $\ast$}]{kernel\+\_\+route\+\_\+roots\mbox{[}\+M\+A\+X\+\_\+\+R\+O\+O\+T\+S\+\_\+\+N\+U\+M\+B\+E\+R\mbox{]},  }\item[{int}]{roots,  }\item[{char $\ast$}]{ifa\+\_\+name }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{route-tree_8h_a1b80d492072ee18f906bdd2fbaad9b4b}\label{route-tree_8h_a1b80d492072ee18f906bdd2fbaad9b4b}} 
+\index{route-\/tree.\+h@{route-\/tree.\+h}!route\+\_\+node\+\_\+free@{route\+\_\+node\+\_\+free}}
+\index{route\+\_\+node\+\_\+free@{route\+\_\+node\+\_\+free}!route-\/tree.\+h@{route-\/tree.\+h}}
+\subsubsection{\texorpdfstring{route\+\_\+node\+\_\+free()}{route\_node\_free()}}
+{\footnotesize\ttfamily void route\+\_\+node\+\_\+free (\begin{DoxyParamCaption}\item[{\hyperlink{route-tree_8h_a1296be44c6672a1adb94ba6dc416682c}{Route\+Node} $\ast$}]{nd }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{route-tree_8h_a941ed51572db1d1d4720f8a329dd0d8b}\label{route-tree_8h_a941ed51572db1d1d4720f8a329dd0d8b}} 
+\index{route-\/tree.\+h@{route-\/tree.\+h}!route\+\_\+node\+\_\+new@{route\+\_\+node\+\_\+new}}
+\index{route\+\_\+node\+\_\+new@{route\+\_\+node\+\_\+new}!route-\/tree.\+h@{route-\/tree.\+h}}
+\subsubsection{\texorpdfstring{route\+\_\+node\+\_\+new()}{route\_node\_new()}}
+{\footnotesize\ttfamily \hyperlink{route-tree_8h_a1296be44c6672a1adb94ba6dc416682c}{Route\+Node}$\ast$ route\+\_\+node\+\_\+new (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{route-tree_8h_a06257b65d43c86e35b44ae0d91b226cf}\label{route-tree_8h_a06257b65d43c86e35b44ae0d91b226cf}} 
+\index{route-\/tree.\+h@{route-\/tree.\+h}!vpn\+\_\+method\+\_\+free@{vpn\+\_\+method\+\_\+free}}
+\index{vpn\+\_\+method\+\_\+free@{vpn\+\_\+method\+\_\+free}!route-\/tree.\+h@{route-\/tree.\+h}}
+\subsubsection{\texorpdfstring{vpn\+\_\+method\+\_\+free()}{vpn\_method\_free()}}
+{\footnotesize\ttfamily void vpn\+\_\+method\+\_\+free (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{route-tree_8h_a3ccbf1b413fe282c1490701f739273a8}\label{route-tree_8h_a3ccbf1b413fe282c1490701f739273a8}} 
+\index{route-\/tree.\+h@{route-\/tree.\+h}!vpn\+\_\+method\+\_\+new@{vpn\+\_\+method\+\_\+new}}
+\index{vpn\+\_\+method\+\_\+new@{vpn\+\_\+method\+\_\+new}!route-\/tree.\+h@{route-\/tree.\+h}}
+\subsubsection{\texorpdfstring{vpn\+\_\+method\+\_\+new()}{vpn\_method\_new()}}
+{\footnotesize\ttfamily \hyperlink{route-tree_8h_a1034dd038389279bf422489d4d99d43a}{Vpn\+Method}$\ast$ vpn\+\_\+method\+\_\+new (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+

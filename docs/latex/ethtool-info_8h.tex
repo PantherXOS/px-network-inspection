@@ -1,0 +1,64 @@
+\hypertarget{ethtool-info_8h}{}\section{/home/sina/pantherx/networkinspection/git/include/ethtool-\/info.h File Reference}
+\label{ethtool-info_8h}\index{/home/sina/pantherx/networkinspection/git/include/ethtool-\/info.\+h@{/home/sina/pantherx/networkinspection/git/include/ethtool-\/info.\+h}}
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\newline
+{\ttfamily \#include $<$net/if.\+h$>$}\newline
+{\ttfamily \#include $<$linux/ethtool.\+h$>$}\newline
+Include dependency graph for ethtool-\/info.h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ethtool-info_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{ethtool-info_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structcmd__context}{cmd\+\_\+context}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{ethtool-info_8h_a6d58a8ebd8093edbe407365d8f3e93e5}{send\+\_\+ioctl} (struct \hyperlink{structcmd__context}{cmd\+\_\+context} $\ast$ctx, void $\ast$cmd)
+\item 
+int \hyperlink{ethtool-info_8h_a972c7feb6f25da37144ec7933d787147}{dump\+\_\+drvinfo} (struct ethtool\+\_\+drvinfo $\ast$info)
+\item 
+int \hyperlink{ethtool-info_8h_a92defcf2493dee90aeaac81e3b15572c}{do\+\_\+gdrv} (struct \hyperlink{structcmd__context}{cmd\+\_\+context} $\ast$ctx, struct ethtool\+\_\+drvinfo $\ast$drvinfo)
+\item 
+int \hyperlink{ethtool-info_8h_af4d8c485fa8cc199f6e1f27e949c9dc4}{get\+\_\+drv\+\_\+info} (char $\ast$ifa\+\_\+name, struct ethtool\+\_\+drvinfo $\ast$drvinfo)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{ethtool-info_8h_a92defcf2493dee90aeaac81e3b15572c}\label{ethtool-info_8h_a92defcf2493dee90aeaac81e3b15572c}} 
+\index{ethtool-\/info.\+h@{ethtool-\/info.\+h}!do\+\_\+gdrv@{do\+\_\+gdrv}}
+\index{do\+\_\+gdrv@{do\+\_\+gdrv}!ethtool-\/info.\+h@{ethtool-\/info.\+h}}
+\subsubsection{\texorpdfstring{do\+\_\+gdrv()}{do\_gdrv()}}
+{\footnotesize\ttfamily int do\+\_\+gdrv (\begin{DoxyParamCaption}\item[{struct \hyperlink{structcmd__context}{cmd\+\_\+context} $\ast$}]{ctx,  }\item[{struct ethtool\+\_\+drvinfo $\ast$}]{drvinfo }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{ethtool-info_8h_a972c7feb6f25da37144ec7933d787147}\label{ethtool-info_8h_a972c7feb6f25da37144ec7933d787147}} 
+\index{ethtool-\/info.\+h@{ethtool-\/info.\+h}!dump\+\_\+drvinfo@{dump\+\_\+drvinfo}}
+\index{dump\+\_\+drvinfo@{dump\+\_\+drvinfo}!ethtool-\/info.\+h@{ethtool-\/info.\+h}}
+\subsubsection{\texorpdfstring{dump\+\_\+drvinfo()}{dump\_drvinfo()}}
+{\footnotesize\ttfamily int dump\+\_\+drvinfo (\begin{DoxyParamCaption}\item[{struct ethtool\+\_\+drvinfo $\ast$}]{info }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{ethtool-info_8h_af4d8c485fa8cc199f6e1f27e949c9dc4}\label{ethtool-info_8h_af4d8c485fa8cc199f6e1f27e949c9dc4}} 
+\index{ethtool-\/info.\+h@{ethtool-\/info.\+h}!get\+\_\+drv\+\_\+info@{get\+\_\+drv\+\_\+info}}
+\index{get\+\_\+drv\+\_\+info@{get\+\_\+drv\+\_\+info}!ethtool-\/info.\+h@{ethtool-\/info.\+h}}
+\subsubsection{\texorpdfstring{get\+\_\+drv\+\_\+info()}{get\_drv\_info()}}
+{\footnotesize\ttfamily int get\+\_\+drv\+\_\+info (\begin{DoxyParamCaption}\item[{char $\ast$}]{ifa\+\_\+name,  }\item[{struct ethtool\+\_\+drvinfo $\ast$}]{drvinfo }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{ethtool-info_8h_a6d58a8ebd8093edbe407365d8f3e93e5}\label{ethtool-info_8h_a6d58a8ebd8093edbe407365d8f3e93e5}} 
+\index{ethtool-\/info.\+h@{ethtool-\/info.\+h}!send\+\_\+ioctl@{send\+\_\+ioctl}}
+\index{send\+\_\+ioctl@{send\+\_\+ioctl}!ethtool-\/info.\+h@{ethtool-\/info.\+h}}
+\subsubsection{\texorpdfstring{send\+\_\+ioctl()}{send\_ioctl()}}
+{\footnotesize\ttfamily int send\+\_\+ioctl (\begin{DoxyParamCaption}\item[{struct \hyperlink{structcmd__context}{cmd\+\_\+context} $\ast$}]{ctx,  }\item[{void $\ast$}]{cmd }\end{DoxyParamCaption})}
+
