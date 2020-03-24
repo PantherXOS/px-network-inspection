@@ -93,12 +93,13 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a568d74dfa94c9cd629fa492a431fcbf5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app-profile_8h.html#a568d74dfa94c9cd629fa492a431fcbf5">get_vpn_profile_name</a> (enum <a class="el" href="route-tree_8h.html#a5b876670828c4e38106ba1c6d91024b7">VPN_METHODS</a> vpn_methods, char profile_name[<a class="el" href="route-tree_8h.html#a77ed9a5f9670b7a2d69c376d1199eddf">MAX_VPN_NAME</a>])</td></tr>
-<tr class="separator:a568d74dfa94c9cd629fa492a431fcbf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2af00bda795682f62e77417d4969e2e5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app-profile_8h.html#a2af00bda795682f62e77417d4969e2e5">get_vpn_profile_name</a> (enum <a class="el" href="route-tree_8h.html#a5b876670828c4e38106ba1c6d91024b7">VPN_METHODS</a> vpn_method, char profile_name[<a class="el" href="route-tree_8h.html#a77ed9a5f9670b7a2d69c376d1199eddf">MAX_VPN_NAME</a>])</td></tr>
+<tr class="memdesc:a2af00bda795682f62e77417d4969e2e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the VPN's profile name.  <a href="#a2af00bda795682f62e77417d4969e2e5">More...</a><br /></td></tr>
+<tr class="separator:a2af00bda795682f62e77417d4969e2e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a568d74dfa94c9cd629fa492a431fcbf5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a568d74dfa94c9cd629fa492a431fcbf5">&#9670;&nbsp;</a></span>get_vpn_profile_name()</h2>
+<a id="a2af00bda795682f62e77417d4969e2e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2af00bda795682f62e77417d4969e2e5">&#9670;&nbsp;</a></span>get_vpn_profile_name()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -107,7 +108,7 @@ Functions</h2></td></tr>
           <td class="memname">int get_vpn_profile_name </td>
           <td>(</td>
           <td class="paramtype">enum <a class="el" href="route-tree_8h.html#a5b876670828c4e38106ba1c6d91024b7">VPN_METHODS</a>&#160;</td>
-          <td class="paramname"><em>vpn_methods</em>, </td>
+          <td class="paramname"><em>vpn_method</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -122,6 +123,20 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Finds the VPN's profile name. </p>
+<p>The function finds the profile name of the VPN if there is any.</p>
+<dl class="section see"><dt>See also</dt><dd><a href="https://wiki.pantherx.org">https://wiki.pantherx.org</a> </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>TODO Support tap-based interfaces.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">vpn_method</td><td>the method used for VPN i.e. OPENVPN. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">profile_name</td><td>the found name of the profile if there is any. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>indicates that the profile_name contains a valid name. The value -1 means unsupported VPN method. The value 0 means a default or no profile name. The value 1 means profile_name contains a valid value. </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The vpn_method must be retrieved first. </dd></dl>
 
 </div>
 </div>

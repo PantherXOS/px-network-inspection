@@ -18,14 +18,40 @@ This graph shows which files directly or indirectly include this file\+:\nopageb
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-int \hyperlink{app-profile_8h_a568d74dfa94c9cd629fa492a431fcbf5}{get\+\_\+vpn\+\_\+profile\+\_\+name} (enum \hyperlink{route-tree_8h_a5b876670828c4e38106ba1c6d91024b7}{V\+P\+N\+\_\+\+M\+E\+T\+H\+O\+DS} vpn\+\_\+methods, char profile\+\_\+name\mbox{[}\hyperlink{route-tree_8h_a77ed9a5f9670b7a2d69c376d1199eddf}{M\+A\+X\+\_\+\+V\+P\+N\+\_\+\+N\+A\+ME}\mbox{]})
-\end{DoxyCompactItemize}
+int \hyperlink{app-profile_8h_a2af00bda795682f62e77417d4969e2e5}{get\+\_\+vpn\+\_\+profile\+\_\+name} (enum \hyperlink{route-tree_8h_a5b876670828c4e38106ba1c6d91024b7}{V\+P\+N\+\_\+\+M\+E\+T\+H\+O\+DS} vpn\+\_\+method, char profile\+\_\+name\mbox{[}\hyperlink{route-tree_8h_a77ed9a5f9670b7a2d69c376d1199eddf}{M\+A\+X\+\_\+\+V\+P\+N\+\_\+\+N\+A\+ME}\mbox{]})
+\begin{DoxyCompactList}\small\item\em Finds the V\+PN\textquotesingle{}s profile name. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Function Documentation}
-\mbox{\Hypertarget{app-profile_8h_a568d74dfa94c9cd629fa492a431fcbf5}\label{app-profile_8h_a568d74dfa94c9cd629fa492a431fcbf5}} 
+\mbox{\Hypertarget{app-profile_8h_a2af00bda795682f62e77417d4969e2e5}\label{app-profile_8h_a2af00bda795682f62e77417d4969e2e5}} 
 \index{app-\/profile.\+h@{app-\/profile.\+h}!get\+\_\+vpn\+\_\+profile\+\_\+name@{get\+\_\+vpn\+\_\+profile\+\_\+name}}
 \index{get\+\_\+vpn\+\_\+profile\+\_\+name@{get\+\_\+vpn\+\_\+profile\+\_\+name}!app-\/profile.\+h@{app-\/profile.\+h}}
 \subsubsection{\texorpdfstring{get\+\_\+vpn\+\_\+profile\+\_\+name()}{get\_vpn\_profile\_name()}}
-{\footnotesize\ttfamily int get\+\_\+vpn\+\_\+profile\+\_\+name (\begin{DoxyParamCaption}\item[{enum \hyperlink{route-tree_8h_a5b876670828c4e38106ba1c6d91024b7}{V\+P\+N\+\_\+\+M\+E\+T\+H\+O\+DS}}]{vpn\+\_\+methods,  }\item[{char}]{profile\+\_\+name\mbox{[}\+M\+A\+X\+\_\+\+V\+P\+N\+\_\+\+N\+A\+M\+E\mbox{]} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int get\+\_\+vpn\+\_\+profile\+\_\+name (\begin{DoxyParamCaption}\item[{enum \hyperlink{route-tree_8h_a5b876670828c4e38106ba1c6d91024b7}{V\+P\+N\+\_\+\+M\+E\+T\+H\+O\+DS}}]{vpn\+\_\+method,  }\item[{char}]{profile\+\_\+name\mbox{[}\+M\+A\+X\+\_\+\+V\+P\+N\+\_\+\+N\+A\+M\+E\mbox{]} }\end{DoxyParamCaption})}
 
+
+
+Finds the V\+PN\textquotesingle{}s profile name. 
+
+The function finds the profile name of the V\+PN if there is any.
+
+\begin{DoxySeeAlso}{See also}
+\href{https://wiki.pantherx.org}{\tt https\+://wiki.\+pantherx.\+org} 
+\end{DoxySeeAlso}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000008}{Todo}]T\+O\+DO Support tap-\/based interfaces.\end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em vpn\+\_\+method} & the method used for V\+PN i.\+e. O\+P\+E\+N\+V\+PN. \\
+\hline
+\mbox{\tt out}  & {\em profile\+\_\+name} & the found name of the profile if there is any. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+indicates that the profile\+\_\+name contains a valid name. The value -\/1 means unsupported V\+PN method. The value 0 means a default or no profile name. The value 1 means profile\+\_\+name contains a valid value. 
+\end{DoxyReturn}
+\begin{DoxyPrecond}{Precondition}
+The vpn\+\_\+method must be retrieved first. 
+\end{DoxyPrecond}

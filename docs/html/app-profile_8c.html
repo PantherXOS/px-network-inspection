@@ -85,10 +85,13 @@ Include dependency graph for app-profile.c:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a59c7e3da3c5b7ecf10df2a5ef34b6953"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app-profile_8c.html#a59c7e3da3c5b7ecf10df2a5ef34b6953">remove_ext</a> (char *mystr)</td></tr>
+<tr class="memdesc:a59c7e3da3c5b7ecf10df2a5ef34b6953"><td class="mdescLeft">&#160;</td><td class="mdescRight">Eliminates the last extension from the profile address.  <a href="#a59c7e3da3c5b7ecf10df2a5ef34b6953">More...</a><br /></td></tr>
 <tr class="separator:a59c7e3da3c5b7ecf10df2a5ef34b6953"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ab4018359451259c67e57c83f9b7062"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app-profile_8c.html#a7ab4018359451259c67e57c83f9b7062">get_openvpn_profile_name</a> (char profile_name[<a class="el" href="route-tree_8h.html#ab6867a2365732ebd41ddf7459525d032">MAX_VPN_PROFILE_NAME</a>])</td></tr>
+<tr class="memdesc:a7ab4018359451259c67e57c83f9b7062"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the OpenVPN profile name.  <a href="#a7ab4018359451259c67e57c83f9b7062">More...</a><br /></td></tr>
 <tr class="separator:a7ab4018359451259c67e57c83f9b7062"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa32bea11cb1c8f99a45bc62cc8f5e455"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app-profile_8c.html#aa32bea11cb1c8f99a45bc62cc8f5e455">get_vpn_profile_name</a> (enum <a class="el" href="route-tree_8h.html#a5b876670828c4e38106ba1c6d91024b7">VPN_METHODS</a> vpn_method, char profile_name[<a class="el" href="route-tree_8h.html#ab6867a2365732ebd41ddf7459525d032">MAX_VPN_PROFILE_NAME</a>])</td></tr>
+<tr class="memdesc:aa32bea11cb1c8f99a45bc62cc8f5e455"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the VPN's profile name.  <a href="#aa32bea11cb1c8f99a45bc62cc8f5e455">More...</a><br /></td></tr>
 <tr class="separator:aa32bea11cb1c8f99a45bc62cc8f5e455"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -107,6 +110,18 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Finds the OpenVPN profile name. </p>
+<p>The function finds the profile name of VPN used OpenVPN. It searches for the process cmd_line in /proc.</p>
+<dl class="section see"><dt>See also</dt><dd><a href="https://wiki.pantherx.org">https://wiki.pantherx.org</a> </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>TODO Support tap-based interfaces.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">profile_name</td><td>the found name of the profile if there is any. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>indicates that the profile_name contains a valid name. The value -1 means unsupported VPN method. The value 0 means a default or no profile name. The value 1 means profile_name contains a valid value. </dd></dl>
 
 </div>
 </div>
@@ -136,6 +151,20 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Finds the VPN's profile name. </p>
+<p>The function finds the profile name of the VPN if there is any.</p>
+<dl class="section see"><dt>See also</dt><dd><a href="https://wiki.pantherx.org">https://wiki.pantherx.org</a> </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>TODO Support tap-based interfaces.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">vpn_method</td><td>the method used for VPN i.e. OPENVPN. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">profile_name</td><td>the found name of the profile if there is any. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>indicates that the profile_name contains a valid name. The value -1 means unsupported VPN method. The value 0 means a default or no profile name. The value 1 means profile_name contains a valid value. </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The vpn_method must be retrieved first. </dd></dl>
+
 </div>
 </div>
 <a id="a59c7e3da3c5b7ecf10df2a5ef34b6953"></a>
@@ -153,6 +182,16 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Eliminates the last extension from the profile address. </p>
+<dl class="section see"><dt>See also</dt><dd><a href="https://wiki.pantherx.org">https://wiki.pantherx.org</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">mystr</td><td>The address of the profile. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>indicates The profile name. </dd></dl>
 
 </div>
 </div>

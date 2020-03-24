@@ -5,6 +5,14 @@
 #include <stdlib.h>
 #include <libgen.h>
 
+/**
+ *  @brief Eliminates the last extension from the profile address.
+ *
+ *  @see	https://wiki.pantherx.org
+ *
+ * 	@param[out]	mystr	The address of the profile.
+ * 	@return	indicates	The profile name.
+ */
 char *remove_ext(char* mystr)
 {
     char *retstr;
@@ -18,6 +26,20 @@ char *remove_ext(char* mystr)
     return retstr;
 }
 
+/**
+ *  @brief Finds the OpenVPN profile name.
+ *
+ *  @details
+ *   The function finds the profile name of VPN used OpenVPN. It searches for the process cmd_line in /proc.
+ *
+ *  @see	https://wiki.pantherx.org
+ *  @todo
+ *  	TODO Support tap-based interfaces.
+ *
+ * 	@param[out]	profile_name	the found name of the profile if there is any.
+ * 	@return	indicates that the profile_name contains a valid name. The value -1 means unsupported VPN method.
+ * 			The value 0 means a default or no profile name. The value 1 means profile_name contains a valid value.
+ */
 int get_openvpn_profile_name(char profile_name[MAX_VPN_PROFILE_NAME])
 {
 	const char* directory = "/proc";
@@ -113,6 +135,22 @@ int get_openvpn_profile_name(char profile_name[MAX_VPN_PROFILE_NAME])
 	return 0;
 }
 
+/**
+ *  @brief Finds the VPN's profile name.
+ *
+ *  @details
+ *   The function finds the profile name of the VPN if there is any.
+ *
+ *  @see	https://wiki.pantherx.org
+ *  @todo
+ *  	TODO Support tap-based interfaces.
+ *
+ * 	@param[in]	vpn_method	the method used for VPN i.e. OPENVPN.
+ * 	@param[out]	profile_name	the found name of the profile if there is any.
+ * 	@return	indicates that the profile_name contains a valid name. The value -1 means unsupported VPN method.
+ * 			The value 0 means a default or no profile name. The value 1 means profile_name contains a valid value.
+ *	@pre	The vpn_method must be retrieved first.
+ */
 int get_vpn_profile_name(enum VPN_METHODS vpn_method, char profile_name[MAX_VPN_PROFILE_NAME])
 {
 	if (vpn_method == OPENVPN)
