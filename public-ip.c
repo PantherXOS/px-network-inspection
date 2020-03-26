@@ -52,6 +52,7 @@ struct url_data* handle_url(char* url, char *if_name)
 		curl_easy_setopt(curl, CURLOPT_INTERFACE, if_name);
 		curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 2);
 		curl_easy_setopt(curl, CURLOPT_TIMEOUT, 3);
+		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0);
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, data);
 		res = curl_easy_perform(curl);
@@ -65,7 +66,7 @@ struct url_data* handle_url(char* url, char *if_name)
 	return data;
 }
 
-void get_public_ip(char if_names[MAX_PHYS_IFS][16], int if_number, char if_public_ips[MAX_PHYS_IFS][40])
+void get_public_ip(char if_names[MAX_PHYS_IFS][IFNAMSIZ], int if_number, char if_public_ips[MAX_PHYS_IFS][40])
 {
 	for (int i = 0; i < if_number; i++)
 	{
