@@ -214,6 +214,7 @@ void get_if_info(struct ifaddrs *ifa, int family, enum IF_TRAVERSE_MODE tr_mode)
 			NetDevice *new_device = net_device_new();
 			new_device->is_set = TRUE;
 			new_device->phy_index = phy_index;
+			new_device->public_device = NULL;
 			bzero(new_device->dev_name, sizeof(new_device->dev_name));
 			memcpy(new_device->dev_name, ifa->ifa_name, sizeof(ifa->ifa_name));
 			if (tr_mode == PHY)
