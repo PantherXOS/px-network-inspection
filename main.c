@@ -226,7 +226,7 @@ void get_if_info(struct ifaddrs *ifa, int family, enum IF_TRAVERSE_MODE tr_mode)
 				char essid[IW_ESSID_MAX_SIZE + 1] = {'\0'};
 				int is_wireless = get_wifi_info(ifa->ifa_name, protocol, essid);
 				strcpy(new_device->dev_wifi_ap, is_wireless ? essid : "");
-				strcpy(new_device->dev_method, is_wireless ? "wifi" : "lan");
+				strcpy(new_device->dev_method, is_wireless ? "WIFI" : "LAN");
 			}
 			else if (tr_mode == TUN)
 			{
