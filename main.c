@@ -259,13 +259,13 @@ void get_if_info(struct ifaddrs *ifa, int family, enum IF_TRAVERSE_MODE tr_mode)
 			else
 				strcpy(new_device->dev_ip4, "");
 
-			strcpy(new_device->dev_active, rtnl_link_get_carrier(link) ? "ACTIVE" : "NOACTIVE");
-
 			// TODO: calc the heigh and therefore the pos.
 			new_device->dev_pos = krt_node ? g_node_depth(krt_node) : 1;
 
 			if (tr_mode == PHY)
 			{
+				strcpy(new_device->dev_active, rtnl_link_get_carrier(link) ? "ACTIVE" : "NOACTIVE");
+
 				if (krt_node)
 				{
 					RouteNode *rn = ROUTENODE(krt_node->data);
@@ -281,6 +281,31 @@ void get_if_info(struct ifaddrs *ifa, int family, enum IF_TRAVERSE_MODE tr_mode)
 			}
 			else if (tr_mode == TUN)
 			{
+				if (rtnl_link_get_carrier(link))
+				{
+					RouteNode *rn = ROUTENODE(krt_node->data);
+					char cmd[120];
+					bzero(cmd, 120);
+
+					if (detected_vpn_method->vpn_method == OPENVPN)
+						sprintf(cmd, "fping  %s", rn->gateway_ipv4);
+					else
+						sprintf(cmd, "fping my-ip.pantherx.org");
+
+					if (!system(cmd))
+					{
+						strcpy(new_device->dev_active, "ACTIVE");
+					}
+					else
+					{
+						strcpy(new_device->dev_active, "NOACTIVE");
+					}
+				}
+				else
+				{
+					strcpy(new_device->dev_active, "NOACTIVE");
+				}
+
 				if (krt_node)
 				{
 					RouteNode *rn = ROUTENODE(g_node_get_root(krt_node)->data);	// TODO: find the parent.
