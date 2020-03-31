@@ -76,7 +76,7 @@ void internal_traverse_json_func(NetDevice *device)
 	json_object *dev_active = json_object_new_string(device->dev_active);
 	json_object_object_add(device->jobj, "status", dev_active);
 
-	if (!strcmp(device->dev_method, "wifi"))
+	if (!strcmp(device->dev_method, "WIFI"))
 	{
 		json_object *dev_wifi_ap = json_object_new_string(device->dev_wifi_ap);
 		json_object_object_add(device->jobj, "essid", dev_wifi_ap);
