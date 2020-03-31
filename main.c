@@ -42,6 +42,7 @@ static size_t tap_index;
 
 static char tun_if[MAX_TUN_IFS][IFNAMSIZ];
 static size_t tun_index;
+static int vpn_reachable[MAX_TUN_IFS];
 
 static VpnMethod *detected_vpn_method = NULL; 
 static char profile_name[MAX_VPN_PROFILE_NAME];
@@ -295,10 +296,12 @@ void get_if_info(struct ifaddrs *ifa, int family, enum IF_TRAVERSE_MODE tr_mode)
 					if (!system(cmd))
 					{
 						strcpy(new_device->dev_active, "ACTIVE");
+						vpn_reachable[tun_index - 1] = 1;
 					}
 					else
 					{
 						strcpy(new_device->dev_active, "NOACTIVE");
+						vpn_reachable[tun_index - 1] = 0;
 					}
 				}
 				else
@@ -450,6 +453,10 @@ void public_ip_retrieve()
 			nd->public_device = NULL;
 			if (!strncmp(if_public_ips[i],"", sizeof(""))) break;
 			if (strncmp(root_if_name, nd->dev_name, sizeof(nd->dev_name)))	continue;
+			if (if_mode == TUN_MODE)
+			{
+				if (vpn_reachable[i] == 0) continue;
+			}
 
 			NetDevice *pnd = net_device_new();
 			nd->public_device = pnd;

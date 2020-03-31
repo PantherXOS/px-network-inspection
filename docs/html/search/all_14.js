@@ -7,5 +7,5 @@ var searchData=
   ['vpn_5fmethods',['VPN_METHODS',['../route-tree_8h.html#a5b876670828c4e38106ba1c6d91024b7',1,'route-tree.h']]],
   ['vpn_5fmethods_5fnumbers',['VPN_METHODS_NUMBERS',['../route-tree_8h.html#a5b876670828c4e38106ba1c6d91024b7a12890d8b7f1c543c687d8d72ce33d749',1,'route-tree.h']]],
   ['vpn_5fname',['vpn_name',['../structvpnmethod.html#ac221598ca4c95900ae5b9fa404cbdb4d',1,'vpnmethod']]],
-  ['vpnmethod',['vpnmethod',['../structvpnmethod.html',1,'vpnmethod'],['../route-tree_8h.html#a1034dd038389279bf422489d4d99d43a',1,'VpnMethod():&#160;route-tree.h'],['../route-tree_8h.html#a58aa26c75d296ca73e2bca481e6e036f',1,'VPNMETHOD():&#160;route-tree.h']]]
+  ['vpnmethod',['vpnmethod',['../structvpnmethod.html',1,'vpnmethod'],['../route-tree_8h.html#a58aa26c75d296ca73e2bca481e6e036f',1,'VPNMETHOD():&#160;route-tree.h'],['../route-tree_8h.html#a1034dd038389279bf422489d4d99d43a',1,'VpnMethod():&#160;route-tree.h']]]
 ];
