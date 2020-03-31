@@ -17,7 +17,7 @@ To test:
 `./px-network-inspection -f JSNO -o ./output`
 
 
-To run on Pantherx, install the package version `0.0.11`.
+To run on Pantherx, install the package version `0.0.12`.
 Conditions:
 
 * It works with openvpn default configuration: tune-based interface, default route, command-line openvpn execution.
