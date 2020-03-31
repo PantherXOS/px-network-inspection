@@ -33,6 +33,6 @@ The output is given in `JSON` format. It contains some records for each adapter 
 We assume that public internet has 'pos=0', the physical adapter has `pos=1`, and the virtual adapter (vpn) has `pos=2`. The following is a sample output.
 
 ```
-{"primary": [ { "pos": 0, "adapter": "PUBLIC", "method": "NONE", "type": "display", "ip4": "37.59.236.227", "ip6": "", "dns": "", "gateway": "", "status": "ACTIVE" }, { "pos": 1, "adapter": "wlo1", "method": "WIFI", "type": "physical", "ip4": "192.168.0.13", "ip6": "", "dns": "", "gateway": "192.168.0.1", "status": "ACTIVE" }, { "pos": 2, "adapter": "tun0", "method": "OPENVPN", "type": "virtual", "ip4": "172.16.100.93", "ip6": "", "dns": "", "gateway": "37.59.236.227", "status": "ACTIVE", "profile": "client_sinap" } ] }
+{ "primary": [ { "pos": 0, "adapter": "PUBLIC", "method": "NONE", "type": "display", "ip4": "37.59.236.227", "ip6": "", "dns": "", "gateway": "", "status": "ACTIVE" }, { "pos": 1, "adapter": "wlo1", "method": "WIFI", "type": "physical", "ip4": "192.168.0.13", "ip6": "", "dns": "", "gateway": "192.168.0.1", "status": "ACTIVE", "essid": "dlink_DWR-932_59DC" }, { "pos": 2, "adapter": "tun0", "method": "OPENVPN", "type": "virtual", "ip4": "172.16.100.93", "ip6": "", "dns": "", "gateway": "37.59.236.227", "status": "ACTIVE", "profile": "client_sinap" } ] }
 ```
 
