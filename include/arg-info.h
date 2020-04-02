@@ -6,7 +6,7 @@
 #include <string.h>
 
 ///	@brief	version of the px-network-inspection
-const char *argp_program_version = "0.0.14";
+const char *argp_program_version = "0.0.15";
 
 ///	@brief	the bug report email address.
 const char *argp_program_bug_address = "<s.mahmood@pantherx.org>";
