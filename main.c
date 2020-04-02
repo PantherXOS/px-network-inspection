@@ -289,9 +289,11 @@ void get_if_info(struct ifaddrs *ifa, int family, enum IF_TRAVERSE_MODE tr_mode)
 					bzero(cmd, 120);
 
 					if (detected_vpn_method->vpn_method == OPENVPN)
-						sprintf(cmd, "fping  %s", rn->gateway_ipv4);
+						//sprintf(cmd, "fping  %s", rn->gateway_ipv4);
+						sprintf(cmd, "ping -c 1  %s", rn->gateway_ipv4);
 					else
-						sprintf(cmd, "fping my-ip.pantherx.org");
+						//sprintf(cmd, "fping my-ip.pantherx.org");
+						sprintf(cmd, "ping -c 1 my-ip.pantherx.org");
 
 					if (!system(cmd))
 					{
